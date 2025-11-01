@@ -505,17 +505,17 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 sm:py-10 md:py-12 border-t border-gray-800 relative z-10">
+      <footer className="py-8 sm:py-10 md:py-12 border-t border-gray-800 dark:border-gray-800 border-gray-300 relative z-10">
         <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-col items-center">
             <div className="logo-container-footer mb-6">
               <img
-                src="/logo_300x100.png"
+                src={darkMode ? "/logo_300x100_white.png" : "/logo_300x100_black.png"}
                 alt="Karim Development Logo"
                 className="logo-footer"
               />
             </div>
-            <div className="text-center text-gray-400">
+            <div className="text-center text-gray-400 dark:text-gray-400 text-gray-600">
               <p>&copy; 2024 Karim Development. All rights reserved.</p>
               <p className="mt-2 text-sm">Building the future, one line of code at a time.</p>
             </div>
