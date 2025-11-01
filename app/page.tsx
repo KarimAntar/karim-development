@@ -234,7 +234,7 @@ export default function Home() {
       }`}>
         <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+            <a href="#home" className="flex items-center gap-2 sm:gap-3 shrink-0 cursor-pointer" onClick={() => setMobileMenuOpen(false)}>
               <div className="logo-container-header shrink-0">
                 <img
                   src="/logo160x160.png"
@@ -243,7 +243,7 @@ export default function Home() {
                 />
               </div>
               <span className="text-lg sm:text-xl md:text-2xl font-bold text-gradient whitespace-nowrap shrink-0">Karim Development</span>
-            </div>
+            </a>
             <div className="flex items-center gap-4 sm:gap-6">
               <div className="hidden md:flex space-x-2">
                 {navItems.map((item) => {
@@ -283,7 +283,7 @@ export default function Home() {
               {/* Dark/Light Mode Toggle */}
               <button
                 onClick={() => setDarkMode(!darkMode)}
-                className="relative w-16 h-8 bg-gray-400 dark:bg-dark-700 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 border-2 border-gray-500 dark:border-transparent flex items-center p-[2px] shrink-0"
+                className="relative w-16 h-8 bg-gray-400 dark:bg-dark-700 rounded-full transition-colors duration-300 border-2 border-gray-500 dark:border-transparent flex items-center p-[2px] shrink-0"
                 aria-label="Toggle dark mode"
               >
                 <div
@@ -566,7 +566,7 @@ export default function Home() {
               />
             </div>
             <div className="text-center text-gray-400 dark:text-gray-400 text-gray-600">
-              <p>&copy; 2024 Karim Development. All rights reserved.</p>
+              <p>&copy; 2026 Karim Development. All rights reserved.</p>
               <p className="mt-2 text-sm">Building the future, one line of code at a time.</p>
             </div>
           </div>

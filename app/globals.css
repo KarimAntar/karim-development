@@ -133,7 +133,7 @@ html:not(.dark) .border-gray-800 {
 }
 
 html {
-  /* Removed smooth scroll for better performance */
+  scroll-behavior: smooth;
 }
 
 /* Light Mode Additional Styles */
@@ -516,12 +516,18 @@ a, button, input, textarea {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-/* Focus styles */
+/* Remove default focus outline for mouse users */
 *:focus {
+  outline: none;
+}
+
+/* Show focus outline only for keyboard navigation */
+*:focus-visible {
   outline: 2px solid #0066e6;
   outline-offset: 2px;
 }
 
+/* Focus styles for inputs */
 input:focus,
 textarea:focus {
   outline: none;
@@ -832,7 +838,8 @@ html:not(.dark) .hero-image-container {
   }
 }
 
-.logo-container-header:hover {
+/* Hover effect when parent link is hovered */
+a:hover .logo-container-header {
   background: linear-gradient(135deg, rgba(0, 102, 230, 0.25) 0%, rgba(0, 82, 184, 0.25) 100%);
   box-shadow: 0 6px 20px rgba(0, 102, 230, 0.3);
   transform: translateY(-2px);
@@ -844,7 +851,7 @@ html:not(.dark) .logo-container-header {
   box-shadow: 0 4px 15px rgba(0, 102, 230, 0.15);
 }
 
-html:not(.dark) .logo-container-header:hover {
+html:not(.dark) a:hover .logo-container-header {
   background: linear-gradient(135deg, rgba(0, 102, 230, 0.2) 0%, rgba(179, 215, 255, 0.4) 100%);
   box-shadow: 0 6px 20px rgba(0, 102, 230, 0.25);
 }
