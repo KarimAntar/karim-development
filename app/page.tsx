@@ -121,7 +121,7 @@ export default function Home() {
             <div className="animate-slide-right">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary-500/20">
                 <img 
-                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop" 
+                  src="https://images.unsplash.com/photo-1579403124614-197f69d8187b?w=800&h=800&fit=crop" 
                   alt="Workspace" 
                   className="w-full h-auto object-cover"
                 />
