@@ -229,6 +229,19 @@ html {
   animation: blink 1s infinite;
 }
 
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+.typing-text {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  border-right: 3px solid #0066e6;
+  animation: typing 3.5s steps(50, end), blink 1s step-end infinite;
+}
+
 /* Particle Effect */
 @keyframes particle-float {
   0%, 100% { 

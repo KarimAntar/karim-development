@@ -9,9 +9,9 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: 'Karim Development - Professional Web Solutions',
-  description: 'Expert web development and software solutions by Karim Development. Specializing in modern web technologies, custom applications, and digital transformation.',
-  keywords: 'web development, software solutions, react, next.js, typescript, karim development',
+  title: 'Karim Antar - Web Developer Portfolio',
+  description: 'Karim Antar - Full-stack web developer specializing in React, Next.js, Laravel, and Node.js. Based in Cairo, Egypt. View my portfolio of web applications and get in touch.',
+  keywords: 'web development, react, next.js, laravel, node.js, full-stack developer, cairo, egypt, karim antar',
 }
 
 export default function RootLayout({

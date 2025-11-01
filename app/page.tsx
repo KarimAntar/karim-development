@@ -58,14 +58,14 @@ export default function Home() {
       title: 'NS Financial Services',
       description: 'Professional financial services website offering comprehensive solutions for investment, loans, and financial planning.',
       tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-      color: 'from-blue-500 to-cyan-500',
+      color: 'from-green-500 to-emerald-500',
       live: 'https://www.nsfinancialservice.com/'
     },
     {
       title: 'Real Estate Platform',
       description: 'Modern real estate listings platform with advanced search, property management, and interactive map integration.',
       tags: ['React', 'Firebase', 'Material-UI'],
-      color: 'from-green-500 to-emerald-500',
+      color: 'from-blue-500 to-cyan-500',
       live: 'https://real-estate-project-sepia.vercel.app/'
     }
   ]
@@ -115,27 +115,37 @@ export default function Home() {
           />
         ))}
 
-        <div className="container mx-auto px-6 text-center relative z-10">
-          <div className="animate-fade-in">
-            <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-slide-down">
-              <span className="text-gradient">Karim Development</span>
-            </h1>
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 animate-slide-up">
-              Crafting Digital Excellence Through Innovation
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center animate-slide-up" style={{animationDelay: '0.2s'}}>
-              <a href="#contact" className="btn-primary inline-block">
-                Get In Touch
-              </a>
-              <a href="#projects" className="px-8 py-3 border-2 border-primary-500 text-primary-400 rounded-lg font-semibold hover:bg-primary-500 hover:text-white transition-all">
-                View Projects
-              </a>
+        <div className="container mx-auto px-6 relative z-10">
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            {/* Left side - Image */}
+            <div className="animate-slide-right">
+              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary-500/20">
+                <img 
+                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop" 
+                  alt="Workspace" 
+                  className="w-full h-auto object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent"></div>
+              </div>
             </div>
-          </div>
 
-          {/* Animated Icon */}
-          <div className="mt-16 animate-float">
-            <FaRocket className="text-6xl text-primary-400 mx-auto" />
+            {/* Right side - Content */}
+            <div className="animate-slide-left text-center md:text-left">
+              <h1 className="text-5xl md:text-7xl font-bold mb-6">
+                <span className="text-gradient">Karim Development</span>
+              </h1>
+              <div className="text-xl md:text-2xl text-gray-300 mb-8 min-h-[80px]">
+                <span className="typing-text">Crafting Digital Excellence Through Innovation</span>
+              </div>
+              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+                <a href="#contact" className="btn-primary inline-block">
+                  Get In Touch
+                </a>
+                <a href="#projects" className="px-8 py-3 border-2 border-primary-500 text-primary-400 rounded-lg font-semibold hover:bg-primary-500 hover:text-white transition-all">
+                  View Projects
+                </a>
+              </div>
+            </div>
           </div>
         </div>
 
@@ -150,27 +160,30 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="py-24 relative">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">About Us</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">About Me</h2>
           <div className="max-w-4xl mx-auto">
             <div className="glow-card rounded-2xl p-8 md:p-12">
               <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                Welcome to <span className="text-primary-400 font-semibold">Karim Development</span>, where innovation meets expertise. We specialize in creating cutting-edge web solutions that drive business growth and deliver exceptional user experiences.
+                I'm <span className="text-primary-400 font-semibold">Karim Antar</span>, a passionate web developer based in Cairo, Egypt. My goal is to find positions where I can utilize my solid business experience and specialist information technology skills to assist organizations implementing information technologies to meet their specialized and business objectives.
               </p>
               <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                With years of experience in modern web technologies, we transform complex challenges into elegant, scalable solutions. Our commitment to quality, performance, and user-centric design sets us apart in the digital landscape.
+                With experience as a Back-End Web Developer at Creatify and expertise in modern web technologies including React, Laravel, Node.js, and Python, I bring a comprehensive skill set to every project. I'm able to effectively self-manage during independent projects, as well as collaborate as part of a productive team.
+              </p>
+              <p className="text-lg text-gray-300 mb-8 leading-relaxed">
+                I hold a BSc in Architectural Engineering from Egyptian Russian University, which gives me a unique perspective on design, problem-solving, and creating efficient, beautiful solutions that satisfy human, social, and technological needs.
               </p>
               <div className="grid md:grid-cols-3 gap-6 mt-8">
+                <div className="text-center p-6 bg-dark-700/50 rounded-xl border border-primary-500/20">
+                  <div className="text-4xl font-bold text-primary-400 mb-2">8+</div>
+                  <div className="text-gray-400">Years Experience</div>
+                </div>
                 <div className="text-center p-6 bg-dark-700/50 rounded-xl border border-primary-500/20">
                   <div className="text-4xl font-bold text-primary-400 mb-2">50+</div>
                   <div className="text-gray-400">Projects Completed</div>
                 </div>
                 <div className="text-center p-6 bg-dark-700/50 rounded-xl border border-primary-500/20">
-                  <div className="text-4xl font-bold text-primary-400 mb-2">100%</div>
-                  <div className="text-gray-400">Client Satisfaction</div>
-                </div>
-                <div className="text-center p-6 bg-dark-700/50 rounded-xl border border-primary-500/20">
-                  <div className="text-4xl font-bold text-primary-400 mb-2">5+</div>
-                  <div className="text-gray-400">Years Experience</div>
+                  <div className="text-4xl font-bold text-primary-400 mb-2">10+</div>
+                  <div className="text-gray-400">Technologies</div>
                 </div>
               </div>
             </div>
@@ -287,18 +300,22 @@ export default function Home() {
 
               <div className="mt-8 pt-8 border-t border-gray-700">
                 <div className="flex justify-center gap-6">
-                  <a href="#" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
+                  <a href="https://github.com/KarimAntar" target="_blank" rel="noopener noreferrer" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
                     <FaGithub />
                   </a>
-                  <a href="#" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
+                  <a href="https://www.linkedin.com/in/karim-antar" target="_blank" rel="noopener noreferrer" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
                     <FaLinkedin />
                   </a>
-                  <a href="#" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
+                  <a href="https://facebook.com/karim.antar" target="_blank" rel="noopener noreferrer" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
                     <FaTwitter />
                   </a>
-                  <a href="#" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
+                  <a href="mailto:karim_antar@icloud.com" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
                     <FaEnvelope />
                   </a>
+                </div>
+                <div className="text-center mt-6">
+                  <p className="text-gray-400">Cairo, Egypt</p>
+                  <a href="tel:+201066241997" className="text-primary-400 hover:text-primary-300">+20 106 624 1997</a>
                 </div>
               </div>
             </div>
