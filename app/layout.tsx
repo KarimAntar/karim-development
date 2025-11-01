@@ -13,20 +13,20 @@ export const metadata: Metadata = {
   description: 'Karim Antar - Full-stack web developer specializing in React, Next.js, Laravel, and Node.js. Based in Cairo, Egypt. View my portfolio of web applications and get in touch.',
   keywords: 'web development, react, next.js, laravel, node.js, full-stack developer, cairo, egypt, karim antar',
   icons: {
-    icon: '/logo160x160.png',
-    apple: '/logo160x160.png',
+    icon: '/logo_with_gradient.png',
+    apple: '/logo_with_gradient.png',
   },
   openGraph: {
     title: 'Karim Development',
     description: 'Karim Antar - Full-stack web developer specializing in React, Next.js, Laravel, and Node.js. Based in Cairo, Egypt.',
-    images: ['/logo160x160.png'],
+    images: ['/logo_with_gradient.png'],
     type: 'website',
   },
   twitter: {
     card: 'summary',
     title: 'Karim Development',
     description: 'Karim Antar - Full-stack web developer specializing in React, Next.js, Laravel, and Node.js.',
-    images: ['/logo160x160.png'],
+    images: ['/logo_with_gradient.png'],
   },
 }
 
