@@ -463,11 +463,19 @@ html:not(.dark) .btn-secondary::before {
   white-space: nowrap;
   border-right: 3px solid #0066e6;
   animation: typing 3s steps(50, end), blink 1s step-end infinite;
-  max-width: fit-content;
+  width: 100%;
+  color: #e8eaed !important;
+}
+
+@media (min-width: 640px) {
+  .typing-text {
+    max-width: fit-content;
+  }
 }
 
 html:not(.dark) .typing-text {
   border-right-color: #0066e6;
+  color: #111827 !important;
 }
 
 /* Particle Effect */
@@ -702,6 +710,21 @@ html:not(.dark) .nav-item-mobile-active {
 .hero-image-container {
   position: relative;
   filter: drop-shadow(0 20px 40px rgba(0, 102, 230, 0.3));
+  max-width: 400px;
+  margin: 0 auto;
+}
+
+@media (min-width: 640px) {
+  .hero-image-container {
+    max-width: 500px;
+  }
+}
+
+@media (min-width: 768px) {
+  .hero-image-container {
+    max-width: 100%;
+    margin: 0;
+  }
 }
 
 .hero-image {

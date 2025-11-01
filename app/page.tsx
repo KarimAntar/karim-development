@@ -322,8 +322,8 @@ export default function Home() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6">
                 <span className="text-gradient">Karim Development</span>
               </h1>
-              <div className="text-lg sm:text-xl md:text-2xl text-gray-900 dark:text-gray-300 mb-6 sm:mb-8 min-h-[60px] sm:min-h-[80px]">
-                <span key={currentTagline} className="typing-text inline-block">
+              <div className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 min-h-[60px] sm:min-h-[80px] w-full">
+                <span key={currentTagline} className="typing-text">
                   {taglines[currentTagline]}
                 </span>
               </div>
