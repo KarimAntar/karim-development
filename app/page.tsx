@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { FaCode, FaMobile, FaCloud, FaDatabase, FaRocket, FaEnvelope, FaGithub, FaLinkedin, FaFacebook, FaCheckCircle, FaServer, FaPalette, FaSun, FaMoon, FaHome, FaUser, FaBriefcase, FaFolderOpen } from 'react-icons/fa'
+import { FaCode, FaMobile, FaCloud, FaDatabase, FaRocket, FaEnvelope, FaGithub, FaLinkedin, FaFacebook, FaCheckCircle, FaServer, FaPalette, FaSun, FaMoon, FaHome, FaUser, FaBriefcase, FaFolderOpen, FaMapMarkerAlt, FaPhone } from 'react-icons/fa'
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('home')
@@ -9,6 +9,8 @@ export default function Home() {
   const [darkMode, setDarkMode] = useState(true)
   const [currentTagline, setCurrentTagline] = useState(0)
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
+  const [displayedText, setDisplayedText] = useState('')
+  const [isTyping, setIsTyping] = useState(true)
 
   const taglines = [
     "Crafting Digital Excellence Through Innovation",
@@ -46,6 +48,26 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Typing animation effect
+  useEffect(() => {
+    setDisplayedText('')
+    setIsTyping(true)
+    let currentIndex = 0
+    const currentText = taglines[currentTagline]
+
+    const typingInterval = setInterval(() => {
+      if (currentIndex <= currentText.length) {
+        setDisplayedText(currentText.slice(0, currentIndex))
+        currentIndex++
+      } else {
+        setIsTyping(false)
+        clearInterval(typingInterval)
+      }
+    }, 50) // Typing speed: 50ms per character
+
+    return () => clearInterval(typingInterval)
+  }, [currentTagline])
 
   // Rotate taglines every 4 seconds
   useEffect(() => {
@@ -198,6 +220,14 @@ export default function Home() {
         style={{ zIndex: 0 }}
       />
 
+      {/* Mobile Menu Backdrop */}
+      {mobileMenuOpen && (
+        <div
+          className="fixed inset-0 bg-black/50 z-40 md:hidden"
+          onClick={() => setMobileMenuOpen(false)}
+        />
+      )}
+
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrollY > 50 ? 'bg-dark-800/98 dark:bg-dark-800/98 shadow-lg shadow-primary-500/10' : 'bg-dark-900/80 dark:bg-dark-900/80 backdrop-blur-sm'
@@ -238,7 +268,7 @@ export default function Home() {
               {/* Mobile Menu Button */}
               <button
                 onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden text-gray-300 hover:text-primary-400 transition-colors p-2"
+                className="md:hidden text-gray-300 hover:text-primary-400 transition-colors p-2 relative z-50"
                 aria-label="Toggle menu"
               >
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -274,7 +304,7 @@ export default function Home() {
 
         {/* Mobile Menu */}
         {mobileMenuOpen && (
-          <div className="md:hidden bg-dark-800/98 dark:bg-dark-800/98 border-t border-gray-700">
+          <div className="md:hidden bg-dark-800/98 dark:bg-dark-800/98 border-t border-gray-700 relative z-50">
             <div className="container mx-auto px-4 py-4">
               <div className="flex flex-col space-y-2">
                 {navItems.map((item) => {
@@ -322,9 +352,10 @@ export default function Home() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 max-w-full overflow-hidden">
                 <span className="text-gradient">Karim Development</span>
               </h1>
-              <div className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 min-h-[80px] sm:min-h-[80px] w-full max-w-full">
-                <span key={currentTagline} className="typing-text">
-                  {taglines[currentTagline]}
+              <div className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 min-h-[70px] sm:min-h-[80px] w-full">
+                <span className="typing-text-wrapper">
+                  {displayedText}
+                  <span className={`typing-cursor ${isTyping ? 'blink' : ''}`}>|</span>
                 </span>
               </div>
               <div className="hero-buttons-container max-w-full">
@@ -350,14 +381,16 @@ export default function Home() {
       {/* About Section */}
       <section id="about" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
         <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 text-gradient scroll-animate">About Me</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 scroll-animate">
+            <span className="text-gradient">About Me</span>
+          </h2>
           <div className="max-w-4xl mx-auto scroll-animate">
             <div className="glow-card rounded-2xl p-8 md:p-12">
               <p className="text-lg text-gray-300 mb-6 leading-relaxed">
                 I'm <span className="text-primary-400 font-semibold">Karim Antar</span>, a passionate web developer based in Cairo, Egypt. My goal is to find positions where I can utilize my solid business experience and specialist information technology skills to assist organizations implementing information technologies to meet their specialized and business objectives.
               </p>
               <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                With experience as a Back-End Web Developer at Creatify and expertise in modern web technologies including React, Laravel, Node.js, and Python, I bring a comprehensive skill set to every project. I'm able to effectively self-manage during independent projects, as well as collaborate as part of a productive team.
+                With experience as a Full Stack Web Developer and expertise in modern web technologies including React, Node.js, and Python, I bring a comprehensive skill set to every project. I'm able to effectively self-manage during independent projects, as well as collaborate as part of a productive team.
               </p>
               <div className="grid md:grid-cols-3 gap-6 mt-8">
                 <div className="text-center p-6 bg-dark-700/50 rounded-xl border border-primary-500/20">
@@ -381,7 +414,9 @@ export default function Home() {
       {/* Services Section */}
       <section id="services" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
         <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 text-gradient scroll-animate">Our Services</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 scroll-animate">
+            <span className="text-gradient">Our Services</span>
+          </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <div
@@ -402,12 +437,14 @@ export default function Home() {
       {/* Projects Section */}
       <section id="projects" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
         <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 text-gradient scroll-animate">Featured Projects</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 scroll-animate">
+            <span className="text-gradient">Featured Projects</span>
+          </h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="glow-card rounded-xl p-8 group scroll-animate"
+                className="glow-card rounded-xl p-8 group scroll-animate flex flex-col"
               >
                 <div className={`w-full h-48 bg-gradient-to-br ${project.color} rounded-lg mb-6 relative overflow-hidden`}>
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-300"></div>
@@ -416,7 +453,7 @@ export default function Home() {
                   </div>
                 </div>
                 <h3 className="text-2xl font-bold mb-3 text-white">{project.title}</h3>
-                <p className="text-gray-400 mb-4 leading-relaxed">{project.description}</p>
+                <p className="text-gray-400 mb-4 leading-relaxed flex-grow">{project.description}</p>
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.tags.map((tag, i) => (
                     <span
@@ -434,7 +471,7 @@ export default function Home() {
                     rel="noopener noreferrer"
                     className="btn-action flex items-center justify-center gap-2"
                   >
-                    <FaRocket /> Live Demo
+                    <FaRocket /> Live
                   </a>
                 </div>
               </div>
@@ -446,7 +483,9 @@ export default function Home() {
       {/* Contact Section */}
       <section id="contact" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
         <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 text-gradient scroll-animate">Get In Touch</h2>
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 scroll-animate">
+            <span className="text-gradient">Get In Touch</span>
+          </h2>
           <div className="max-w-2xl mx-auto scroll-animate">
             <div className="glow-card rounded-2xl p-8 md:p-12">
               <form className="space-y-6">
@@ -474,9 +513,11 @@ export default function Home() {
                     placeholder="Tell us about your project..."
                   ></textarea>
                 </div>
-                <button type="submit" className="btn-primary w-full text-center">
-                  <span>Send Message</span>
-                </button>
+                <div className="flex justify-center">
+                  <button type="submit" className="btn-primary">
+                    Send Message
+                  </button>
+                </div>
               </form>
 
               <div className="mt-8 pt-8 border-t border-gray-700">
@@ -494,9 +535,18 @@ export default function Home() {
                     <FaEnvelope />
                   </a>
                 </div>
-                <div className="text-center mt-6">
-                  <p className="text-gray-400">Cairo, Egypt</p>
-                  <a href="tel:+201066241997" className="text-primary-400 hover:text-primary-300">+20 106 624 1997</a>
+                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
+                  <div className="contact-info-badge">
+                    <FaMapMarkerAlt className="text-primary-400 text-lg flex-shrink-0" />
+                    <span>Cairo, Egypt</span>
+                  </div>
+                  <a
+                    href="tel:+201066241997"
+                    className="contact-info-badge contact-info-link group"
+                  >
+                    <FaPhone className="text-primary-400 text-lg flex-shrink-0 group-hover:scale-110 transition-transform" />
+                    <span className="group-hover:text-primary-400 transition-colors">+20 106 624 1997</span>
+                  </a>
                 </div>
               </div>
             </div>

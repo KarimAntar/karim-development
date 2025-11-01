@@ -267,29 +267,23 @@ html:not(.dark) .glow-card {
 /* Button Styles */
 .btn-primary {
   position: relative;
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   background: linear-gradient(135deg, #0066e6 0%, #0052b8 100%);
   color: white;
-  padding: 12px 28px;
-  border-radius: 10px;
+  padding: 14px 40px;
+  border-radius: 12px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: 0.3px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(0, 102, 230, 0.25);
   overflow: hidden;
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .btn-primary {
-    padding: 14px 40px;
-    border-radius: 12px;
-    font-size: 15px;
-    width: auto;
-  }
+  text-align: center;
+  z-index: 1;
 }
 
 .btn-primary::after {
@@ -300,6 +294,7 @@ html:not(.dark) .glow-card {
   opacity: 0;
   transition: opacity 0.3s ease;
   border-radius: 12px;
+  z-index: -1;
 }
 
 .btn-primary:hover::after {
@@ -316,36 +311,25 @@ html:not(.dark) .glow-card {
   box-shadow: 0 4px 15px rgba(0, 102, 230, 0.3);
 }
 
-.btn-primary > * {
-  position: relative;
-  z-index: 1;
-}
-
 /* Secondary Button (Outline) */
 .btn-secondary {
   position: relative;
-  display: inline-block;
-  padding: 12px 28px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 14px 40px;
   border: 2px solid #0066e6;
   background: transparent;
   color: #0066e6;
-  border-radius: 10px;
+  border-radius: 12px;
   font-weight: 600;
-  font-size: 14px;
+  font-size: 15px;
   letter-spacing: 0.3px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   overflow: hidden;
-  width: 100%;
-}
-
-@media (min-width: 640px) {
-  .btn-secondary {
-    padding: 14px 40px;
-    border-radius: 12px;
-    font-size: 15px;
-    width: auto;
-  }
+  text-align: center;
+  z-index: 1;
 }
 
 .btn-secondary::before {
@@ -355,7 +339,7 @@ html:not(.dark) .glow-card {
   background: linear-gradient(135deg, #0066e6 0%, #0052b8 100%);
   transform: translateY(100%);
   transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  z-index: 0;
+  z-index: -1;
 }
 
 .btn-secondary:hover::before {
@@ -373,11 +357,6 @@ html:not(.dark) .glow-card {
   transform: translateY(-1px);
 }
 
-.btn-secondary > * {
-  position: relative;
-  z-index: 1;
-}
-
 /* Light mode button adjustments */
 html:not(.dark) .btn-secondary {
   border-color: #0052b8;
@@ -391,6 +370,9 @@ html:not(.dark) .btn-secondary::before {
 /* Action Button (for cards and inline actions) */
 .btn-action {
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   padding: 12px 28px;
   background: linear-gradient(135deg, #0066e6 0%, #0052b8 100%);
   color: white;
@@ -403,6 +385,8 @@ html:not(.dark) .btn-secondary::before {
   cursor: pointer;
   box-shadow: 0 3px 12px rgba(0, 102, 230, 0.3);
   overflow: hidden;
+  text-align: center;
+  z-index: 1;
 }
 
 .btn-action::after {
@@ -413,6 +397,7 @@ html:not(.dark) .btn-secondary::before {
   opacity: 0;
   transition: opacity 0.3s ease;
   border-radius: 10px;
+  z-index: -1;
 }
 
 .btn-action:hover::after {
@@ -427,11 +412,6 @@ html:not(.dark) .btn-secondary::before {
 .btn-action:active {
   transform: translateY(0px);
   box-shadow: 0 3px 12px rgba(0, 102, 230, 0.3);
-}
-
-.btn-action > * {
-  position: relative;
-  z-index: 1;
 }
 
 /* Grid Pattern Background */
@@ -464,45 +444,44 @@ html:not(.dark) .btn-secondary::before {
   }
 }
 
-.typing-text {
-  display: inline-block;
-  color: #e8eaed !important;
-  animation: fadeIn 1s ease-in;
-  max-width: 100%;
-  white-space: normal;
+/* Typing text wrapper - allows wrapping on all screen sizes */
+.typing-text-wrapper {
+  display: inline;
+  color: #e8eaed;
   word-wrap: break-word;
-  line-height: 1.3;
+  white-space: normal;
+  line-height: 1.4;
 }
 
-/* Typing animation for larger screens */
-@media (min-width: 640px) {
-  .typing-text {
-    overflow: hidden;
-    white-space: nowrap;
-    border-right: 3px solid #0066e6;
-    animation: typing 3s steps(50, end), blink 1s step-end infinite;
-    animation-fill-mode: both;
-  }
-
-  html:not(.dark) .typing-text {
-    border-right-color: #0066e6;
-  }
+html:not(.dark) .typing-text-wrapper {
+  color: #111827;
 }
 
-html:not(.dark) .typing-text {
-  color: #111827 !important;
+/* Typing cursor */
+.typing-cursor {
+  display: inline-block;
+  color: #0066e6;
+  font-weight: 400;
+  margin-left: 2px;
+}
+
+.typing-cursor.blink {
+  animation: cursor-blink 1s step-end infinite;
+}
+
+@keyframes cursor-blink {
+  0%, 49% { opacity: 1; }
+  50%, 100% { opacity: 0; }
+}
+
+html:not(.dark) .typing-cursor {
+  color: #0066e6;
 }
 
 /* Prevent horizontal overflow on mobile */
 html, body {
   max-width: 100vw;
   overflow-x: hidden;
-}
-
-.text-gradient {
-  display: inline-block;
-  max-width: 100%;
-  word-wrap: break-word;
 }
 
 /* Particle Effect */
@@ -554,6 +533,44 @@ html:not(.dark) input:focus,
 html:not(.dark) textarea:focus {
   border-color: #0052b8 !important;
   box-shadow: 0 0 0 3px rgba(0, 82, 184, 0.1);
+}
+
+/* Contact Info Badges */
+.contact-info-badge {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 16px;
+  background: rgba(18, 24, 35, 0.5);
+  border: 1px solid rgba(0, 102, 230, 0.2);
+  border-radius: 10px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #d1d5db;
+  font-size: 15px;
+}
+
+html:not(.dark) .contact-info-badge {
+  background: rgba(243, 244, 246, 0.8);
+  border-color: rgba(0, 102, 230, 0.25);
+  color: #4b5563;
+}
+
+.contact-info-link {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.contact-info-link:hover {
+  border-color: rgba(0, 102, 230, 0.4);
+  background: rgba(0, 102, 230, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 102, 230, 0.15);
+}
+
+html:not(.dark) .contact-info-link:hover {
+  border-color: rgba(0, 102, 230, 0.4);
+  background: rgba(0, 102, 230, 0.08);
+  box-shadow: 0 4px 12px rgba(0, 102, 230, 0.12);
 }
 
 /* Social Icon Links */
