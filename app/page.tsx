@@ -253,11 +253,11 @@ export default function Home() {
               {/* Dark/Light Mode Toggle */}
               <button
                 onClick={() => setDarkMode(!darkMode)}
-                className="relative w-16 h-8 bg-gray-400 dark:bg-dark-700 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 border-2 border-gray-500 dark:border-transparent"
+                className="relative w-16 h-8 bg-gray-400 dark:bg-dark-700 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 border-2 border-gray-500 dark:border-transparent flex items-center p-[2px] shrink-0"
                 aria-label="Toggle dark mode"
               >
                 <div
-                  className={`absolute top-[1px] left-[2px] w-7 h-7 bg-gray-100 dark:bg-dark-900 rounded-full shadow-lg transform transition-transform duration-300 flex items-center justify-center ${
+                  className={`w-7 h-7 bg-gray-100 dark:bg-dark-900 rounded-full shadow-lg transform transition-transform duration-300 flex items-center justify-center ${
                     darkMode ? 'translate-x-8' : 'translate-x-0'
                   }`}
                 >
@@ -318,16 +318,16 @@ export default function Home() {
             </div>
 
             {/* Right side - Content */}
-            <div className="animate-slide-left text-center md:text-left">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6">
+            <div className="animate-slide-left text-center md:text-left max-w-full">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 max-w-full overflow-hidden">
                 <span className="text-gradient">Karim Development</span>
               </h1>
-              <div className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 min-h-[60px] sm:min-h-[80px] w-full">
+              <div className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 min-h-[80px] sm:min-h-[80px] w-full max-w-full">
                 <span key={currentTagline} className="typing-text">
                   {taglines[currentTagline]}
                 </span>
               </div>
-              <div className="hero-buttons-container">
+              <div className="hero-buttons-container max-w-full">
                 <a href="#contact" className="btn-primary text-center">
                   Get In Touch
                 </a>
