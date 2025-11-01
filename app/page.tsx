@@ -204,15 +204,15 @@ export default function Home() {
       }`}>
         <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-2 sm:gap-3">
-              <div className="logo-container-header">
+            <div className="flex items-center gap-2 sm:gap-3 shrink-0">
+              <div className="logo-container-header shrink-0">
                 <img
                   src="/logo160x160.png"
                   alt="Karim Development Logo"
                   className="logo-header"
                 />
               </div>
-              <span className="text-lg sm:text-xl md:text-2xl font-bold text-gradient">Karim Development</span>
+              <span className="text-lg sm:text-xl md:text-2xl font-bold text-gradient whitespace-nowrap shrink-0">Karim Development</span>
             </div>
             <div className="flex items-center gap-4 sm:gap-6">
               <div className="hidden md:flex space-x-2">

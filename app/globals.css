@@ -267,6 +267,7 @@ html:not(.dark) .glow-card {
 /* Button Styles */
 .btn-primary {
   position: relative;
+  display: inline-block;
   background: linear-gradient(135deg, #0066e6 0%, #0052b8 100%);
   color: white;
   padding: 12px 28px;
@@ -279,6 +280,7 @@ html:not(.dark) .glow-card {
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(0, 102, 230, 0.25);
   overflow: hidden;
+  width: 100%;
 }
 
 @media (min-width: 640px) {
@@ -286,6 +288,7 @@ html:not(.dark) .glow-card {
     padding: 14px 40px;
     border-radius: 12px;
     font-size: 15px;
+    width: auto;
   }
 }
 
@@ -321,6 +324,7 @@ html:not(.dark) .glow-card {
 /* Secondary Button (Outline) */
 .btn-secondary {
   position: relative;
+  display: inline-block;
   padding: 12px 28px;
   border: 2px solid #0066e6;
   background: transparent;
@@ -332,6 +336,7 @@ html:not(.dark) .glow-card {
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   overflow: hidden;
+  width: 100%;
 }
 
 @media (min-width: 640px) {
@@ -339,6 +344,7 @@ html:not(.dark) .glow-card {
     padding: 14px 40px;
     border-radius: 12px;
     font-size: 15px;
+    width: auto;
   }
 }
 
@@ -459,17 +465,19 @@ html:not(.dark) .btn-secondary::before {
 }
 
 .typing-text {
+  display: inline-block;
   overflow: hidden;
   white-space: nowrap;
   border-right: 3px solid #0066e6;
   animation: typing 3s steps(50, end), blink 1s step-end infinite;
-  width: 100%;
+  max-width: fit-content;
   color: #e8eaed !important;
+  animation-fill-mode: both;
 }
 
-@media (min-width: 640px) {
+@media (max-width: 639px) {
   .typing-text {
-    max-width: fit-content;
+    max-width: 100%;
   }
 }
 
