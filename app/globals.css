@@ -269,16 +269,24 @@ html:not(.dark) .glow-card {
   position: relative;
   background: linear-gradient(135deg, #0066e6 0%, #0052b8 100%);
   color: white;
-  padding: 14px 40px;
-  border-radius: 12px;
+  padding: 12px 28px;
+  border-radius: 10px;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 0.3px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border: none;
   cursor: pointer;
   box-shadow: 0 4px 15px rgba(0, 102, 230, 0.25);
   overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .btn-primary {
+    padding: 14px 40px;
+    border-radius: 12px;
+    font-size: 15px;
+  }
 }
 
 .btn-primary::after {
@@ -313,17 +321,25 @@ html:not(.dark) .glow-card {
 /* Secondary Button (Outline) */
 .btn-secondary {
   position: relative;
-  padding: 14px 40px;
+  padding: 12px 28px;
   border: 2px solid #0066e6;
   background: transparent;
   color: #0066e6;
-  border-radius: 12px;
+  border-radius: 10px;
   font-weight: 600;
-  font-size: 15px;
+  font-size: 14px;
   letter-spacing: 0.3px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   cursor: pointer;
   overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .btn-secondary {
+    padding: 14px 40px;
+    border-radius: 12px;
+    font-size: 15px;
+  }
 }
 
 .btn-secondary::before {
@@ -603,14 +619,71 @@ html:not(.dark) #matrix-canvas {
   opacity: 0.3;
 }
 
+/* Hero Image with Organic Erased Edges */
+.hero-image-container {
+  position: relative;
+  filter: drop-shadow(0 20px 40px rgba(0, 102, 230, 0.3));
+}
+
+.hero-image {
+  position: relative;
+  -webkit-mask:
+    radial-gradient(ellipse 100% 100% at 50% 50%,
+      black 0%,
+      black 40%,
+      rgba(0,0,0,0.9) 55%,
+      rgba(0,0,0,0.7) 65%,
+      rgba(0,0,0,0.5) 75%,
+      rgba(0,0,0,0.3) 85%,
+      rgba(0,0,0,0.1) 92%,
+      transparent 100%
+    );
+  mask:
+    radial-gradient(ellipse 100% 100% at 50% 50%,
+      black 0%,
+      black 40%,
+      rgba(0,0,0,0.9) 55%,
+      rgba(0,0,0,0.7) 65%,
+      rgba(0,0,0,0.5) 75%,
+      rgba(0,0,0,0.3) 85%,
+      rgba(0,0,0,0.1) 92%,
+      transparent 100%
+    );
+}
+
+html:not(.dark) .hero-image-container {
+  filter: drop-shadow(0 20px 40px rgba(0, 102, 230, 0.2));
+}
+
+/* Alternative splash effect - uncomment to use */
+/* .hero-image {
+  -webkit-mask-image:
+    radial-gradient(circle at 10% 20%, black 5%, transparent 40%),
+    radial-gradient(circle at 90% 80%, black 5%, transparent 40%),
+    radial-gradient(ellipse 85% 80% at 50% 50%, black 50%, transparent 100%);
+  mask-image:
+    radial-gradient(circle at 10% 20%, black 5%, transparent 40%),
+    radial-gradient(circle at 90% 80%, black 5%, transparent 40%),
+    radial-gradient(ellipse 85% 80% at 50% 50%, black 50%, transparent 100%);
+  -webkit-mask-composite: source-over;
+  mask-composite: add;
+} */
+
 /* Logo Containers */
 .logo-container-header {
-  padding: 8px 16px;
+  padding: 6px 12px;
   background: linear-gradient(135deg, rgba(0, 102, 230, 0.15) 0%, rgba(0, 82, 184, 0.15) 100%);
-  border-radius: 12px;
+  border-radius: 10px;
   border: 1px solid rgba(0, 102, 230, 0.3);
   box-shadow: 0 4px 15px rgba(0, 102, 230, 0.2);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (min-width: 640px) {
+  .logo-container-header {
+    padding: 8px 16px;
+    border-radius: 12px;
+  }
 }
 
 .logo-container-header:hover {
@@ -631,18 +704,31 @@ html:not(.dark) .logo-container-header:hover {
 }
 
 .logo-header {
-  height: 50px;
+  height: 40px;
   width: auto;
   display: block;
   object-fit: contain;
 }
 
+@media (min-width: 640px) {
+  .logo-header {
+    height: 50px;
+  }
+}
+
 .logo-container-footer {
-  padding: 16px 32px;
+  padding: 12px 24px;
   background: linear-gradient(135deg, rgba(0, 102, 230, 0.12) 0%, rgba(0, 82, 184, 0.12) 50%, rgba(0, 102, 230, 0.12) 100%);
-  border-radius: 16px;
+  border-radius: 14px;
   border: 1px solid rgba(0, 102, 230, 0.25);
   box-shadow: 0 8px 25px rgba(0, 102, 230, 0.2);
+}
+
+@media (min-width: 640px) {
+  .logo-container-footer {
+    padding: 16px 32px;
+    border-radius: 16px;
+  }
 }
 
 html:not(.dark) .logo-container-footer {
@@ -652,8 +738,14 @@ html:not(.dark) .logo-container-footer {
 }
 
 .logo-footer {
-  height: 60px;
+  height: 50px;
   width: auto;
   display: block;
   object-fit: contain;
+}
+
+@media (min-width: 640px) {
+  .logo-footer {
+    height: 60px;
+  }
 }

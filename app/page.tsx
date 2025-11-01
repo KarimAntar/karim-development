@@ -8,6 +8,7 @@ export default function Home() {
   const [scrollY, setScrollY] = useState(0)
   const [darkMode, setDarkMode] = useState(true)
   const [currentTagline, setCurrentTagline] = useState(0)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
 
   const taglines = [
     "Crafting Digital Excellence Through Innovation",
@@ -193,9 +194,9 @@ export default function Home() {
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         scrollY > 50 ? 'bg-dark-800/98 dark:bg-dark-800/98 shadow-lg shadow-primary-500/10' : 'bg-dark-900/80 dark:bg-dark-900/80 backdrop-blur-sm'
       }`}>
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center gap-3">
+            <div className="flex items-center gap-2 sm:gap-3">
               <div className="logo-container-header">
                 <img
                   src="/logo160x160.png"
@@ -203,9 +204,9 @@ export default function Home() {
                   className="logo-header"
                 />
               </div>
-              <span className="text-2xl font-bold text-gradient">Karim Development</span>
+              <span className="text-lg sm:text-xl md:text-2xl font-bold text-gradient">Karim Development</span>
             </div>
-            <div className="flex items-center gap-6">
+            <div className="flex items-center gap-4 sm:gap-6">
               <div className="hidden md:flex space-x-8">
                 {['Home', 'About', 'Services', 'Projects', 'Contact'].map((item) => (
                   <a
@@ -221,6 +222,22 @@ export default function Home() {
                   </a>
                 ))}
               </div>
+
+              {/* Mobile Menu Button */}
+              <button
+                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+                className="md:hidden text-gray-300 hover:text-primary-400 transition-colors p-2"
+                aria-label="Toggle menu"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  {mobileMenuOpen ? (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  ) : (
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                  )}
+                </svg>
+              </button>
+
               {/* Dark/Light Mode Toggle */}
               <button
                 onClick={() => setDarkMode(!darkMode)}
@@ -242,35 +259,59 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Mobile Menu */}
+        {mobileMenuOpen && (
+          <div className="md:hidden bg-dark-800/98 dark:bg-dark-800/98 border-t border-gray-700">
+            <div className="container mx-auto px-4 py-4">
+              <div className="flex flex-col space-y-3">
+                {['Home', 'About', 'Services', 'Projects', 'Contact'].map((item) => (
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className={`text-base font-medium transition-colors py-2 ${
+                      activeSection === item.toLowerCase()
+                        ? 'text-primary-400'
+                        : 'text-gray-300 dark:text-gray-300 hover:text-primary-400'
+                    }`}
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
+            </div>
+          </div>
+        )}
       </nav>
 
       {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid md:grid-cols-2 gap-12 items-center">
+      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-10">
+        <div className="container mx-auto px-4 sm:px-6 relative z-10">
+          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
             {/* Left side - Image */}
             <div className="animate-slide-right">
-              <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary-500/20">
-                <img 
-                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop" 
-                  alt="Workspace" 
-                  className="w-full h-auto object-cover"
+              <div className="relative hero-image-container">
+                <img
+                  src="https://plus.unsplash.com/premium_photo-1678566111481-8e275550b700?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&h=800&w=687"
+                  alt="Workspace"
+                  className="w-full h-auto object-cover hero-image"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent pointer-events-none"></div>
               </div>
             </div>
 
             {/* Right side - Content */}
             <div className="animate-slide-left text-center md:text-left">
-              <h1 className="text-5xl md:text-7xl font-bold mb-6">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6">
                 <span className="text-gradient">Karim Development</span>
               </h1>
-              <div className="text-xl md:text-2xl text-gray-900 dark:text-gray-300 mb-8 min-h-[80px]">
+              <div className="text-lg sm:text-xl md:text-2xl text-gray-900 dark:text-gray-300 mb-6 sm:mb-8 min-h-[60px] sm:min-h-[80px]">
                 <span key={currentTagline} className="typing-text inline-block">
                   {taglines[currentTagline]}
                 </span>
               </div>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
+              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
                 <a href="#contact" className="btn-primary inline-block text-center">
                   Get In Touch
                 </a>
@@ -291,9 +332,9 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24 relative scroll-animate z-10">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient scroll-animate">About Me</h2>
+      <section id="about" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 text-gradient scroll-animate">About Me</h2>
           <div className="max-w-4xl mx-auto scroll-animate">
             <div className="glow-card rounded-2xl p-8 md:p-12">
               <p className="text-lg text-gray-300 mb-6 leading-relaxed">
@@ -322,9 +363,9 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-24 relative scroll-animate z-10">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient scroll-animate">Our Services</h2>
+      <section id="services" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 text-gradient scroll-animate">Our Services</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <div
@@ -343,9 +384,9 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-24 relative scroll-animate z-10">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient scroll-animate">Featured Projects</h2>
+      <section id="projects" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 text-gradient scroll-animate">Featured Projects</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <div
@@ -387,9 +428,9 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 relative scroll-animate z-10">
-        <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient scroll-animate">Get In Touch</h2>
+      <section id="contact" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
+        <div className="container mx-auto px-4 sm:px-6">
+          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 text-gradient scroll-animate">Get In Touch</h2>
           <div className="max-w-2xl mx-auto scroll-animate">
             <div className="glow-card rounded-2xl p-8 md:p-12">
               <form className="space-y-6">
@@ -448,8 +489,8 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-12 border-t border-gray-800 relative z-10">
-        <div className="container mx-auto px-6">
+      <footer className="py-8 sm:py-10 md:py-12 border-t border-gray-800 relative z-10">
+        <div className="container mx-auto px-4 sm:px-6">
           <div className="flex flex-col items-center">
             <div className="logo-container-footer mb-6">
               <img
