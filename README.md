@@ -5,10 +5,10 @@ A modern, professional portfolio website built with Next.js 14, featuring dark b
 ## 🚀 Features
 
 - **Modern Tech Stack**: Built with Next.js 14, React, TypeScript, and Tailwind CSS
-- **Dark Blue Theme**: Professional dark color scheme with blue accents
+- **Theme Switcher**: Toggle between dark and light themes with a smooth animated switch
 - **Smooth Animations**: CSS animations and transitions throughout
 - **Responsive Design**: Fully responsive across all devices
-- **Interactive Effects**: 
+- **Interactive Effects**:
   - Glowing cards on hover
   - Floating particles
   - Animated skill bars
@@ -23,21 +23,6 @@ A modern, professional portfolio website built with Next.js 14, featuring dark b
   - Technical skills with progress bars
   - Contact form
   - Social media links
-
-## 🛠️ Installation
-
-1. **Install dependencies**:
-```bash
-npm install
-```
-
-2. **Run development server**:
-```bash
-npm run dev
-```
-
-3. **Open browser**:
-Navigate to `http://localhost:3000`
 
 ## 📁 Project Structure
 

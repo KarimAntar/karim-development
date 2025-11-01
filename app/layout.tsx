@@ -9,7 +9,7 @@ const montserrat = Montserrat({
 })
 
 export const metadata: Metadata = {
-  title: 'Karim Antar - Web Developer Portfolio',
+  title: 'Karim Development',
   description: 'Karim Antar - Full-stack web developer specializing in React, Next.js, Laravel, and Node.js. Based in Cairo, Egypt. View my portfolio of web applications and get in touch.',
   keywords: 'web development, react, next.js, laravel, node.js, full-stack developer, cairo, egypt, karim antar',
 }
