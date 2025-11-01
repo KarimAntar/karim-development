@@ -1,11 +1,21 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { FaCode, FaMobile, FaCloud, FaDatabase, FaRocket, FaEnvelope, FaGithub, FaLinkedin, FaTwitter, FaCheckCircle, FaServer, FaPalette } from 'react-icons/fa'
+import { FaCode, FaMobile, FaCloud, FaDatabase, FaRocket, FaEnvelope, FaGithub, FaLinkedin, FaFacebook, FaCheckCircle, FaServer, FaPalette, FaSun, FaMoon } from 'react-icons/fa'
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('home')
   const [scrollY, setScrollY] = useState(0)
+  const [darkMode, setDarkMode] = useState(true)
+  const [currentTagline, setCurrentTagline] = useState(0)
+
+  const taglines = [
+    "Crafting Digital Excellence Through Innovation",
+    "Building Tomorrow's Web Solutions Today",
+    "Transforming Ideas Into Powerful Applications",
+    "Where Creativity Meets Technology",
+    "Engineering Excellence In Every Line Of Code"
+  ]
 
   useEffect(() => {
     const handleScroll = () => {
@@ -27,6 +37,106 @@ export default function Home() {
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
+
+  // Rotate taglines every 4 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentTagline((prev) => (prev + 1) % taglines.length)
+    }, 4000)
+    return () => clearInterval(interval)
+  }, [])
+
+  // Apply dark mode class to body
+  useEffect(() => {
+    if (darkMode) {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
+  }, [darkMode])
+
+  // Scroll animation observer
+  useEffect(() => {
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    }
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible')
+        }
+      })
+    }, observerOptions)
+
+    // Observe all animatable elements
+    const elements = document.querySelectorAll('.scroll-animate')
+    elements.forEach(el => observer.observe(el))
+
+    return () => observer.disconnect()
+  }, [])
+
+  // Matrix rain animation
+  useEffect(() => {
+    const canvas = document.getElementById('matrix-canvas') as HTMLCanvasElement
+    if (!canvas) return
+
+    const ctx = canvas.getContext('2d')
+    if (!ctx) return
+
+    canvas.width = window.innerWidth
+    canvas.height = window.innerHeight
+
+    const binary = '01'
+    const fontSize = 16
+    const columns = canvas.width / fontSize
+    const drops: number[] = []
+
+    for (let i = 0; i < columns; i++) {
+      drops[i] = Math.floor(Math.random() * canvas.height / fontSize)
+    }
+
+    const draw = () => {
+      // Semi-transparent background for trail effect
+      const bgColor = darkMode ? 'rgba(5, 10, 15, 0.05)' : 'rgba(230, 241, 255, 0.05)'
+      ctx.fillStyle = bgColor
+      ctx.fillRect(0, 0, canvas.width, canvas.height)
+
+      // Set text color based on theme
+      const textColor = darkMode ? '#0066e6' : '#0052b8'
+      ctx.fillStyle = textColor
+      ctx.font = `${fontSize}px monospace`
+
+      for (let i = 0; i < drops.length; i++) {
+        const text = binary[Math.floor(Math.random() * binary.length)]
+        const x = i * fontSize
+        const y = drops[i] * fontSize
+
+        ctx.fillText(text, x, y)
+
+        if (y > canvas.height && Math.random() > 0.975) {
+          drops[i] = 0
+        }
+
+        drops[i]++
+      }
+    }
+
+    const interval = setInterval(draw, 50)
+
+    const handleResize = () => {
+      canvas.width = window.innerWidth
+      canvas.height = window.innerHeight
+    }
+
+    window.addEventListener('resize', handleResize)
+
+    return () => {
+      clearInterval(interval)
+      window.removeEventListener('resize', handleResize)
+    }
+  }, [darkMode])
 
   const services = [
     {
@@ -71,28 +181,64 @@ export default function Home() {
   ]
 
   return (
-    <main className="min-h-screen">
+    <main className="min-h-screen relative">
+      {/* Matrix Rain Background */}
+      <canvas
+        id="matrix-canvas"
+        className="fixed inset-0 w-full h-full pointer-events-none"
+        style={{ zIndex: 0 }}
+      />
+
       {/* Navigation */}
       <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrollY > 50 ? 'bg-dark-800/98 shadow-lg shadow-primary-500/10' : 'bg-transparent'
+        scrollY > 50 ? 'bg-dark-800/98 dark:bg-dark-800/98 shadow-lg shadow-primary-500/10' : 'bg-dark-900/80 dark:bg-dark-900/80 backdrop-blur-sm'
       }`}>
         <div className="container mx-auto px-6 py-4">
           <div className="flex items-center justify-between">
-            <div className="text-2xl font-bold text-gradient">Karim Development</div>
-            <div className="hidden md:flex space-x-8">
-              {['Home', 'About', 'Services', 'Projects', 'Contact'].map((item) => (
-                <a
-                  key={item}
-                  href={`#${item.toLowerCase()}`}
-                  className={`text-sm font-medium transition-colors ${
-                    activeSection === item.toLowerCase()
-                      ? 'text-primary-400'
-                      : 'text-gray-300 hover:text-primary-400'
+            <div className="flex items-center gap-3">
+              <div className="logo-container-header">
+                <img
+                  src="/logo160x160.png"
+                  alt="Karim Development Logo"
+                  className="logo-header"
+                />
+              </div>
+              <span className="text-2xl font-bold text-gradient">Karim Development</span>
+            </div>
+            <div className="flex items-center gap-6">
+              <div className="hidden md:flex space-x-8">
+                {['Home', 'About', 'Services', 'Projects', 'Contact'].map((item) => (
+                  <a
+                    key={item}
+                    href={`#${item.toLowerCase()}`}
+                    className={`text-sm font-medium transition-colors ${
+                      activeSection === item.toLowerCase()
+                        ? 'text-primary-400'
+                        : 'text-gray-300 dark:text-gray-300 hover:text-primary-400'
+                    }`}
+                  >
+                    {item}
+                  </a>
+                ))}
+              </div>
+              {/* Dark/Light Mode Toggle */}
+              <button
+                onClick={() => setDarkMode(!darkMode)}
+                className="relative w-16 h-8 bg-gray-400 dark:bg-dark-700 rounded-full transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-primary-500 border-2 border-gray-500 dark:border-transparent"
+                aria-label="Toggle dark mode"
+              >
+                <div
+                  className={`absolute top-[1px] left-[2px] w-7 h-7 bg-gray-100 dark:bg-dark-900 rounded-full shadow-lg transform transition-transform duration-300 flex items-center justify-center ${
+                    darkMode ? 'translate-x-8' : 'translate-x-0'
                   }`}
                 >
-                  {item}
-                </a>
-              ))}
+                  {darkMode ? (
+                    <FaMoon className="text-primary-400 text-sm" />
+                  ) : (
+                    <FaSun className="text-yellow-600 text-sm" />
+                  )}
+                </div>
+              </button>
             </div>
           </div>
         </div>
@@ -100,28 +246,13 @@ export default function Home() {
 
       {/* Hero Section */}
       <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20">
-        <div className="grid-pattern absolute inset-0 opacity-20"></div>
-        
-        {/* Floating Particles */}
-        {[...Array(20)].map((_, i) => (
-          <div
-            key={i}
-            className="particle"
-            style={{
-              left: `${Math.random() * 100}%`,
-              animationDelay: `${Math.random() * 15}s`,
-              animationDuration: `${15 + Math.random() * 10}s`
-            }}
-          />
-        ))}
-
         <div className="container mx-auto px-6 relative z-10">
           <div className="grid md:grid-cols-2 gap-12 items-center">
             {/* Left side - Image */}
             <div className="animate-slide-right">
               <div className="relative rounded-2xl overflow-hidden shadow-2xl shadow-primary-500/20">
                 <img 
-                  src="https://images.unsplash.com/photo-1579403124614-197f69d8187b?w=800&h=800&fit=crop" 
+                  src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?w=800&h=600&fit=crop" 
                   alt="Workspace" 
                   className="w-full h-auto object-cover"
                 />
@@ -134,14 +265,16 @@ export default function Home() {
               <h1 className="text-5xl md:text-7xl font-bold mb-6">
                 <span className="text-gradient">Karim Development</span>
               </h1>
-              <div className="text-xl md:text-2xl text-gray-300 mb-8 min-h-[80px]">
-                <span className="typing-text">Crafting Digital Excellence Through Innovation</span>
+              <div className="text-xl md:text-2xl text-gray-900 dark:text-gray-300 mb-8 min-h-[80px]">
+                <span key={currentTagline} className="typing-text inline-block">
+                  {taglines[currentTagline]}
+                </span>
               </div>
               <div className="flex flex-col sm:flex-row gap-4 justify-center md:justify-start">
-                <a href="#contact" className="btn-primary inline-block">
+                <a href="#contact" className="btn-primary inline-block text-center">
                   Get In Touch
                 </a>
-                <a href="#projects" className="px-8 py-3 border-2 border-primary-500 text-primary-400 rounded-lg font-semibold hover:bg-primary-500 hover:text-white transition-all">
+                <a href="#projects" className="btn-secondary inline-block text-center">
                   View Projects
                 </a>
               </div>
@@ -158,19 +291,16 @@ export default function Home() {
       </section>
 
       {/* About Section */}
-      <section id="about" className="py-24 relative">
+      <section id="about" className="py-24 relative scroll-animate z-10">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">About Me</h2>
-          <div className="max-w-4xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient scroll-animate">About Me</h2>
+          <div className="max-w-4xl mx-auto scroll-animate">
             <div className="glow-card rounded-2xl p-8 md:p-12">
               <p className="text-lg text-gray-300 mb-6 leading-relaxed">
                 I'm <span className="text-primary-400 font-semibold">Karim Antar</span>, a passionate web developer based in Cairo, Egypt. My goal is to find positions where I can utilize my solid business experience and specialist information technology skills to assist organizations implementing information technologies to meet their specialized and business objectives.
               </p>
-              <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                With experience as a Back-End Web Developer at Creatify and expertise in modern web technologies including React, Laravel, Node.js, and Python, I bring a comprehensive skill set to every project. I'm able to effectively self-manage during independent projects, as well as collaborate as part of a productive team.
-              </p>
               <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                I hold a BSc in Architectural Engineering from Egyptian Russian University, which gives me a unique perspective on design, problem-solving, and creating efficient, beautiful solutions that satisfy human, social, and technological needs.
+                With experience as a Back-End Web Developer at Creatify and expertise in modern web technologies including React, Laravel, Node.js, and Python, I bring a comprehensive skill set to every project. I'm able to effectively self-manage during independent projects, as well as collaborate as part of a productive team.
               </p>
               <div className="grid md:grid-cols-3 gap-6 mt-8">
                 <div className="text-center p-6 bg-dark-700/50 rounded-xl border border-primary-500/20">
@@ -192,17 +322,14 @@ export default function Home() {
       </section>
 
       {/* Services Section */}
-      <section id="services" className="py-24 relative">
+      <section id="services" className="py-24 relative scroll-animate z-10">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">Our Services</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient scroll-animate">Our Services</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {services.map((service, index) => (
               <div
                 key={index}
-                className="glow-card rounded-xl p-8 group"
-                style={{
-                  animation: `slideUp 0.5s ease-out ${index * 0.1}s backwards`
-                }}
+                className="glow-card rounded-xl p-8 group scroll-animate"
               >
                 <div className="text-primary-400 mb-4 transform group-hover:scale-110 transition-transform">
                   {service.icon}
@@ -216,17 +343,14 @@ export default function Home() {
       </section>
 
       {/* Projects Section */}
-      <section id="projects" className="py-24 relative">
+      <section id="projects" className="py-24 relative scroll-animate z-10">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">Featured Projects</h2>
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient scroll-animate">Featured Projects</h2>
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
             {projects.map((project, index) => (
               <div
                 key={index}
-                className="glow-card rounded-xl p-8 group"
-                style={{
-                  animation: `slideLeft 0.5s ease-out ${index * 0.1}s backwards`
-                }}
+                className="glow-card rounded-xl p-8 group scroll-animate"
               >
                 <div className={`w-full h-48 bg-gradient-to-br ${project.color} rounded-lg mb-6 relative overflow-hidden`}>
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-300"></div>
@@ -251,9 +375,9 @@ export default function Home() {
                     href={project.live}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center gap-2 px-6 py-3 bg-primary-500 hover:bg-primary-600 text-white rounded-lg transition-all font-semibold"
+                    className="btn-action flex items-center justify-center gap-2"
                   >
-                    <FaRocket /> Live
+                    <FaRocket /> Live Demo
                   </a>
                 </div>
               </div>
@@ -263,10 +387,10 @@ export default function Home() {
       </section>
 
       {/* Contact Section */}
-      <section id="contact" className="py-24 relative">
+      <section id="contact" className="py-24 relative scroll-animate z-10">
         <div className="container mx-auto px-6">
-          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient">Get In Touch</h2>
-          <div className="max-w-2xl mx-auto">
+          <h2 className="text-4xl md:text-5xl font-bold text-center mb-16 text-gradient scroll-animate">Get In Touch</h2>
+          <div className="max-w-2xl mx-auto scroll-animate">
             <div className="glow-card rounded-2xl p-8 md:p-12">
               <form className="space-y-6">
                 <div>
@@ -293,23 +417,23 @@ export default function Home() {
                     placeholder="Tell us about your project..."
                   ></textarea>
                 </div>
-                <button type="submit" className="btn-primary w-full">
-                  Send Message
+                <button type="submit" className="btn-primary w-full text-center">
+                  <span>Send Message</span>
                 </button>
               </form>
 
               <div className="mt-8 pt-8 border-t border-gray-700">
-                <div className="flex justify-center gap-6">
-                  <a href="https://github.com/KarimAntar" target="_blank" rel="noopener noreferrer" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
+                <div className="flex justify-center gap-4">
+                  <a href="https://github.com/KarimAntar" target="_blank" rel="noopener noreferrer" className="social-icon">
                     <FaGithub />
                   </a>
-                  <a href="https://www.linkedin.com/in/karim-antar" target="_blank" rel="noopener noreferrer" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
+                  <a href="https://www.linkedin.com/in/karimmamdouh" target="_blank" rel="noopener noreferrer" className="social-icon">
                     <FaLinkedin />
                   </a>
-                  <a href="https://facebook.com/karim.antar" target="_blank" rel="noopener noreferrer" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
-                    <FaTwitter />
+                  <a href="https://facebook.com/Karim.Mamdou7" target="_blank" rel="noopener noreferrer" className="social-icon">
+                    <FaFacebook />
                   </a>
-                  <a href="mailto:karim_antar@icloud.com" className="text-3xl text-gray-400 hover:text-primary-400 transition-colors transform hover:scale-110">
+                  <a href="mailto:karimamdou7@gmail.com" className="social-icon">
                     <FaEnvelope />
                   </a>
                 </div>
@@ -324,10 +448,21 @@ export default function Home() {
       </section>
 
       {/* Footer */}
-      <footer className="py-8 border-t border-gray-800">
-        <div className="container mx-auto px-6 text-center text-gray-400">
-          <p>&copy; 2024 Karim Development. All rights reserved.</p>
-          <p className="mt-2 text-sm">Building the future, one line of code at a time.</p>
+      <footer className="py-12 border-t border-gray-800 relative z-10">
+        <div className="container mx-auto px-6">
+          <div className="flex flex-col items-center">
+            <div className="logo-container-footer mb-6">
+              <img
+                src="/logo_300x100.png"
+                alt="Karim Development Logo"
+                className="logo-footer"
+              />
+            </div>
+            <div className="text-center text-gray-400">
+              <p>&copy; 2024 Karim Development. All rights reserved.</p>
+              <p className="mt-2 text-sm">Building the future, one line of code at a time.</p>
+            </div>
+          </div>
         </div>
       </footer>
     </main>
