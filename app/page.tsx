@@ -192,21 +192,21 @@ export default function Home() {
       title: 'BloodBond',
       description: 'A comprehensive blood donation management platform connecting donors with those in need, featuring real-time matching and emergency alerts.',
       tags: ['React', 'Node.js', 'MongoDB'],
-      color: 'from-red-500 to-pink-500',
+      image: '/bloodbond.png',
       live: 'https://bloodbond.app/'
     },
     {
       title: 'NS Financial Services',
       description: 'Professional financial services website offering comprehensive solutions for investment, loans, and financial planning.',
       tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-      color: 'from-green-500 to-emerald-500',
+      image: '/nsfinancialservice.png',
       live: 'https://www.nsfinancialservice.com/'
     },
     {
       title: 'Real Estate Platform',
       description: 'Modern real estate listings platform with advanced search, property management, and interactive map integration.',
       tags: ['React', 'Firebase', 'Material-UI'],
-      color: 'from-blue-500 to-cyan-500',
+      image: '/realestate.png',
       live: 'https://real-estate-project-sepia.vercel.app/'
     }
   ]
@@ -446,11 +446,13 @@ export default function Home() {
                 key={index}
                 className="glow-card rounded-xl p-8 group scroll-animate flex flex-col"
               >
-                <div className={`w-full h-48 bg-gradient-to-br ${project.color} rounded-lg mb-6 relative overflow-hidden`}>
-                  <div className="absolute inset-0 bg-black/20 group-hover:bg-black/0 transition-all duration-300"></div>
-                  <div className="absolute inset-0 flex items-center justify-center">
-                    <FaCheckCircle className="text-6xl text-white opacity-50 group-hover:opacity-100 group-hover:scale-110 transition-all duration-300" />
-                  </div>
+                <div className="w-full h-48 rounded-lg mb-6 relative overflow-hidden">
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-110"
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
                 </div>
                 <h3 className="text-2xl font-bold mb-3 text-white">{project.title}</h3>
                 <p className="text-gray-400 mb-4 leading-relaxed flex-grow">{project.description}</p>
