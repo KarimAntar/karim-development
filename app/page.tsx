@@ -327,11 +327,11 @@ export default function Home() {
                   {taglines[currentTagline]}
                 </span>
               </div>
-              <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center md:justify-start">
-                <a href="#contact" className="btn-primary inline-block text-center">
+              <div className="hero-buttons-container">
+                <a href="#contact" className="btn-primary text-center">
                   Get In Touch
                 </a>
-                <a href="#projects" className="btn-secondary inline-block text-center">
+                <a href="#projects" className="btn-secondary text-center">
                   View Projects
                 </a>
               </div>
@@ -340,9 +340,9 @@ export default function Home() {
         </div>
 
         {/* Scroll Indicator */}
-        <div className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
-          <div className="w-6 h-10 border-2 border-primary-400 rounded-full flex items-start justify-center p-2">
-            <div className="w-1 h-3 bg-primary-400 rounded-full"></div>
+        <div className="scroll-indicator">
+          <div className="scroll-indicator-mouse">
+            <div className="scroll-indicator-dot"></div>
           </div>
         </div>
       </section>
