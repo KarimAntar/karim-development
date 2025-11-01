@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { FaCode, FaMobile, FaCloud, FaDatabase, FaRocket, FaEnvelope, FaGithub, FaLinkedin, FaFacebook, FaCheckCircle, FaServer, FaPalette, FaSun, FaMoon } from 'react-icons/fa'
+import { FaCode, FaMobile, FaCloud, FaDatabase, FaRocket, FaEnvelope, FaGithub, FaLinkedin, FaFacebook, FaCheckCircle, FaServer, FaPalette, FaSun, FaMoon, FaHome, FaUser, FaBriefcase, FaFolderOpen } from 'react-icons/fa'
 
 export default function Home() {
   const [activeSection, setActiveSection] = useState('home')
@@ -16,6 +16,14 @@ export default function Home() {
     "Transforming Ideas Into Powerful Applications",
     "Where Creativity Meets Technology",
     "Engineering Excellence In Every Line Of Code"
+  ]
+
+  const navItems = [
+    { name: 'Home', icon: FaHome },
+    { name: 'About', icon: FaUser },
+    { name: 'Services', icon: FaBriefcase },
+    { name: 'Projects', icon: FaFolderOpen },
+    { name: 'Contact', icon: FaEnvelope }
   ]
 
   useEffect(() => {
@@ -207,20 +215,24 @@ export default function Home() {
               <span className="text-lg sm:text-xl md:text-2xl font-bold text-gradient">Karim Development</span>
             </div>
             <div className="flex items-center gap-4 sm:gap-6">
-              <div className="hidden md:flex space-x-8">
-                {['Home', 'About', 'Services', 'Projects', 'Contact'].map((item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    className={`text-sm font-medium transition-colors ${
-                      activeSection === item.toLowerCase()
-                        ? 'text-primary-400'
-                        : 'text-gray-300 dark:text-gray-300 hover:text-primary-400'
-                    }`}
-                  >
-                    {item}
-                  </a>
-                ))}
+              <div className="hidden md:flex space-x-2">
+                {navItems.map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <a
+                      key={item.name}
+                      href={`#${item.name.toLowerCase()}`}
+                      className={`nav-item ${
+                        activeSection === item.name.toLowerCase()
+                          ? 'nav-item-active'
+                          : ''
+                      }`}
+                    >
+                      <Icon className="text-base" />
+                      <span>{item.name}</span>
+                    </a>
+                  )
+                })}
               </div>
 
               {/* Mobile Menu Button */}
@@ -264,21 +276,25 @@ export default function Home() {
         {mobileMenuOpen && (
           <div className="md:hidden bg-dark-800/98 dark:bg-dark-800/98 border-t border-gray-700">
             <div className="container mx-auto px-4 py-4">
-              <div className="flex flex-col space-y-3">
-                {['Home', 'About', 'Services', 'Projects', 'Contact'].map((item) => (
-                  <a
-                    key={item}
-                    href={`#${item.toLowerCase()}`}
-                    onClick={() => setMobileMenuOpen(false)}
-                    className={`text-base font-medium transition-colors py-2 ${
-                      activeSection === item.toLowerCase()
-                        ? 'text-primary-400'
-                        : 'text-gray-300 dark:text-gray-300 hover:text-primary-400'
-                    }`}
-                  >
-                    {item}
-                  </a>
-                ))}
+              <div className="flex flex-col space-y-2">
+                {navItems.map((item) => {
+                  const Icon = item.icon
+                  return (
+                    <a
+                      key={item.name}
+                      href={`#${item.name.toLowerCase()}`}
+                      onClick={() => setMobileMenuOpen(false)}
+                      className={`nav-item-mobile ${
+                        activeSection === item.name.toLowerCase()
+                          ? 'nav-item-mobile-active'
+                          : ''
+                      }`}
+                    >
+                      <Icon className="text-lg" />
+                      <span>{item.name}</span>
+                    </a>
+                  )
+                })}
               </div>
             </div>
           </div>
