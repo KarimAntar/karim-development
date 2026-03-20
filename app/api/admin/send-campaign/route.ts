@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
 import { Resend } from 'resend';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { WelcomeTemplate, NewsletterTemplate, PromotionTemplate } from '@/components/email-templates';
 
 // Initialize Resend
@@ -40,12 +41,14 @@ export async function POST(req: Request) {
         reactTemplate = NewsletterTemplate({ customMessage });
     }
 
+    const htmlContent = renderToStaticMarkup(reactTemplate);
+
     // 4. Send via Resend natively (with open tracking)
     const { data, error } = await resend.emails.send({
       from: `Karim Development <${process.env.SMTP_FROM || 'info@karims.dev'}>`,
       to: recipientList,
       subject: subject,
-      react: reactTemplate,
+      html: htmlContent,
       tags: [
         { name: 'campaign_type', value: template }
       ],
