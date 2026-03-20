@@ -1,6 +1,5 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { renderToStaticMarkup } from 'react-dom/server';
 import { WelcomeTemplate, NewsletterTemplate, PromotionTemplate } from '@/components/email-templates';
 
 export async function POST(req: Request) {
@@ -22,22 +21,21 @@ export async function POST(req: Request) {
     const recipientList = to.split(',').map((email: string) => email.trim());
 
     // 3. Select Template
-    let reactTemplate;
+    let htmlContent;
     switch (template) {
       case 'welcome':
-        reactTemplate = WelcomeTemplate({ firstName: 'Colleague', customMessage });
+        htmlContent = WelcomeTemplate({ firstName: 'Colleague', customMessage });
         break;
       case 'newsletter':
-        reactTemplate = NewsletterTemplate({ customMessage });
+        htmlContent = NewsletterTemplate({ customMessage });
         break;
       case 'promotion':
-        reactTemplate = PromotionTemplate({ customMessage });
+        htmlContent = PromotionTemplate({ customMessage });
         break;
       default:
-        reactTemplate = NewsletterTemplate({ customMessage });
+        htmlContent = NewsletterTemplate({ customMessage });
     }
 
-    const htmlContent = renderToStaticMarkup(reactTemplate);
     const token = process.env.RESEND_API_KEY || process.env.SMTP_PASS;
 
     // 4. Send via Native Fetch (bypassing SDK bugs)
