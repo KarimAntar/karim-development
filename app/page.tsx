@@ -11,6 +11,36 @@ export default function Home() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const [displayedText, setDisplayedText] = useState('')
   const [isTyping, setIsTyping] = useState(true)
+  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
+  const [submitMessage, setSubmitMessage] = useState('')
+
+  const handleContactSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setSubmitStatus('loading')
+    
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      })
+      
+      if (!response.ok) throw new Error('Failed to send message')
+      
+      setSubmitStatus('success')
+      setSubmitMessage('Message sent successfully! We will get back to you soon.')
+      setFormData({ name: '', email: '', message: '' })
+      
+      // Reset success message after 5 seconds
+      setTimeout(() => setSubmitStatus('idle'), 5000)
+    } catch (error) {
+      setSubmitStatus('error')
+      setSubmitMessage('Failed to send message. Please try again later.')
+    }
+  }
 
   const taglines = [
     "Crafting Digital Excellence Through Innovation",
@@ -490,11 +520,14 @@ export default function Home() {
           </h2>
           <div className="max-w-2xl mx-auto scroll-animate">
             <div className="glow-card rounded-2xl p-8 md:p-12">
-              <form className="space-y-6">
+              <form onSubmit={handleContactSubmit} className="space-y-6">
                 <div>
                   <label className="block text-gray-300 mb-2 font-medium">Name</label>
                   <input
                     type="text"
+                    required
+                    value={formData.name}
+                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-4 py-3 bg-dark-700 border border-primary-500/30 rounded-lg focus:border-primary-500 focus:outline-none text-white placeholder-gray-500 transition-all"
                     placeholder="Your Name"
                   />
@@ -503,6 +536,9 @@ export default function Home() {
                   <label className="block text-gray-300 mb-2 font-medium">Email</label>
                   <input
                     type="email"
+                    required
+                    value={formData.email}
+                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                     className="w-full px-4 py-3 bg-dark-700 border border-primary-500/30 rounded-lg focus:border-primary-500 focus:outline-none text-white placeholder-gray-500 transition-all"
                     placeholder="your.email@example.com"
                   />
@@ -511,13 +547,43 @@ export default function Home() {
                   <label className="block text-gray-300 mb-2 font-medium">Message</label>
                   <textarea
                     rows={5}
+                    required
+                    value={formData.message}
+                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
                     className="w-full px-4 py-3 bg-dark-700 border border-primary-500/30 rounded-lg focus:border-primary-500 focus:outline-none text-white placeholder-gray-500 transition-all resize-none"
                     placeholder="Tell us about your project..."
                   ></textarea>
                 </div>
+                
+                {submitStatus === 'success' && (
+                  <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400 text-center">
+                    {submitMessage}
+                  </div>
+                )}
+                
+                {submitStatus === 'error' && (
+                  <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-center">
+                    {submitMessage}
+                  </div>
+                )}
+
                 <div className="flex justify-center">
-                  <button type="submit" className="btn-primary">
-                    Send Message
+                  <button 
+                    type="submit" 
+                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
+                    disabled={submitStatus === 'loading'}
+                  >
+                    {submitStatus === 'loading' ? (
+                      <>
+                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                        </svg>
+                        Sending...
+                      </>
+                    ) : (
+                      'Send Message'
+                    )}
                   </button>
                 </div>
               </form>
