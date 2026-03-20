@@ -35,34 +35,44 @@ export async function POST(req: Request) {
           <meta name="viewport" content="width=device-width, initial-scale=1.0">
           <style>
             body {
-              font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+              font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
               background-color: #050a0f;
-              color: #e5e7eb;
+              color: #d1d5db;
               margin: 0;
               padding: 0;
               line-height: 1.6;
+              -webkit-font-smoothing: antialiased;
             }
-            .container {
-              max-width: 600px;
-              margin: 40px auto;
-              background-color: #0a1118;
-              border: 1px solid rgba(0, 102, 230, 0.3);
-              border-radius: 16px;
+            .wrapper {
+              background-color: #050a0f;
+              padding: 40px 20px;
+              min-height: 100vh;
+            }
+            .card {
+              max-width: 560px;
+              margin: 0 auto;
+              background: linear-gradient(145deg, #0a1118 0%, #050a0f 100%);
+              border: 1px solid rgba(0, 102, 230, 0.2);
+              border-radius: 12px;
               overflow: hidden;
-              box-shadow: 0 0 20px rgba(0, 102, 230, 0.15);
+              box-shadow: 0 8px 32px rgba(0, 102, 230, 0.1);
             }
             .header {
-              background-color: #050a0f;
-              padding: 30px;
+              padding: 40px 30px 30px;
               text-align: center;
-              border-bottom: 1px solid rgba(0, 102, 230, 0.3);
+              border-bottom: 1px solid rgba(255, 255, 255, 0.05);
             }
-            .header h1 {
-              color: #0066e6;
+            .logo {
+              max-width: 200px;
+              height: auto;
+              margin-bottom: 16px;
+            }
+            .header p {
               margin: 0;
-              font-size: 24px;
-              font-weight: 700;
+              font-size: 14px;
+              color: #9ca3af;
               letter-spacing: 0.5px;
+              text-transform: uppercase;
             }
             .content {
               padding: 30px;
@@ -72,62 +82,76 @@ export async function POST(req: Request) {
             }
             .label {
               display: block;
-              font-size: 14px;
-              color: #9ca3af;
-              margin-bottom: 8px;
+              font-size: 12px;
+              color: #6b7280;
+              margin-bottom: 6px;
               text-transform: uppercase;
-              letter-spacing: 0.5px;
+              letter-spacing: 1px;
+              font-weight: 600;
             }
             .value {
-              font-size: 16px;
-              color: #ffffff;
-              background-color: rgba(255, 255, 255, 0.03);
-              padding: 16px;
+              font-size: 15px;
+              color: #f3f4f6;
+              background-color: rgba(0, 102, 230, 0.03);
+              padding: 14px 16px;
               border-radius: 8px;
-              border: 1px solid rgba(255, 255, 255, 0.05);
+              border: 1px solid rgba(0, 102, 230, 0.1);
             }
-            .message-box {
+            .value.message {
               white-space: pre-wrap;
+              line-height: 1.7;
+            }
+            .value a {
+              color: #0066e6;
+              text-decoration: none;
+              font-weight: 500;
+              transition: color 0.2s ease;
+            }
+            .value a:hover {
+              color: #3b82f6;
             }
             .footer {
               text-align: center;
               padding: 24px;
-              background-color: #050a0f;
-              border-top: 1px solid rgba(0, 102, 230, 0.2);
-              font-size: 13px;
-              color: #6b7280;
+              font-size: 12px;
+              color: #4b5563;
+              background: #050a0f;
+              border-top: 1px solid rgba(255, 255, 255, 0.02);
             }
-            .accent {
+            .footer a {
               color: #0066e6;
+              text-decoration: none;
             }
           </style>
         </head>
         <body>
-          <div class="container">
-            <div class="header">
-              <h1>Karim Development</h1>
-              <p style="margin: 8px 0 0 0; font-size: 14px; color: #9ca3af;">New Contact Form Submission</p>
-            </div>
-            
-            <div class="content">
-              <div class="field">
-                <span class="label">Name</span>
-                <div class="value">${name}</div>
+          <div class="wrapper">
+            <div class="card">
+              <div class="header">
+                <img src="https://karims.dev/logo_300x100_white.png" alt="Karim Development" class="logo" />
+                <p>New Message Received</p>
               </div>
               
-              <div class="field">
-                <span class="label">Email Address</span>
-                <div class="value"><a href="mailto:${email}" style="color: #0066e6; text-decoration: none;">${email}</a></div>
+              <div class="content">
+                <div class="field">
+                  <span class="label">Sender Name</span>
+                  <div class="value">${name}</div>
+                </div>
+                
+                <div class="field">
+                  <span class="label">Email Address</span>
+                  <div class="value"><a href="mailto:${email}">${email}</a></div>
+                </div>
+                
+                <div class="field">
+                  <span class="label">Message</span>
+                  <div class="value message">${message}</div>
+                </div>
               </div>
               
-              <div class="field">
-                <span class="label">Message</span>
-                <div class="value message-box">${message}</div>
+              <div class="footer">
+                Sent from <a href="https://karims.dev">karims.dev</a> contact form
               </div>
-            </div>
-            
-            <div class="footer">
-              This email was generated from the contact form on <span class="accent">karims.dev</span>
             </div>
           </div>
         </body>
