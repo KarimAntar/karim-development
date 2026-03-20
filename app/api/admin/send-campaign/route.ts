@@ -13,7 +13,7 @@ export async function POST(req: Request) {
     // 2. Parse Request
     const { to, subject, template, customMessage } = await req.json();
 
-    if (!to || !subject || !template || !customMessage) {
+    if (!to || !subject || !template) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 

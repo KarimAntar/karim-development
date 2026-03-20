@@ -18,7 +18,7 @@ export const WelcomeTemplate = ({ firstName, customMessage }: { firstName: strin
       <div style="${ContentStyle}">
         <p style="margin-top: 0;">Hi ${firstName},</p>
         
-        <div style="padding: 20px; background: rgba(0,102,230,0.05); border-radius: 8px; border-left: 4px solid #0066e6; margin: 24px 0; white-space: pre-wrap;">${customMessage}</div>
+        ${customMessage ? `<div style="padding: 20px; background: rgba(0,102,230,0.05); border-radius: 8px; border-left: 4px solid #0066e6; margin: 24px 0; white-space: pre-wrap;">${customMessage}</div>` : ''}
         
         <p style="margin-bottom: 8px;">We are thrilled to have you here. If you need any web solutions built, don't hesitate to reach out.</p>
         <p style="margin-bottom: 0;">Best regards,<br/>Karim Antar</p>
@@ -31,7 +31,7 @@ export const WelcomeTemplate = ({ firstName, customMessage }: { firstName: strin
   </div>
 `;
 
-export const NewsletterTemplate = ({ customMessage }: { customMessage: string }) => `
+export const NewsletterTemplate = ({ customMessage }: { customMessage?: string }) => `
   <div style="${BaseStyle}">
     <div style="${CardStyle}">
       <div style="${HeaderStyle}">
@@ -39,7 +39,7 @@ export const NewsletterTemplate = ({ customMessage }: { customMessage: string })
         <p style="margin: 0; font-size: 13px; color: #9ca3af; text-transform: uppercase; letter-spacing: 1px;">Monthly Update</p>
       </div>
       <div style="${ContentStyle}">
-        <div style="white-space: pre-wrap;">${customMessage}</div>
+        ${customMessage ? `<div style="white-space: pre-wrap;">${customMessage}</div>` : '<p style="text-align: center; font-style: italic; color: #9ca3af;">Please see the attached updates on our website.</p>'}
       </div>
       <div style="${FooterStyle}">
         You are receiving this email because you subscribed to our development updates.<br/>
@@ -49,7 +49,7 @@ export const NewsletterTemplate = ({ customMessage }: { customMessage: string })
   </div>
 `;
 
-export const PromotionTemplate = ({ customMessage }: { customMessage: string }) => `
+export const PromotionTemplate = ({ customMessage }: { customMessage?: string }) => `
   <div style="${BaseStyle}">
     <div style="${CardStyle} border: 1px solid rgba(234, 179, 8, 0.3); box-shadow: 0 8px 32px rgba(234, 179, 8, 0.15);">
       <div style="${HeaderStyle} border-bottom: 1px solid rgba(234, 179, 8, 0.1);">
@@ -57,9 +57,9 @@ export const PromotionTemplate = ({ customMessage }: { customMessage: string }) 
         <h2 style="margin: 0; color: #eab308; font-size: 20px; text-transform: uppercase; letter-spacing: 2px;">Special Offer Inside</h2>
       </div>
       <div style="padding: 40px 30px; text-align: center; font-size: 16px; color: #f3f4f6; line-height: 1.8;">
-        <div style="white-space: pre-wrap;">${customMessage}</div>
+        ${customMessage ? `<div style="white-space: pre-wrap;">${customMessage}</div>` : ''}
         
-        <div style="margin-top: 32px;">
+        <div style="margin-top: ${customMessage ? '32px' : '0'};">
           <a href="https://karims.dev#contact" style="display: inline-block; padding: 14px 32px; background-color: #eab308; color: #000; text-decoration: none; font-weight: bold; border-radius: 8px; text-transform: uppercase; letter-spacing: 1px; font-size: 15px;">
             Claim Offer Now
           </a>

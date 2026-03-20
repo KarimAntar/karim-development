@@ -160,16 +160,15 @@ export default function MailerDashboard() {
                 {/* Custom Content */}
                 <div>
                   <label className="block text-sm font-medium text-gray-400 mb-2">
-                    Message Content
+                    Message Content <span className="text-xs text-gray-500 font-normal">(Optional)</span>
                   </label>
                   <textarea
                     name="customMessage"
-                    required
                     rows={8}
                     value={formData.customMessage}
                     onChange={handleChange}
                     className="w-full bg-[#050a0f] border border-white/10 rounded-lg px-4 py-3 text-white focus:border-[#0066e6] focus:ring-1 focus:ring-[#0066e6] transition-all outline-none resize-y"
-                    placeholder="Type the body of your email here..."
+                    placeholder="Type the body of your email here... (Leave blank to just send the template graphics)"
                   ></textarea>
                 </div>
 
