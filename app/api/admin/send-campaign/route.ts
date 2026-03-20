@@ -1,11 +1,7 @@
 import { NextResponse } from 'next/server';
 import { cookies } from 'next/headers';
-import { Resend } from 'resend';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { WelcomeTemplate, NewsletterTemplate, PromotionTemplate } from '@/components/email-templates';
-
-// Initialize Resend
-const resend = new Resend(process.env.RESEND_API_KEY || process.env.SMTP_PASS);
 
 export async function POST(req: Request) {
   try {
@@ -42,21 +38,31 @@ export async function POST(req: Request) {
     }
 
     const htmlContent = renderToStaticMarkup(reactTemplate);
+    const token = process.env.RESEND_API_KEY || process.env.SMTP_PASS;
 
-    // 4. Send via Resend natively (with open tracking)
-    const { data, error } = await resend.emails.send({
-      from: `Karim Development <${process.env.SMTP_FROM || 'info@karims.dev'}>`,
-      to: recipientList,
-      subject: subject,
-      html: htmlContent,
-      tags: [
-        { name: 'campaign_type', value: template }
-      ],
+    // 4. Send via Native Fetch (bypassing SDK bugs)
+    const response = await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      },
+      body: JSON.stringify({
+        from: `Karim Development <${process.env.SMTP_FROM || 'info@karims.dev'}>`,
+        to: recipientList,
+        subject: subject,
+        html: htmlContent,
+        tags: [
+          { name: 'campaign_type', value: template }
+        ],
+      }),
     });
 
-    if (error) {
-      console.error('Resend API Error:', error);
-      return NextResponse.json({ error: error.message }, { status: 400 });
+    const data = await response.json();
+
+    if (!response.ok) {
+      console.error('Resend API Error:', data);
+      return NextResponse.json({ error: data.message || 'Failed to send' }, { status: response.status });
     }
 
     return NextResponse.json({ success: true, data }, { status: 200 });
