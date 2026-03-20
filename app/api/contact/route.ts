@@ -153,7 +153,7 @@ export async function POST(req: Request) {
               </div>
               
               <div class="footer">
-                Sent from <a href="https://karims.dev">karims.dev</a> contact form
+                Sent from <a href="https://karims.dev">karims.dev</a> on ${new Date().toLocaleString()}
               </div>
             </div>
           </div>
