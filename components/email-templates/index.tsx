@@ -1,4 +1,4 @@
-const BaseStyle = `font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #050a0f; color: #d1d5db; padding: 40px 20px; min-height: 100vh; -webkit-font-smoothing: antialiased;`;
+const BaseStyle = `font-family: -apple-system, BlinkMacSystemFont, 'Inter', 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #050a0f; color: #d1d5db; padding: 40px 20px; -webkit-font-smoothing: antialiased;`;
 
 const CardStyle = `max-width: 600px; margin: 0 auto; background: linear-gradient(145deg, #0a1118 0%, #050a0f 100%); border: 1px solid rgba(0, 102, 230, 0.2); border-radius: 12px; overflow: hidden; box-shadow: 0 8px 32px rgba(0, 102, 230, 0.1);`;
 
