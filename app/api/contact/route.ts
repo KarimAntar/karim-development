@@ -23,7 +23,7 @@ export async function POST(req: Request) {
     });
 
     const mailOptions = {
-      from: `"${name}" <${process.env.SMTP_USER}>`,
+      from: `"${name}" <${process.env.SMTP_FROM || process.env.CONTACT_EMAIL || 'info@karims.dev'}>`,
       to: process.env.CONTACT_EMAIL || 'info@karims.dev',
       replyTo: email,
       subject: `New Contact Form Submission from ${name}`,
