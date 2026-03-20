@@ -46,7 +46,6 @@ export async function POST(req: Request) {
             .wrapper {
               background-color: #050a0f;
               padding: 40px 20px;
-              min-height: 100vh;
             }
             .card {
               max-width: 560px;
