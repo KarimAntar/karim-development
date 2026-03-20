@@ -133,15 +133,18 @@ export async function POST(req: Request) {
               </div>
               
               <div class="content">
-                <div class="field">
-                  <span class="label">Sender Name</span>
-                  <div class="value">${name}</div>
-                </div>
-                
-                <div class="field">
-                  <span class="label">Email Address</span>
-                  <div class="value"><a href="mailto:${email}">${email}</a></div>
-                </div>
+                <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom: 24px; border-collapse: separate;">
+                  <tr>
+                    <td width="50%" valign="top" style="padding-right: 8px;">
+                      <span class="label">Sender Name</span>
+                      <div class="value" style="padding: 10px 14px;">${name}</div>
+                    </td>
+                    <td width="50%" valign="top" style="padding-left: 8px;">
+                      <span class="label">Email Address</span>
+                      <div class="value" style="padding: 10px 14px;"><a href="mailto:${email}">${email}</a></div>
+                    </td>
+                  </tr>
+                </table>
                 
                 <div class="field">
                   <span class="label">Message</span>
