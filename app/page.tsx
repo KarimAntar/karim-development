@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'motion/react';
+import TypewriterText from '@/components/TypewriterText';
 
 export default function Home() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -138,7 +139,14 @@ export default function Home() {
             initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }}
             className="font-body text-lg md:text-xl text-on-surface-variant max-w-2xl mt-8 leading-relaxed font-light"
           >
-            Engineering scalable platforms with cinematic UI design, optimized performance, and tailored architecture suited for business growth.
+            <TypewriterText 
+              items={[
+                "Engineering scalable platforms with precision.",
+                "Crafting cinematic, responsive user interfaces.",
+                "Architecting tailored backend solutions.",
+                "Delivering performant structures for business growth."
+              ]}
+            />
           </motion.p>
 
           <motion.div 
