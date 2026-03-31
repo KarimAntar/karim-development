@@ -35,7 +35,7 @@ export default function About() {
                 src="https://plus.unsplash.com/premium_photo-1678566111481-8e275550b700?ixlib=rb-4.1.0&auto=format&fit=crop&h=800&w=687"
                 alt="Karim Antar — Full Stack Developer"
                 fill
-                className="object-cover grayscale hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                className="object-cover transition-all duration-700 scale-105 group-hover:scale-100"
               />
             </div>
           </div>

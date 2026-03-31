@@ -78,7 +78,7 @@ export default function Home() {
                 src="https://plus.unsplash.com/premium_photo-1678566111481-8e275550b700?ixlib=rb-4.1.0&auto=format&fit=crop&h=800&w=687"
                 alt="Karim Antar — Full Stack Developer workspace"
                 fill
-                className="object-cover filter grayscale contrast-125 opacity-90 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
+                className="object-cover opacity-90 transition-all duration-700 group-hover:scale-105"
               />
               <div className="absolute inset-0 bg-gradient-to-tr from-primary-container/20 to-transparent pointer-events-none" />
             </div>

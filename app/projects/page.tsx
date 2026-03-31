@@ -37,7 +37,7 @@ export default function Projects() {
                     src="/bloodbond.png"
                     alt="BloodBond Project"
                     fill
-                    className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-105 group-hover:scale-100"
+                    className="object-cover transition-all duration-700 scale-105 group-hover:scale-100"
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-surface-container-lowest/80 via-transparent to-transparent opacity-60" />
                 </div>
@@ -88,7 +88,7 @@ export default function Projects() {
                   src="/nsfinancialservice.png"
                   alt="NS Financial Services"
                   fill
-                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
+                  className="object-cover transition-all duration-700 scale-110 group-hover:scale-100"
                 />
               </div>
               <div className="absolute inset-0 bg-primary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-xl" />
@@ -110,10 +110,10 @@ export default function Projects() {
               href="https://www.nsfinancialservice.com/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group/link inline-flex items-center font-headline font-bold text-primary hover:text-white transition-colors"
+              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-br from-primary-container to-tertiary-container text-on-primary-container font-headline font-bold rounded shadow-[0_0_20px_rgba(0,102,230,0.2)] hover:shadow-[0_0_30px_rgba(0,102,230,0.4)] transition-all group/btn w-fit"
             >
-              VIEW LIVE CASE
-              <span className="material-symbols-outlined ml-2 text-sm group-hover/link:translate-x-1 transition-transform">trending_flat</span>
+              Live Project
+              <span className="material-symbols-outlined ml-2 group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
             </Link>
           </article>
 
@@ -125,7 +125,7 @@ export default function Projects() {
                   src="/realestate.png"
                   alt="Real Estate Platform"
                   fill
-                  className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 scale-110 group-hover:scale-100"
+                  className="object-cover transition-all duration-700 scale-110 group-hover:scale-100"
                 />
               </div>
               <div className="absolute inset-0 bg-tertiary/10 opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none rounded-xl" />
@@ -147,10 +147,10 @@ export default function Projects() {
               href="https://real-estate-project-sepia.vercel.app/"
               target="_blank"
               rel="noopener noreferrer"
-              className="group/link inline-flex items-center font-headline font-bold text-primary hover:text-white transition-colors"
+              className="inline-flex items-center justify-center px-8 py-4 bg-gradient-to-br from-primary-container to-tertiary-container text-on-primary-container font-headline font-bold rounded shadow-[0_0_20px_rgba(0,102,230,0.2)] hover:shadow-[0_0_30px_rgba(0,102,230,0.4)] transition-all group/btn w-fit"
             >
-              VIEW LIVE CASE
-              <span className="material-symbols-outlined ml-2 text-sm group-hover/link:translate-x-1 transition-transform">trending_flat</span>
+              Live Project
+              <span className="material-symbols-outlined ml-2 group-hover/btn:translate-x-1 transition-transform">arrow_forward</span>
             </Link>
           </article>
         </div>
