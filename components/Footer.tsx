@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import Image from 'next/image';
 
 export default function Footer() {
   return (
@@ -6,10 +7,15 @@ export default function Footer() {
       <div className="max-w-7xl w-full flex flex-col items-center">
         <Link
           href="/"
-          className="font-headline font-black text-2xl tracking-tighter text-on-surface mb-6 hover:text-primary transition-colors duration-300"
-          style={{ letterSpacing: '-1.2px' }}
+          className="mb-6 hover:opacity-80 transition-opacity duration-300"
         >
-          Karim Development
+          <Image
+            src="/logo_300x100_white.png"
+            alt="Karim Development"
+            width={180}
+            height={60}
+            className="object-contain"
+          />
         </Link>
 
         <div className="flex gap-8 mb-8">

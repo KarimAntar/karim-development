@@ -1,6 +1,7 @@
 'use client';
 
 import Link from 'next/link';
+import Image from 'next/image';
 import { usePathname } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
@@ -40,9 +41,18 @@ export default function Navbar() {
         <div className="bg-surface/60 backdrop-blur-xl rounded-full mt-6 mx-auto max-w-fit px-6 py-2 border border-white/5 shadow-[0_20px_50px_rgba(0,102,230,0.08)] flex items-center gap-8">
           <Link
             href="/"
-            className="font-headline font-bold text-xl tracking-tighter text-on-surface hover:scale-105 transition-transform duration-300 cursor-pointer whitespace-nowrap"
+            className="flex items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer whitespace-nowrap"
           >
-            Karim Development
+            <Image
+              src="/logo160x160.png"
+              alt="Karim Development Logo"
+              width={32}
+              height={32}
+              className="rounded-sm"
+            />
+            <span className="font-headline font-bold text-xl tracking-tighter text-on-surface">
+              Karim Development
+            </span>
           </Link>
 
           {/* Desktop Nav */}
