@@ -178,7 +178,14 @@ export default function Home() {
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section id="home" className="relative min-h-screen flex flex-col items-center justify-center bg-surface overflow-hidden">
         {/* Background Animation Canvases */}
-        <canvas ref={matrixCanvasRef} className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none opacity-80" />
+        <canvas 
+          ref={matrixCanvasRef} 
+          className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none opacity-80" 
+          style={{ 
+            maskImage: 'radial-gradient(ellipse at center, transparent 10%, black 50%)', 
+            WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 10%, black 50%)' 
+          }}
+        />
         <canvas ref={sphereCanvasRef} className="absolute top-0 left-0 w-full h-full z-0 mix-blend-screen pointer-events-none" />
 
         {/* Cinematic Horizon Glow */}
