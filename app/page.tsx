@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
+import { motion } from 'motion/react';
 
 export default function Home() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
@@ -155,7 +156,14 @@ export default function Home() {
       </section>
 
       {/* ── ABOUT ────────────────────────────────────────────────────────── */}
-      <section id="about" className="relative pt-32 pb-32 overflow-hidden bg-surface">
+      <motion.section 
+        id="about" 
+        className="relative pt-32 pb-32 overflow-hidden bg-surface"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="absolute top-[-10%] right-[-10%] w-[500px] h-[500px] bg-primary/10 blur-[120px] rounded-full pointer-events-none" />
         <div className="absolute bottom-[5%] left-[-5%] w-[400px] h-[400px] bg-tertiary/10 blur-[100px] rounded-full pointer-events-none" />
 
@@ -220,7 +228,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── SERVICES ─────────────────────────────────────────────────────── */}
       <section id="services" className="pt-32 pb-32 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
@@ -310,7 +318,7 @@ export default function Home() {
             </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── PROJECTS ─────────────────────────────────────────────────────── */}
       <section id="projects" className="relative pt-32 pb-32 overflow-hidden bg-surface-container-lowest">
@@ -404,7 +412,7 @@ export default function Home() {
             </article>
           </div>
         </div>
-      </section>
+      </motion.section>
 
       {/* ── CONTACT ──────────────────────────────────────────────────────── */}
       <section id="contact" className="min-h-screen flex flex-col md:flex-row w-full">
@@ -415,7 +423,7 @@ export default function Home() {
             <img 
               className="w-full h-full object-cover" 
               alt="High-end, cinematic, abstract technology background" 
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBD-Pqb0eS4vKMEA2DdHQHd71adyew7AGft1zmSkT9EZy5Pr5jjFUDQzHBxmB_2x2j9LeTQGAGRYaasu2p73T6Wllez6CZqsd7xsnGkRPD1QplmjTF2nypicwbc8LzflsHyF3_9U6NII0UUhJAZhYm9WoRjOo90DmVOoxOhKPaleituRA-dd3fpMbKRu4xb64fBMLKm8R9T7aTqH9EA9ibUv8XX4BalzZyHr74URgdth_QWtUJ3bW6Uj4K-XB-7Xxx6iqyxIefc8Tz"
+              src="/contact-bg.png"
             />
           </div>
           <div className="relative z-20 space-y-6 max-w-md">
@@ -518,16 +526,9 @@ export default function Home() {
               </div>
             </form>
 
-            <div className="mt-24 pt-12 border-t border-outline-variant/10">
-              <p className="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/40 mb-6">Current Availability</p>
-              <div className="flex items-center gap-3">
-                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
-                <span className="text-sm font-body text-on-surface/80">Open for high-impact architectural collaborations (Q4 2024)</span>
-              </div>
-            </div>
           </div>
         </div>
-      </section>
+      </motion.section>
 
     </main>
   );
