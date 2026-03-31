@@ -2,11 +2,29 @@
 
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Navbar() {
   const pathname = usePathname();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [isDark, setIsDark] = useState(true);
+
+  // Initialize from document class
+  useEffect(() => {
+    const html = document.documentElement;
+    setIsDark(html.classList.contains('dark'));
+  }, []);
+
+  const toggleTheme = () => {
+    const html = document.documentElement;
+    if (html.classList.contains('dark')) {
+      html.classList.remove('dark');
+      setIsDark(false);
+    } else {
+      html.classList.add('dark');
+      setIsDark(true);
+    }
+  };
 
   const navLinks = [
     { name: 'Home', path: '/' },
@@ -47,16 +65,29 @@ export default function Navbar() {
             })}
           </div>
 
-          {/* Mobile Hamburger */}
-          <button
-            className="md:hidden text-on-surface/60 hover:text-on-surface transition-colors p-1"
-            onClick={() => setMobileOpen(!mobileOpen)}
-            aria-label="Toggle menu"
-          >
-            <span className="material-symbols-outlined">
-              {mobileOpen ? 'close' : 'menu'}
-            </span>
-          </button>
+          {/* Theme toggle + Mobile menu */}
+          <div className="flex items-center gap-2">
+            <button
+              onClick={toggleTheme}
+              className="p-1 text-on-surface/60 hover:text-on-surface transition-all active:scale-95"
+              aria-label="Toggle dark mode"
+            >
+              <span className="material-symbols-outlined">
+                {isDark ? 'dark_mode' : 'light_mode'}
+              </span>
+            </button>
+
+            {/* Mobile Hamburger */}
+            <button
+              className="md:hidden text-on-surface/60 hover:text-on-surface transition-colors p-1"
+              onClick={() => setMobileOpen(!mobileOpen)}
+              aria-label="Toggle menu"
+            >
+              <span className="material-symbols-outlined">
+                {mobileOpen ? 'close' : 'menu'}
+              </span>
+            </button>
+          </div>
         </div>
       </nav>
 
