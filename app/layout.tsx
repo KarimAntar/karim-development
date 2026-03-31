@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { Space_Grotesk, Inter } from 'next/font/google'
+import { Space_Grotesk } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
@@ -8,13 +8,6 @@ const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
   weight: ['300', '400', '500', '600', '700'],
   variable: '--font-space-grotesk',
-  display: 'swap',
-})
-
-const inter = Inter({
-  subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-inter',
   display: 'swap',
 })
 
@@ -56,7 +49,7 @@ export default function RootLayout({
         />
       </head>
       <body
-        className={`${spaceGrotesk.variable} ${inter.variable} antialiased`}
+        className={`${spaceGrotesk.variable} antialiased`}
         suppressHydrationWarning
       >
         <Navbar />
