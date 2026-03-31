@@ -1,31 +1,37 @@
 import type { Metadata } from 'next'
-import { Montserrat } from 'next/font/google'
+import { Space_Grotesk, Manrope } from 'next/font/google'
 import './globals.css'
+import Navbar from '@/components/Navbar'
+import Footer from '@/components/Footer'
 
-const montserrat = Montserrat({ 
+const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800'],
-  variable: '--font-montserrat',
+  variable: '--font-space-grotesk',
+})
+
+const manrope = Manrope({
+  subsets: ['latin'],
+  variable: '--font-manrope',
 })
 
 export const metadata: Metadata = {
-  title: 'Karim Development',
-  description: 'Karim Antar - Full-stack web developer specializing in React, Next.js, Laravel, and Node.js. Based in Cairo, Egypt. View my portfolio of web applications and get in touch.',
-  keywords: 'web development, react, next.js, laravel, node.js, full-stack developer, cairo, egypt, karim antar',
+  title: 'Karim Development | Architectural Digital Excellence',
+  description: 'Karim Antar — Full Stack Web Developer based in Cairo, Egypt. Engineering excellence in every line of code. React, Next.js, Node.js, TypeScript.',
+  keywords: 'web development, react, next.js, node.js, full-stack developer, cairo, egypt, karim antar, karim development',
   icons: {
     icon: '/logo_with_gradient.png',
     apple: '/logo_with_gradient.png',
   },
   openGraph: {
-    title: 'Karim Development',
-    description: 'Karim Antar - Full-stack web developer specializing in React, Next.js, Laravel, and Node.js. Based in Cairo, Egypt.',
+    title: 'Karim Development | Architectural Digital Excellence',
+    description: 'Karim Antar — Full Stack Web Developer. React, Next.js, Node.js, TypeScript. Based in Cairo, Egypt.',
     images: ['/logo_with_gradient.png'],
     type: 'website',
   },
   twitter: {
     card: 'summary',
     title: 'Karim Development',
-    description: 'Karim Antar - Full-stack web developer specializing in React, Next.js, Laravel, and Node.js.',
+    description: 'Karim Antar — Full Stack Web Developer. React, Next.js, Node.js.',
     images: ['/logo_with_gradient.png'],
   },
 }
@@ -36,10 +42,20 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="en" className="dark">
-      <body className={montserrat.className}>
-        <div className="animated-bg"></div>
+    <html lang="en" className="dark" suppressHydrationWarning>
+      <head>
+        <link
+          href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap"
+          rel="stylesheet"
+        />
+      </head>
+      <body
+        className={`${spaceGrotesk.variable} ${manrope.variable} antialiased`}
+        suppressHydrationWarning
+      >
+        <Navbar />
         {children}
+        <Footer />
       </body>
     </html>
   )

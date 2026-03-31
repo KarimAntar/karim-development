@@ -31,3 +31,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# backup folder (old website backup - not tracked in git)
+/backup/
+
+# new design source (already integrated)
+/karim-dev-new/

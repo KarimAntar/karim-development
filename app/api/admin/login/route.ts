@@ -10,8 +10,9 @@ export async function POST(req: Request) {
     }
 
     if (password === process.env.ADMIN_PASSWORD) {
-      // Set secure HTTP-only cookie
-      cookies().set({
+      // Set secure HTTP-only cookie — cookies() is async in Next.js 15
+      const cookieStore = await cookies();
+      cookieStore.set({
         name: 'admin_auth',
         value: 'authenticated',
         httpOnly: true,
@@ -25,7 +26,7 @@ export async function POST(req: Request) {
     }
 
     return NextResponse.json({ error: 'Invalid password' }, { status: 401 });
-  } catch (error) {
+  } catch {
     return NextResponse.json({ error: 'Internal server error' }, { status: 500 });
   }
 }

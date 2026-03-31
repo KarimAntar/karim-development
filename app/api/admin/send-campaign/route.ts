@@ -4,8 +4,9 @@ import { WelcomeTemplate, NewsletterTemplate, PromotionTemplate } from '@/compon
 
 export async function POST(req: Request) {
   try {
-    // 1. Verify Authentication
-    const authCookie = cookies().get('admin_auth');
+    // 1. Verify Authentication — cookies() is async in Next.js 15
+    const cookieStore = await cookies();
+    const authCookie = cookieStore.get('admin_auth');
     if (authCookie?.value !== 'authenticated') {
       return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
     }

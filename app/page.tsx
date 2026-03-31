@@ -1,645 +1,153 @@
-'use client'
+'use client';
 
-import { useState, useEffect } from 'react'
-import { FaCode, FaMobile, FaCloud, FaDatabase, FaRocket, FaEnvelope, FaGithub, FaLinkedin, FaFacebook, FaCheckCircle, FaServer, FaPalette, FaSun, FaMoon, FaHome, FaUser, FaBriefcase, FaFolderOpen, FaMapMarkerAlt, FaPhone } from 'react-icons/fa'
+import { useEffect, useRef } from 'react';
+import Image from 'next/image';
+import Link from 'next/link';
 
 export default function Home() {
-  const [activeSection, setActiveSection] = useState('home')
-  const [scrollY, setScrollY] = useState(0)
-  const [darkMode, setDarkMode] = useState(true)
-  const [currentTagline, setCurrentTagline] = useState(0)
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
-  const [displayedText, setDisplayedText] = useState('')
-  const [isTyping, setIsTyping] = useState(true)
-  const [formData, setFormData] = useState({ name: '', email: '', message: '' })
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle')
-  const [submitMessage, setSubmitMessage] = useState('')
-
-  const handleContactSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    setSubmitStatus('loading')
-    
-    try {
-      const response = await fetch('/api/contact', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      })
-      
-      if (!response.ok) throw new Error('Failed to send message')
-      
-      setSubmitStatus('success')
-      setSubmitMessage('Message sent successfully! We will get back to you soon.')
-      setFormData({ name: '', email: '', message: '' })
-      
-      // Reset success message after 5 seconds
-      setTimeout(() => setSubmitStatus('idle'), 5000)
-    } catch (error) {
-      setSubmitStatus('error')
-      setSubmitMessage('Failed to send message. Please try again later.')
-    }
-  }
-
-  const taglines = [
-    "Crafting Digital Excellence Through Innovation",
-    "Building Tomorrow's Web Solutions Today",
-    "Transforming Ideas Into Powerful Applications",
-    "Where Creativity Meets Technology",
-    "Engineering Excellence In Every Line Of Code"
-  ]
-
-  const navItems = [
-    { name: 'Home', icon: FaHome },
-    { name: 'About', icon: FaUser },
-    { name: 'Services', icon: FaBriefcase },
-    { name: 'Projects', icon: FaFolderOpen },
-    { name: 'Contact', icon: FaEnvelope }
-  ]
+  const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
-    const handleScroll = () => {
-      setScrollY(window.scrollY)
-      
-      const sections = ['home', 'about', 'services', 'projects', 'contact']
-      const current = sections.find(section => {
-        const element = document.getElementById(section)
-        if (element) {
-          const rect = element.getBoundingClientRect()
-          return rect.top <= 100 && rect.bottom >= 100
-        }
-        return false
-      })
-      
-      if (current) setActiveSection(current)
-    }
+    const canvas = canvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
 
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
-  }, [])
-
-  // Typing animation effect
-  useEffect(() => {
-    setDisplayedText('')
-    setIsTyping(true)
-    let currentIndex = 0
-    const currentText = taglines[currentTagline]
-
-    const typingInterval = setInterval(() => {
-      if (currentIndex <= currentText.length) {
-        setDisplayedText(currentText.slice(0, currentIndex))
-        currentIndex++
-      } else {
-        setIsTyping(false)
-        clearInterval(typingInterval)
-      }
-    }, 50) // Typing speed: 50ms per character
-
-    return () => clearInterval(typingInterval)
-  }, [currentTagline])
-
-  // Rotate taglines every 4 seconds
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setCurrentTagline((prev) => (prev + 1) % taglines.length)
-    }, 4000)
-    return () => clearInterval(interval)
-  }, [])
-
-  // Apply dark mode class to body
-  useEffect(() => {
-    if (darkMode) {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-  }, [darkMode])
-
-  // Scroll animation observer
-  useEffect(() => {
-    const observerOptions = {
-      threshold: 0.1,
-      rootMargin: '0px 0px -50px 0px'
-    }
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add('visible')
-        }
-      })
-    }, observerOptions)
-
-    // Observe all animatable elements
-    const elements = document.querySelectorAll('.scroll-animate')
-    elements.forEach(el => observer.observe(el))
-
-    return () => observer.disconnect()
-  }, [])
-
-  // Matrix rain animation
-  useEffect(() => {
-    const canvas = document.getElementById('matrix-canvas') as HTMLCanvasElement
-    if (!canvas) return
-
-    const ctx = canvas.getContext('2d')
-    if (!ctx) return
-
-    canvas.width = window.innerWidth
-    canvas.height = window.innerHeight
-
-    const binary = '01'
-    const fontSize = 16
-    const columns = canvas.width / fontSize
-    const drops: number[] = []
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+    const fontSize = 16;
+    let columns = Math.floor(width / fontSize);
+    let drops: number[] = [];
 
     for (let i = 0; i < columns; i++) {
-      drops[i] = Math.floor(Math.random() * canvas.height / fontSize)
+      drops[i] = Math.random() * -100;
     }
 
     const draw = () => {
-      // Semi-transparent background for trail effect
-      const bgColor = darkMode ? 'rgba(5, 10, 15, 0.05)' : 'rgba(230, 241, 255, 0.05)'
-      ctx.fillStyle = bgColor
-      ctx.fillRect(0, 0, canvas.width, canvas.height)
-
-      // Set text color based on theme
-      const textColor = darkMode ? '#0066e6' : '#0052b8'
-      ctx.fillStyle = textColor
-      ctx.font = `${fontSize}px monospace`
+      ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
+      ctx.fillRect(0, 0, width, height);
+      ctx.fillStyle = '#0066e6';
+      ctx.font = fontSize + 'px monospace';
 
       for (let i = 0; i < drops.length; i++) {
-        const text = binary[Math.floor(Math.random() * binary.length)]
-        const x = i * fontSize
-        const y = drops[i] * fontSize
-
-        ctx.fillText(text, x, y)
-
-        if (y > canvas.height && Math.random() > 0.975) {
-          drops[i] = 0
+        const text = Math.random() > 0.5 ? '0' : '1';
+        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
+        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+          drops[i] = 0;
         }
-
-        drops[i]++
+        drops[i]++;
       }
-    }
-
-    const interval = setInterval(draw, 50)
+    };
 
     const handleResize = () => {
-      canvas.width = window.innerWidth
-      canvas.height = window.innerHeight
-    }
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+      columns = Math.floor(width / fontSize);
+      drops = [];
+      for (let i = 0; i < columns; i++) {
+        drops[i] = Math.random() * -100;
+      }
+    };
 
-    window.addEventListener('resize', handleResize)
+    window.addEventListener('resize', handleResize);
+
+    let animationFrameId: number;
+    const animate = () => {
+      draw();
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    animate();
 
     return () => {
-      clearInterval(interval)
-      window.removeEventListener('resize', handleResize)
-    }
-  }, [darkMode])
-
-  const services = [
-    {
-      icon: <FaCode className="text-4xl" />,
-      title: 'Web Development',
-      description: 'Custom web applications built with modern technologies like React, Next.js, and TypeScript for optimal performance.'
-    },
-    {
-      icon: <FaMobile className="text-4xl" />,
-      title: 'Mobile Solutions',
-      description: 'Responsive and progressive web apps that work seamlessly across all devices and platforms.'
-    },
-    {
-      icon: <FaServer className="text-4xl" />,
-      title: 'API Development',
-      description: 'RESTful and GraphQL APIs designed for scalability, security, and seamless integration.'
-    }
-  ]
-
-  const projects = [
-    {
-      title: 'BloodBond',
-      description: 'A comprehensive blood donation management platform connecting donors with those in need, featuring real-time matching and emergency alerts.',
-      tags: ['React', 'Node.js', 'MongoDB'],
-      image: '/bloodbond.png',
-      live: 'https://bloodbond.app/'
-    },
-    {
-      title: 'NS Financial Services',
-      description: 'Professional financial services website offering comprehensive solutions for investment, loans, and financial planning.',
-      tags: ['Next.js', 'TypeScript', 'Tailwind CSS'],
-      image: '/nsfinancialservice.png',
-      live: 'https://www.nsfinancialservice.com/'
-    },
-    {
-      title: 'Real Estate Platform',
-      description: 'Modern real estate listings platform with advanced search, property management, and interactive map integration.',
-      tags: ['React', 'Firebase', 'Material-UI'],
-      image: '/realestate.png',
-      live: 'https://real-estate-project-sepia.vercel.app/'
-    }
-  ]
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
 
   return (
-    <main className="min-h-screen relative">
-      {/* Matrix Rain Background */}
-      <canvas
-        id="matrix-canvas"
-        className="fixed inset-0 w-full h-full pointer-events-none"
-        style={{ zIndex: 0 }}
-      />
+    <main className="relative min-h-screen overflow-hidden flex flex-col items-center justify-center bg-black">
+      <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full z-0" style={{ opacity: 0.4 }} />
 
-      {/* Mobile Menu Backdrop */}
-      {mobileMenuOpen && (
-        <div
-          className="fixed inset-0 bg-black/50 z-40 md:hidden"
-          onClick={() => setMobileMenuOpen(false)}
-        />
-      )}
-
-      {/* Navigation */}
-      <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrollY > 50 ? 'bg-dark-800/98 dark:bg-dark-800/98 shadow-lg shadow-primary-500/10' : 'bg-dark-900/80 dark:bg-dark-900/80 backdrop-blur-sm'
-      }`}>
-        <div className="container mx-auto px-4 sm:px-6 py-3 sm:py-4">
-          <div className="flex items-center justify-between">
-            <a href="#home" className="flex items-center gap-2 sm:gap-3 shrink-0 cursor-pointer" onClick={() => setMobileMenuOpen(false)}>
-              <div className="logo-container-header shrink-0">
-                <img
-                  src="/logo160x160.png"
-                  alt="Karim Development Logo"
-                  className="logo-header"
-                />
-              </div>
-              <span className="text-lg sm:text-xl md:text-2xl font-bold text-gradient whitespace-nowrap shrink-0">Karim Development</span>
-            </a>
-            <div className="flex items-center gap-4 sm:gap-6">
-              <div className="hidden md:flex space-x-2">
-                {navItems.map((item) => {
-                  const Icon = item.icon
-                  return (
-                    <a
-                      key={item.name}
-                      href={`#${item.name.toLowerCase()}`}
-                      className={`nav-item ${
-                        activeSection === item.name.toLowerCase()
-                          ? 'nav-item-active'
-                          : ''
-                      }`}
-                    >
-                      <Icon className="text-base" />
-                      <span>{item.name}</span>
-                    </a>
-                  )
-                })}
-              </div>
-
-              {/* Mobile Menu Button */}
-              <button
-                onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-                className="md:hidden text-gray-300 hover:text-primary-400 transition-colors p-2 relative z-50"
-                aria-label="Toggle menu"
-              >
-                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  {mobileMenuOpen ? (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  ) : (
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                  )}
-                </svg>
-              </button>
-
-              {/* Dark/Light Mode Toggle */}
-              <button
-                onClick={() => setDarkMode(!darkMode)}
-                className="relative w-16 h-8 bg-gray-400 dark:bg-dark-700 rounded-full transition-colors duration-300 border-2 border-gray-500 dark:border-transparent flex items-center p-[2px] shrink-0"
-                aria-label="Toggle dark mode"
-              >
-                <div
-                  className={`w-7 h-7 bg-gray-100 dark:bg-dark-900 rounded-full shadow-lg transform transition-transform duration-300 flex items-center justify-center ${
-                    darkMode ? 'translate-x-8' : 'translate-x-0'
-                  }`}
-                >
-                  {darkMode ? (
-                    <FaMoon className="text-primary-400 text-sm" />
-                  ) : (
-                    <FaSun className="text-yellow-600 text-sm" />
-                  )}
-                </div>
-              </button>
-            </div>
-          </div>
-        </div>
-
-        {/* Mobile Menu */}
-        {mobileMenuOpen && (
-          <div className="md:hidden bg-dark-800/98 dark:bg-dark-800/98 border-t border-gray-700 relative z-50">
-            <div className="container mx-auto px-4 py-4">
-              <div className="flex flex-col space-y-2">
-                {navItems.map((item) => {
-                  const Icon = item.icon
-                  return (
-                    <a
-                      key={item.name}
-                      href={`#${item.name.toLowerCase()}`}
-                      onClick={() => setMobileMenuOpen(false)}
-                      className={`nav-item-mobile ${
-                        activeSection === item.name.toLowerCase()
-                          ? 'nav-item-mobile-active'
-                          : ''
-                      }`}
-                    >
-                      <Icon className="text-lg" />
-                      <span>{item.name}</span>
-                    </a>
-                  )
-                })}
-              </div>
-            </div>
-          </div>
-        )}
-      </nav>
-
-      {/* Hero Section */}
-      <section id="home" className="min-h-screen flex items-center justify-center relative overflow-hidden pt-20 pb-10">
-        <div className="container mx-auto px-4 sm:px-6 relative z-10">
-          <div className="grid md:grid-cols-2 gap-8 md:gap-12 items-center">
-            {/* Left side - Image */}
-            <div className="animate-slide-right">
-              <div className="relative hero-image-container">
-                <img
-                  src="https://plus.unsplash.com/premium_photo-1678566111481-8e275550b700?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&h=800&w=687"
-                  alt="Workspace"
-                  className="w-full h-auto object-cover hero-image"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-dark-900 via-transparent to-transparent pointer-events-none"></div>
-              </div>
-            </div>
-
-            {/* Right side - Content */}
-            <div className="animate-slide-left text-center md:text-left max-w-full">
-              <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-bold mb-4 sm:mb-6 max-w-full overflow-hidden">
-                <span className="text-gradient">Karim Development</span>
-              </h1>
-              <div className="text-lg sm:text-xl md:text-2xl mb-6 sm:mb-8 min-h-[70px] sm:min-h-[80px] w-full">
-                <span className="typing-text-wrapper">
-                  {displayedText}
-                  <span className={`typing-cursor ${isTyping ? 'blink' : ''}`}>|</span>
-                </span>
-              </div>
-              <div className="hero-buttons-container max-w-full">
-                <a href="#contact" className="btn-primary text-center">
-                  Get In Touch
-                </a>
-                <a href="#projects" className="btn-secondary text-center">
-                  View Projects
-                </a>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="scroll-indicator">
-          <div className="scroll-indicator-mouse">
-            <div className="scroll-indicator-dot"></div>
-          </div>
-        </div>
-      </section>
-
-      {/* About Section */}
-      <section id="about" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 scroll-animate">
-            <span className="text-gradient">About Me</span>
-          </h2>
-          <div className="max-w-4xl mx-auto scroll-animate">
-            <div className="glow-card rounded-2xl p-8 md:p-12">
-              <p className="text-lg text-gray-300 mb-6 leading-relaxed">
-                I'm <span className="text-primary-400 font-semibold">Karim Antar</span>, a passionate web developer based in Cairo, Egypt. My goal is to find positions where I can utilize my solid business experience and specialist information technology skills to assist organizations implementing information technologies to meet their specialized and business objectives.
-              </p>
-              <p className="text-lg text-gray-300 mb-8 leading-relaxed">
-                With experience as a Full Stack Web Developer and expertise in modern web technologies including React, Node.js, and Python, I bring a comprehensive skill set to every project. I'm able to effectively self-manage during independent projects, as well as collaborate as part of a productive team.
-              </p>
-              <div className="grid md:grid-cols-3 gap-6 mt-8">
-                <div className="text-center p-6 bg-dark-700/50 rounded-xl border border-primary-500/20">
-                  <div className="text-4xl font-bold text-primary-400 mb-2">8+</div>
-                  <div className="text-gray-400">Years Experience</div>
-                </div>
-                <div className="text-center p-6 bg-dark-700/50 rounded-xl border border-primary-500/20">
-                  <div className="text-4xl font-bold text-primary-400 mb-2">50+</div>
-                  <div className="text-gray-400">Projects Completed</div>
-                </div>
-                <div className="text-center p-6 bg-dark-700/50 rounded-xl border border-primary-500/20">
-                  <div className="text-4xl font-bold text-primary-400 mb-2">10+</div>
-                  <div className="text-gray-400">Technologies</div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Services Section */}
-      <section id="services" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 scroll-animate">
-            <span className="text-gradient">Our Services</span>
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {services.map((service, index) => (
-              <div
-                key={index}
-                className="glow-card rounded-xl p-8 group scroll-animate"
-              >
-                <div className="text-primary-400 mb-4 transform group-hover:scale-110 transition-transform">
-                  {service.icon}
-                </div>
-                <h3 className="text-xl font-bold mb-3 text-white">{service.title}</h3>
-                <p className="text-gray-400 leading-relaxed">{service.description}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Projects Section */}
-      <section id="projects" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 scroll-animate">
-            <span className="text-gradient">Featured Projects</span>
-          </h2>
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {projects.map((project, index) => (
-              <div
-                key={index}
-                className="glow-card rounded-xl p-8 group scroll-animate flex flex-col"
-              >
-                <div className="w-full h-48 rounded-lg mb-6 relative overflow-hidden">
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className="w-full h-full object-cover rounded-lg transition-transform duration-300 group-hover:scale-110"
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-dark-900/80 via-transparent to-transparent opacity-60 group-hover:opacity-40 transition-opacity duration-300"></div>
-                </div>
-                <h3 className="text-2xl font-bold mb-3 text-white">{project.title}</h3>
-                <p className="text-gray-400 mb-4 leading-relaxed flex-grow">{project.description}</p>
-                <div className="flex flex-wrap gap-2 mb-4">
-                  {project.tags.map((tag, i) => (
-                    <span
-                      key={i}
-                      className="px-3 py-1 bg-primary-500/20 text-primary-300 rounded-full text-sm border border-primary-500/30"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-                <div className="flex gap-3">
-                  <a
-                    href={project.live}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="btn-action flex items-center justify-center gap-2"
-                  >
-                    <FaRocket /> Live
-                  </a>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Section */}
-      <section id="contact" className="py-16 sm:py-20 md:py-24 relative scroll-animate z-10">
-        <div className="container mx-auto px-4 sm:px-6">
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mb-10 sm:mb-12 md:mb-16 scroll-animate">
-            <span className="text-gradient">Get In Touch</span>
-          </h2>
-          <div className="max-w-2xl mx-auto scroll-animate">
-            <div className="glow-card rounded-2xl p-8 md:p-12">
-              <form onSubmit={handleContactSubmit} className="space-y-6">
-                <div>
-                  <label className="block text-gray-300 mb-2 font-medium">Name</label>
-                  <input
-                    type="text"
-                    required
-                    value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-primary-500/30 rounded-lg focus:border-primary-500 focus:outline-none text-white placeholder-gray-500 transition-all"
-                    placeholder="Your Name"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-300 mb-2 font-medium">Email</label>
-                  <input
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-primary-500/30 rounded-lg focus:border-primary-500 focus:outline-none text-white placeholder-gray-500 transition-all"
-                    placeholder="your.email@example.com"
-                  />
-                </div>
-                <div>
-                  <label className="block text-gray-300 mb-2 font-medium">Message</label>
-                  <textarea
-                    rows={5}
-                    required
-                    value={formData.message}
-                    onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                    className="w-full px-4 py-3 bg-dark-700 border border-primary-500/30 rounded-lg focus:border-primary-500 focus:outline-none text-white placeholder-gray-500 transition-all resize-none"
-                    placeholder="Tell us about your project..."
-                  ></textarea>
-                </div>
-                
-                {submitStatus === 'success' && (
-                  <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400 text-center">
-                    {submitMessage}
-                  </div>
-                )}
-                
-                {submitStatus === 'error' && (
-                  <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-center">
-                    {submitMessage}
-                  </div>
-                )}
-
-                <div className="flex justify-center">
-                  <button 
-                    type="submit" 
-                    className="btn-primary disabled:opacity-50 disabled:cursor-not-allowed flex items-center gap-2"
-                    disabled={submitStatus === 'loading'}
-                  >
-                    {submitStatus === 'loading' ? (
-                      <>
-                        <svg className="animate-spin h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
-                        </svg>
-                        Sending...
-                      </>
-                    ) : (
-                      'Send Message'
-                    )}
-                  </button>
-                </div>
-              </form>
-
-              <div className="mt-8 pt-8 border-t border-gray-700">
-                <div className="flex justify-center gap-4">
-                  <a href="https://github.com/KarimAntar" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <FaGithub />
-                  </a>
-                  <a href="https://www.linkedin.com/in/karimmamdouh" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <FaLinkedin />
-                  </a>
-                  <a href="https://facebook.com/Karim.Mamdou7" target="_blank" rel="noopener noreferrer" className="social-icon">
-                    <FaFacebook />
-                  </a>
-                  <a href="mailto:karimamdou7@gmail.com" className="social-icon">
-                    <FaEnvelope />
-                  </a>
-                </div>
-                <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mt-6">
-                  <div className="contact-info-badge">
-                    <FaMapMarkerAlt className="text-primary-400 text-lg flex-shrink-0" />
-                    <span>Cairo, Egypt</span>
-                  </div>
-                  <a
-                    href="tel:+201066241997"
-                    className="contact-info-badge contact-info-link group"
-                  >
-                    <FaPhone className="text-primary-400 text-lg flex-shrink-0 group-hover:scale-110 transition-transform" />
-                    <span className="group-hover:text-primary-400 transition-colors">+20 106 624 1997</span>
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Footer */}
-      <footer className="py-8 sm:py-10 md:py-12 border-t border-gray-800 dark:border-gray-800 border-gray-300 relative z-10">
-        <div className="container mx-auto px-4 sm:px-6">
-          <div className="flex flex-col items-center">
-            <div className="logo-container-footer mb-6">
-              <img
-                src={darkMode ? "/logo_300x100_white.png" : "/logo_300x100_black.png"}
-                alt="Karim Development Logo"
-                className="logo-footer"
+      <section className="container mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-screen pt-24 pb-12 relative z-10">
+        {/* Left — Image */}
+        <div className="lg:col-span-5 relative group order-2 lg:order-1 flex justify-center lg:justify-start">
+          <div className="relative w-full aspect-square max-w-[450px] lg:max-w-none">
+            <div className="absolute inset-0 bg-surface-container-high/20 backdrop-blur-md rounded-xl border border-white/5 glow-ring z-10 transform -rotate-3 transition-transform duration-700 group-hover:rotate-0" />
+            <div className="absolute inset-0 z-20 overflow-hidden rounded-xl border border-white/10 shadow-2xl">
+              <Image
+                src="https://plus.unsplash.com/premium_photo-1678566111481-8e275550b700?ixlib=rb-4.1.0&auto=format&fit=crop&h=800&w=687"
+                alt="Karim Antar — Full Stack Developer workspace"
+                fill
+                className="object-cover filter grayscale contrast-125 opacity-90 transition-all duration-700 group-hover:scale-105 group-hover:grayscale-0"
               />
+              <div className="absolute inset-0 bg-gradient-to-tr from-primary-container/20 to-transparent pointer-events-none" />
             </div>
-            <div className="text-center text-gray-400 dark:text-gray-400 text-gray-600">
-              <p>&copy; 2026 Karim Development. All rights reserved.</p>
-              <p className="mt-2 text-sm">Building the future, one line of code at a time.</p>
+            <div className="absolute -bottom-6 -right-6 z-30 bg-surface-container-highest/80 backdrop-blur-xl p-4 border border-white/10 rounded-lg shadow-xl hidden sm:block">
+              <div className="font-label text-[10px] tracking-[0.2em] uppercase text-primary mb-1">Status</div>
+              <div className="font-headline font-bold text-sm text-on-surface">SYSTEMS_ACTIVE</div>
             </div>
           </div>
         </div>
-      </footer>
+
+        {/* Right — Content */}
+        <div className="lg:col-span-7 z-30 order-1 lg:order-2">
+          <div className="flex flex-col space-y-8">
+            <header>
+              <span className="inline-block font-label text-sm tracking-[0.3em] uppercase text-primary mb-4 border-l-2 border-primary pl-4">
+                Karim Development
+              </span>
+              <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-on-surface leading-[0.9] text-glow mb-8">
+                Crafting Digital <br />
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-tertiary-fixed-dim">
+                  Excellence
+                </span>
+              </h1>
+            </header>
+            <p className="font-body text-lg md:text-xl text-on-surface-variant max-w-xl leading-relaxed opacity-80">
+              Engineering excellence in every line of code. Building scalable, high-performance
+              architectures that bridge the gap between abstract innovation and human-centric design.
+            </p>
+            <div className="flex flex-wrap gap-4 pt-4">
+              <Link
+                href="/contact"
+                className="group relative px-8 py-4 bg-gradient-to-br from-primary-container to-tertiary-container text-on-primary-container font-headline font-bold tracking-tight rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-[0_10px_30px_rgba(0,102,230,0.3)] inline-block"
+              >
+                <span className="relative z-10">Get In Touch</span>
+                <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
+              </Link>
+              <Link
+                href="/projects"
+                className="px-8 py-4 border border-outline-variant/30 text-on-surface font-headline font-bold tracking-tight rounded-lg hover:bg-white/5 hover:border-outline-variant transition-all duration-300 active:scale-95 inline-block"
+              >
+                View Projects
+              </Link>
+            </div>
+
+            <div className="pt-12 flex items-center gap-6">
+              <div className="flex -space-x-3">
+                <div className="w-10 h-10 rounded-full bg-surface-container-high border-2 border-background flex items-center justify-center">
+                  <span className="material-symbols-outlined text-primary text-sm">terminal</span>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-surface-container-high border-2 border-background flex items-center justify-center">
+                  <span className="material-symbols-outlined text-primary text-sm">database</span>
+                </div>
+                <div className="w-10 h-10 rounded-full bg-surface-container-high border-2 border-background flex items-center justify-center">
+                  <span className="material-symbols-outlined text-primary text-sm">cloud</span>
+                </div>
+              </div>
+              <span className="font-label text-[10px] tracking-widest text-on-surface-variant uppercase border-l border-white/10 pl-6">
+                Full-Stack <br /> Architecture
+              </span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Scroll cue */}
+      <div className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 hover:opacity-100 transition-opacity cursor-pointer z-30">
+        <span className="font-label text-[10px] tracking-[0.4em] uppercase text-on-surface">Explore</span>
+        <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent" />
+      </div>
     </main>
-  )
+  );
 }
