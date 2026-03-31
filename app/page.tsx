@@ -22,61 +22,61 @@ export default function Home() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const numPoints = 800;
-    const points: {phi: number, theta: number}[] = [];
-    for(let i=0; i<numPoints; i++) {
-        const phi = Math.acos(1 - 2 * (i + 0.5) / numPoints);
-        const theta = Math.PI * (1 + Math.sqrt(5)) * i;
-        points.push({ phi, theta });
+    const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789$+-*/=%""\'#&_(),.;:?!\\|{}<>[]^~';
+    const fontSize = 14;
+    let columns = Math.floor(width / fontSize);
+    let drops: number[] = [];
+
+    for (let i = 0; i < columns; i++) {
+      drops[i] = Math.random() * -100;
     }
 
-    let t = 0;
+    let animationFrameId: number;
+    let timeoutId: NodeJS.Timeout;
+
     const draw = () => {
-      ctx.clearRect(0,0,width,height);
+      // Add subtle trailing effect
       const isDark = document.documentElement.classList.contains('dark');
-      ctx.fillStyle = isDark ? '#b0c6ff' : '#0066e6';
-      
-      const centerX = width/2;
-      const radius = Math.min(width, height) * 0.45;
-      const centerY = height + radius * 0.2;
-      
-      t += 0.002;
-      
-      for(let i=0; i<points.length; i++) {
-        const {phi, theta} = points[i];
-        
-        const x = radius * Math.sin(phi) * Math.cos(theta + t);
-        const y = radius * Math.cos(phi);
-        const z = radius * Math.sin(phi) * Math.sin(theta + t);
-        
-        const scale = (radius + z) / (radius * 2); 
-        const projectedX = centerX + x;
-        const projectedY = centerY + (y * Math.cos(0.25) - z * Math.sin(0.25));
-        
-        if (z < -radius*0.5) continue;
-        
-        ctx.globalAlpha = Math.max(0.05, scale * (isDark ? 0.6 : 0.4));
-        ctx.beginPath();
-        ctx.arc(projectedX, projectedY, Math.max(0.5, 2 * scale), 0, Math.PI*2);
-        ctx.fill();
+      ctx.fillStyle = isDark ? 'rgba(19, 19, 19, 0.1)' : 'rgba(255, 255, 255, 0.1)';
+      ctx.fillRect(0, 0, width, height);
+
+      // Dim cyan/blue for the text
+      ctx.fillStyle = isDark ? 'rgba(92, 213, 246, 0.35)' : 'rgba(0, 102, 230, 0.25)';
+      ctx.font = `${fontSize}px var(--font-inter), monospace`;
+
+      for (let i = 0; i < drops.length; i++) {
+        const char = characters.charAt(Math.floor(Math.random() * characters.length));
+        ctx.fillText(char, i * fontSize, drops[i] * fontSize);
+
+        if (drops[i] * fontSize > height && Math.random() > 0.975) {
+          drops[i] = 0;
+        }
+        drops[i] += 0.8; // Adjusted speed
       }
+
+      timeoutId = setTimeout(() => {
+        animationFrameId = requestAnimationFrame(draw);
+      }, 35); // Limit framerate for classic matrix feel
     };
+
+    draw();
 
     const handleResize = () => {
-      width = canvas.width = window.innerWidth;
-      height = canvas.height = window.innerHeight;
+      width = (canvas.width = window.innerWidth);
+      height = (canvas.height = window.innerHeight);
+      columns = Math.floor(width / fontSize);
+      const newDrops = [];
+      for (let i = 0; i < columns; i++) {
+        newDrops[i] = i < drops.length ? drops[i] : Math.random() * -100;
+      }
+      drops = newDrops;
     };
-    window.addEventListener('resize', handleResize);
 
-    let animationFrameId: number;
-    const animate = () => {
-      draw();
-      animationFrameId = requestAnimationFrame(animate);
-    };
-    animate();
+    window.addEventListener('resize', handleResize);
 
     return () => {
       window.removeEventListener('resize', handleResize);
+      clearTimeout(timeoutId);
       cancelAnimationFrame(animationFrameId);
     };
   }, []);
@@ -164,9 +164,15 @@ export default function Home() {
         </div>
 
         {/* Scroll cue */}
-        <a href="#about" className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-40 hover:opacity-100 transition-opacity cursor-pointer z-30">
-          <span className="font-label text-[10px] tracking-[0.4em] uppercase text-on-surface">Explore</span>
-          <div className="w-[1px] h-12 bg-gradient-to-b from-primary to-transparent" />
+        <a href="#about" className="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 hover:opacity-100 transition-opacity cursor-pointer z-30">
+          <span className="font-label text-[10px] tracking-[0.4em] uppercase text-on-surface">Scroll</span>
+          <div className="w-[18px] h-[30px] border-[1.5px] border-on-surface/50 rounded-full flex justify-center pt-[3px]">
+            <motion.div 
+              animate={{ y: [0, 8, 0] }} 
+              transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
+              className="w-[3px] h-[5px] bg-primary rounded-full drop-shadow-[0_0_8px_rgba(0,102,230,0.8)]" 
+            />
+          </div>
         </a>
       </section>
 
