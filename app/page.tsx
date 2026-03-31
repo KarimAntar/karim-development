@@ -7,14 +7,15 @@ import { motion } from 'motion/react';
 import TypewriterText from '@/components/TypewriterText';
 
 export default function Home() {
-  const canvasRef = useRef<HTMLCanvasElement>(null);
+  const matrixCanvasRef = useRef<HTMLCanvasElement>(null);
+  const sphereCanvasRef = useRef<HTMLCanvasElement>(null);
   const [formData, setFormData] = useState({ name: '', email: '', message: '' });
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
 
-  // ── Rotating Particle Sphere ──────
+  // ── Matrix Character Rain ──────
   useEffect(() => {
-    const canvas = canvasRef.current;
+    const canvas = matrixCanvasRef.current;
     if (!canvas) return;
     const ctx = canvas.getContext('2d');
     if (!ctx) return;
@@ -42,7 +43,7 @@ export default function Home() {
 
       // Dim cyan/blue for the text
       ctx.fillStyle = isDark ? 'rgba(92, 213, 246, 0.35)' : 'rgba(0, 102, 230, 0.25)';
-      ctx.font = `${fontSize}px var(--font-inter), monospace`;
+      ctx.font = `${fontSize}px var(--font-headline), monospace`;
 
       for (let i = 0; i < drops.length; i++) {
         const char = characters.charAt(Math.floor(Math.random() * characters.length));
@@ -81,6 +82,75 @@ export default function Home() {
     };
   }, []);
 
+  // ── Rotating Particle Sphere ──────
+  useEffect(() => {
+    const canvas = sphereCanvasRef.current;
+    if (!canvas) return;
+    const ctx = canvas.getContext('2d');
+    if (!ctx) return;
+
+    let width = (canvas.width = window.innerWidth);
+    let height = (canvas.height = window.innerHeight);
+
+    const numPoints = 800;
+    const points: {phi: number, theta: number}[] = [];
+    for(let i=0; i<numPoints; i++) {
+        const phi = Math.acos(1 - 2 * (i + 0.5) / numPoints);
+        const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+        points.push({ phi, theta });
+    }
+
+    let t = 0;
+    const draw = () => {
+      ctx.clearRect(0,0,width,height);
+      const isDark = document.documentElement.classList.contains('dark');
+      ctx.fillStyle = isDark ? '#b0c6ff' : '#0066e6';
+      
+      const centerX = width/2;
+      const radius = Math.min(width, height) * 0.45;
+      const centerY = height + radius * 0.2;
+      
+      t += 0.002;
+      
+      for(let i=0; i<points.length; i++) {
+        const {phi, theta} = points[i];
+        
+        const x = radius * Math.sin(phi) * Math.cos(theta + t);
+        const y = radius * Math.cos(phi);
+        const z = radius * Math.sin(phi) * Math.sin(theta + t);
+        
+        const scale = (radius + z) / (radius * 2); 
+        const projectedX = centerX + x;
+        const projectedY = centerY + (y * Math.cos(0.25) - z * Math.sin(0.25));
+        
+        if (z < -radius*0.5) continue;
+        
+        ctx.globalAlpha = Math.max(0.05, scale * (isDark ? 0.6 : 0.4));
+        ctx.beginPath();
+        ctx.arc(projectedX, projectedY, Math.max(0.5, 2 * scale), 0, Math.PI*2);
+        ctx.fill();
+      }
+    };
+
+    const handleResize = () => {
+      width = canvas.width = window.innerWidth;
+      height = canvas.height = window.innerHeight;
+    };
+    window.addEventListener('resize', handleResize);
+
+    let animationFrameId: number;
+    const animate = () => {
+      draw();
+      animationFrameId = requestAnimationFrame(animate);
+    };
+    animate();
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      cancelAnimationFrame(animationFrameId);
+    };
+  }, []);
+
   // ── Contact form submit ──────────────────────────────────────────────────
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -107,8 +177,9 @@ export default function Home() {
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <section id="home" className="relative min-h-screen flex flex-col items-center justify-center bg-surface overflow-hidden">
-        {/* Animated 3D Sphere Canvas */}
-        <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full z-0 mix-blend-screen pointer-events-none" />
+        {/* Background Animation Canvases */}
+        <canvas ref={matrixCanvasRef} className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none opacity-80" />
+        <canvas ref={sphereCanvasRef} className="absolute top-0 left-0 w-full h-full z-0 mix-blend-screen pointer-events-none" />
 
         {/* Cinematic Horizon Glow */}
         <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[150%] h-[300px] bg-primary/20 blur-[100px] rounded-[50%] pointer-events-none" />
