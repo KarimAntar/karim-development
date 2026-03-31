@@ -106,7 +106,7 @@ export default function Navbar() {
               aria-label="Toggle dark mode"
             >
               <span className="material-symbols-outlined text-[22px]">
-                {isDark ? 'light_mode' : 'dark_mode'}
+                {isDark ? 'dark_mode' : 'light_mode'}
               </span>
             </button>
 

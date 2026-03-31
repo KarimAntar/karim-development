@@ -11,7 +11,7 @@ export default function Home() {
   const [submitStatus, setSubmitStatus] = useState<'idle' | 'loading' | 'success' | 'error'>('idle');
   const [submitMessage, setSubmitMessage] = useState('');
 
-  // ── Matrix rain (slowed down: only renders every 4th frame ≈ 15fps) ──────
+  // ── Rotating Particle Sphere ──────
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
@@ -20,38 +20,56 @@ export default function Home() {
 
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
-    const fontSize = 16;
-    let columns = Math.floor(width / fontSize);
-    let drops: number[] = Array.from({ length: columns }, () => Math.random() * -100);
-    let frameCount = 0;
 
+    const numPoints = 800;
+    const points: {phi: number, theta: number}[] = [];
+    for(let i=0; i<numPoints; i++) {
+        const phi = Math.acos(1 - 2 * (i + 0.5) / numPoints);
+        const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+        points.push({ phi, theta });
+    }
+
+    let t = 0;
     const draw = () => {
+      ctx.clearRect(0,0,width,height);
       const isDark = document.documentElement.classList.contains('dark');
-      ctx.fillStyle = isDark ? 'rgba(0, 0, 0, 0.06)' : 'rgba(248, 250, 252, 0.06)';
-      ctx.fillRect(0, 0, width, height);
-      ctx.fillStyle = '#0066e6';
-      ctx.font = fontSize + 'px monospace';
-      for (let i = 0; i < drops.length; i++) {
-        const text = Math.random() > 0.5 ? '0' : '1';
-        ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-        if (drops[i] * fontSize > height && Math.random() > 0.975) drops[i] = 0;
-        drops[i]++;
+      ctx.fillStyle = isDark ? '#b0c6ff' : '#0066e6';
+      
+      const centerX = width/2;
+      const radius = Math.min(width, height) * 0.45;
+      const centerY = height + radius * 0.2;
+      
+      t += 0.002;
+      
+      for(let i=0; i<points.length; i++) {
+        const {phi, theta} = points[i];
+        
+        const x = radius * Math.sin(phi) * Math.cos(theta + t);
+        const y = radius * Math.cos(phi);
+        const z = radius * Math.sin(phi) * Math.sin(theta + t);
+        
+        const scale = (radius + z) / (radius * 2); 
+        const projectedX = centerX + x;
+        const projectedY = centerY + (y * Math.cos(0.25) - z * Math.sin(0.25));
+        
+        if (z < -radius*0.5) continue;
+        
+        ctx.globalAlpha = Math.max(0.05, scale * (isDark ? 0.6 : 0.4));
+        ctx.beginPath();
+        ctx.arc(projectedX, projectedY, Math.max(0.5, 2 * scale), 0, Math.PI*2);
+        ctx.fill();
       }
     };
 
     const handleResize = () => {
       width = canvas.width = window.innerWidth;
       height = canvas.height = window.innerHeight;
-      columns = Math.floor(width / fontSize);
-      drops = Array.from({ length: columns }, () => Math.random() * -100);
     };
-
     window.addEventListener('resize', handleResize);
 
     let animationFrameId: number;
     const animate = () => {
-      frameCount++;
-      if (frameCount % 4 === 0) draw(); // only draw every 4th frame → ~15 fps
+      draw();
       animationFrameId = requestAnimationFrame(animate);
     };
     animate();
@@ -87,65 +105,54 @@ export default function Home() {
     <main className="relative overflow-hidden">
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center bg-surface">
-        <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full z-0" style={{ opacity: 0.4 }} />
+      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center bg-surface overflow-hidden">
+        {/* Animated 3D Sphere Canvas */}
+        <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full z-0 mix-blend-screen pointer-events-none" />
 
-        <div className="container mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-screen pt-24 pb-12 relative z-10">
-          {/* Left — Image */}
-          <div className="lg:col-span-5 relative group order-2 lg:order-1 flex justify-center lg:justify-start">
-            <div className="relative w-full aspect-square max-w-[450px] lg:max-w-none">
-              <div className="absolute inset-0 bg-surface-container-high/20 backdrop-blur-md rounded-xl border border-white/5 glow-ring z-10 transform -rotate-3 transition-transform duration-700 group-hover:rotate-0" />
-              <div className="absolute inset-0 z-20 overflow-hidden rounded-xl border border-white/10 shadow-2xl">
-                <Image
-                  src="https://plus.unsplash.com/premium_photo-1678566111481-8e275550b700?ixlib=rb-4.1.0&auto=format&fit=crop&h=800&w=687"
-                  alt="Karim Antar — Full Stack Developer workspace"
-                  fill
-                  className="object-cover opacity-90 transition-all duration-700 group-hover:scale-105"
-                />
-                <div className="absolute inset-0 bg-gradient-to-tr from-primary-container/20 to-transparent pointer-events-none" />
-              </div>
-              <div className="absolute -bottom-6 -right-6 z-30 bg-surface-container-highest/80 backdrop-blur-xl p-4 border border-white/10 rounded-lg shadow-xl hidden sm:block">
-                <div className="font-label text-[10px] tracking-[0.2em] uppercase text-primary mb-1">Status</div>
-                <div className="font-headline font-bold text-sm text-on-surface">SYSTEMS_ACTIVE</div>
-              </div>
-            </div>
-          </div>
+        {/* Cinematic Horizon Glow */}
+        <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[150%] h-[300px] bg-primary/20 blur-[100px] rounded-[50%] pointer-events-none" />
+        <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_-5px_30px_rgba(0,102,230,0.5)] pointer-events-none" />
 
-          {/* Right — Content */}
-          <div className="lg:col-span-7 z-30 order-1 lg:order-2">
-            <div className="flex flex-col space-y-8">
-              <header>
-                <span className="inline-block font-label text-sm tracking-[0.3em] uppercase text-primary mb-4 border-l-2 border-primary pl-4">
-                  Karim Development
-                </span>
-                <h1 className="font-headline text-5xl md:text-7xl lg:text-8xl font-black tracking-tighter text-on-surface leading-[0.9] text-glow mb-8">
-                  Crafting Digital <br />
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-tertiary-fixed-dim">
-                    Excellence
-                  </span>
-                </h1>
-              </header>
-              <p className="font-body text-lg md:text-xl text-on-surface-variant max-w-xl leading-relaxed opacity-80">
-                Engineering excellence in every line of code. Building scalable, high-performance
-                architectures that bridge the gap between abstract innovation and human-centric design.
-              </p>
-              <div className="flex flex-wrap gap-4 pt-4">
-                <a
-                  href="#contact"
-                  className="group relative px-8 py-4 bg-gradient-to-br from-primary-container to-tertiary-container text-on-primary-container font-headline font-bold tracking-tight rounded-lg overflow-hidden transition-all duration-300 hover:scale-[1.02] active:scale-95 shadow-[0_10px_30px_rgba(0,102,230,0.3)] inline-block"
-                >
-                  <span className="relative z-10">Get In Touch</span>
-                  <div className="absolute inset-0 bg-white/10 opacity-0 group-hover:opacity-100 transition-opacity" />
-                </a>
-                <a
-                  href="#projects"
-                  className="px-8 py-4 border border-outline-variant/30 text-on-surface font-headline font-bold tracking-tight rounded-lg hover:bg-white/5 hover:border-outline-variant transition-all duration-300 active:scale-95 inline-block"
-                >
-                  View Projects
-                </a>
-              </div>
+        <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center text-center mt-[-5%]">
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8 }}
+            className="flex items-center gap-3 mb-12 bg-surface-container-high/40 backdrop-blur-md px-5 py-2.5 rounded-full border border-white/10"
+          >
+            <div className="flex -space-x-3">
+              <img src="/me.jpg" className="w-8 h-8 rounded-full border-2 border-surface object-cover" alt="Karim Antar" />
+              <div className="w-8 h-8 rounded-full border-2 border-surface bg-gradient-to-br from-primary to-tertiary flex items-center justify-center text-[9px] font-bold text-on-primary">50+</div>
             </div>
-          </div>
+            <span className="text-xs font-label uppercase tracking-widest text-on-surface ml-1">Over 50+ Projects Delivered</span>
+          </motion.div>
+
+          <motion.h1 
+            initial={{ opacity: 0, scale: 0.95 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 1, delay: 0.2 }}
+            className="font-headline text-5xl md:text-7xl lg:text-[6rem] font-bold tracking-tighter text-on-surface leading-[1.1] max-w-5xl"
+          >
+            We Build Ideas Into <br className="hidden md:block" />
+            <span className="font-serif italic font-light text-transparent bg-clip-text bg-gradient-to-r from-primary via-[#b0c6ff] to-tertiary drop-shadow-[0_0_20px_rgba(0,102,230,0.3)] pr-4">Digital Reality</span>
+          </motion.h1>
+
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 1, delay: 0.4 }}
+            className="font-body text-lg md:text-xl text-on-surface-variant max-w-2xl mt-8 leading-relaxed font-light"
+          >
+            Engineering scalable platforms with cinematic UI design, optimized performance, and tailored architecture suited for business growth.
+          </motion.p>
+
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.6 }}
+            className="mt-14 flex flex-wrap gap-6 justify-center"
+          >
+            <a href="#contact" className="px-10 py-4 bg-transparent border border-outline-variant/40 text-on-surface font-headline font-semibold tracking-wide rounded-full hover:bg-white/5 hover:border-primary transition-all duration-300 backdrop-blur-sm hover:shadow-[0_0_20px_rgba(0,102,230,0.2)] hover:scale-105 active:scale-95">
+              Contact Us
+            </a>
+            <a href="#projects" className="px-10 py-4 bg-gradient-to-r from-primary to-primary-dim text-on-primary font-headline font-semibold tracking-wide rounded-full hover:shadow-[0_0_30px_rgba(0,102,230,0.4)] transition-all duration-300 hover:scale-105 active:scale-95">
+              View Work
+            </a>
+          </motion.div>
+
         </div>
 
         {/* Scroll cue */}
@@ -231,7 +238,14 @@ export default function Home() {
       </motion.section>
 
       {/* ── SERVICES ─────────────────────────────────────────────────────── */}
-      <section id="services" className="pt-32 pb-32 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto">
+      <motion.section 
+        id="services" 
+        className="pt-32 pb-32 px-6 md:px-12 lg:px-24 max-w-7xl mx-auto"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="mb-24 flex flex-col md:flex-row justify-between items-end gap-8">
           <div className="max-w-2xl">
             <span className="font-label text-xs tracking-[0.2em] uppercase text-primary mb-4 block">Capabilities</span>
@@ -321,7 +335,14 @@ export default function Home() {
       </motion.section>
 
       {/* ── PROJECTS ─────────────────────────────────────────────────────── */}
-      <section id="projects" className="relative pt-32 pb-32 overflow-hidden bg-surface-container-lowest">
+      <motion.section 
+        id="projects" 
+        className="relative pt-32 pb-32 overflow-hidden bg-surface-container-lowest"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/4 w-[600px] h-[600px] bg-primary-container/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="container mx-auto px-6">
           <header className="mb-24 flex flex-col md:flex-row md:items-end justify-between gap-8">
@@ -415,7 +436,14 @@ export default function Home() {
       </motion.section>
 
       {/* ── CONTACT ──────────────────────────────────────────────────────── */}
-      <section id="contact" className="min-h-screen flex flex-col md:flex-row w-full">
+      <motion.section 
+        id="contact" 
+        className="min-h-screen flex flex-col md:flex-row w-full"
+        initial={{ opacity: 0, y: 50 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: "-100px" }}
+        transition={{ duration: 0.8, ease: "easeOut" }}
+      >
         {/* Left Panel: Immersive Visual */}
         <div className="relative w-full md:w-5/12 min-h-[409px] md:min-h-screen flex flex-col justify-end p-8 md:p-16 overflow-hidden">
           <div className="absolute inset-0 z-0">
