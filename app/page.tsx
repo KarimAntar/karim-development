@@ -182,8 +182,8 @@ export default function Home() {
           ref={matrixCanvasRef} 
           className="absolute top-0 left-0 w-full h-full z-0 pointer-events-none opacity-80" 
           style={{ 
-            maskImage: 'radial-gradient(ellipse at center, transparent 10%, black 50%)', 
-            WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 10%, black 50%)' 
+            maskImage: 'radial-gradient(ellipse at center, transparent 35%, black 65%)', 
+            WebkitMaskImage: 'radial-gradient(ellipse at center, transparent 35%, black 65%)' 
           }}
         />
         <canvas ref={sphereCanvasRef} className="absolute top-0 left-0 w-full h-full z-0 mix-blend-screen pointer-events-none" />
