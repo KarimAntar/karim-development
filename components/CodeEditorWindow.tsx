@@ -64,10 +64,13 @@ export default function CodeEditorWindow() {
 
   return (
     <motion.div 
-      initial={{ opacity: 0, x: 100, rotateY: -15, rotateX: 10 }}
-      animate={{ opacity: 1, x: 0, rotateY: -20, rotateX: 10 }}
-      transition={{ duration: 1.5, ease: "easeOut", delay: 0.5 }}
-      style={{ transformStyle: 'preserve-3d', perspective: '1000px' }}
+      initial={{ opacity: 0, x: 100, y: 0 }}
+      animate={{ opacity: 1, x: 0, y: [0, -10, 0] }}
+      transition={{ 
+        opacity: { duration: 1, ease: "easeOut", delay: 0.5 },
+        x: { duration: 1, ease: "easeOut", delay: 0.5 },
+        y: { repeat: Infinity, duration: 6, ease: "easeInOut", delay: 1.5 }
+      }}
       className="hidden lg:block absolute right-[-5%] xl:right-[5%] top-[15%] w-[500px] rounded-xl overflow-hidden bg-[#1e1e1e]/80 backdrop-blur-xl border border-white/10 shadow-[0_30px_60px_rgba(0,0,0,0.6),_0_0_40px_rgba(0,102,230,0.2)] z-10 pointer-events-none"
     >
       {/* Mac OS Header */}
