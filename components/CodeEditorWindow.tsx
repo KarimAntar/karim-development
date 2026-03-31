@@ -24,19 +24,27 @@ const codeSnippet = `const engineerDigitalExcellence = async (
 await engineerDigitalExcellence(yourIdea, modernWeb);`;
 
 const highlightCode = (text: string) => {
+  // Escape HTML to prevent <Reality> from being parsed as a DOM node
   let html = text
-    // Keywords
-    .replace(/\b(const|let|var|async|await|try|catch|return|throw|new)\b/g, '<span class="text-[#c678dd]">$1</span>')
-    // Functions
-    .replace(/\b(engineerDigitalExcellence|design|construct|optimize|applyCinematicUI|deploy)\b(?=\()/g, '<span class="text-[#61afef]">$1</span>')
-    // Types/Classes
-    .replace(/\b(Idea|TechStack|Reality|Promise|Error|Architect|Builder)\b/g, '<span class="text-[#e5c07b]">$1</span>')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+
+  html = html
     // Strings
     .replace(/('[^']*'|"[^"]*")/g, '<span class="text-[#98c379]">$1</span>')
     // Comments
     .replace(/(\/\/.*)/g, '<span class="text-[#5c6370] italic">$1</span>')
-    // Booleans/Numbers
-    .replace(/\b(true|false|null|undefined)\b/g, '<span class="text-[#d19a66]">$1</span>');
+    // Keywords
+    .replace(/\b(const|let|var|async|await|try|catch|return|throw|new)\b/g, '<span class="text-[#c678dd]">$1</span>')
+    // Functions
+    .replace(/\b(engineerDigitalExcellence|design|construct|optimize|applyCinematicUI|deploy)\b(?=\s*\()/g, '<span class="text-[#61afef]">$1</span>')
+    // Types & Classes
+    .replace(/\b(Idea|TechStack|Reality|Promise|Error|Architect|Builder)\b/g, '<span class="text-[#e5c07b]">$1</span>')
+    // Object Properties
+    .replace(/\b(performance)\b(?=:)/g, '<span class="text-[#e06c75]">$1</span>')
+    // Variables/Arguments
+    .replace(/\b(idea|stack|architecture|platform|error|yourIdea|modernWeb)\b/g, '<span class="text-[#e06c75]">$1</span>');
   
   return { __html: html };
 };
