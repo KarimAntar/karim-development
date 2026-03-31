@@ -47,9 +47,6 @@ export default function Navbar() {
     } else {
       html.classList.remove('dark');
     }
-    // toggle background and text directly on body for light mode effect
-    document.body.style.backgroundColor = goingDark ? '' : '#f4f6ff';
-    document.body.style.color = goingDark ? '' : '#1a1c2e';
     setIsDark(goingDark);
   };
 

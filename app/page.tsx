@@ -25,7 +25,8 @@ export default function Home() {
     let frameCount = 0;
 
     const draw = () => {
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.06)';
+      const isDark = document.documentElement.classList.contains('dark');
+      ctx.fillStyle = isDark ? 'rgba(0, 0, 0, 0.06)' : 'rgba(248, 250, 252, 0.06)';
       ctx.fillRect(0, 0, width, height);
       ctx.fillStyle = '#0066e6';
       ctx.font = fontSize + 'px monospace';
@@ -85,7 +86,7 @@ export default function Home() {
     <main className="relative overflow-hidden">
 
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
-      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center bg-black">
+      <section id="home" className="relative min-h-screen flex flex-col items-center justify-center bg-surface">
         <canvas ref={canvasRef} className="absolute top-0 left-0 w-full h-full z-0" style={{ opacity: 0.4 }} />
 
         <div className="container mx-auto px-6 lg:px-12 grid grid-cols-1 lg:grid-cols-12 gap-12 items-center min-h-screen pt-24 pb-12 relative z-10">
@@ -406,119 +407,122 @@ export default function Home() {
       </section>
 
       {/* ── CONTACT ──────────────────────────────────────────────────────── */}
-      <section id="contact" className="relative pt-32 pb-32 overflow-hidden">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-primary-container/5 rounded-full blur-[120px] pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[500px] h-[500px] bg-tertiary-container/5 rounded-full blur-[100px] pointer-events-none" />
-
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-16 items-center">
-            {/* Left — Info */}
-            <div className="lg:col-span-5">
-              <span className="font-label text-xs tracking-[0.2em] text-primary uppercase mb-4 block">Connection Protocol</span>
-              <h2 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter leading-none mb-6">
-                Let&apos;s Build <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-tertiary">The Future.</span>
-              </h2>
-              <p className="font-body text-lg text-on-surface-variant mb-12 leading-relaxed max-w-md">
-                Initiate a connection to discuss architectural blueprints, technical requirements, or digital transformation strategies.
-              </p>
-              <div className="space-y-8">
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-surface-container-high border border-white/5 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-primary text-sm">mail</span>
-                  </div>
-                  <div>
-                    <p className="font-label text-xs tracking-widest text-on-surface-variant uppercase mb-1">Direct Line</p>
-                    <a href="mailto:karimamdou7@gmail.com" className="font-headline text-xl font-bold hover:text-primary transition-colors">karimamdou7@gmail.com</a>
-                  </div>
+      <section id="contact" className="min-h-screen flex flex-col md:flex-row w-full">
+        {/* Left Panel: Immersive Visual */}
+        <div className="relative w-full md:w-5/12 min-h-[409px] md:min-h-screen flex flex-col justify-end p-8 md:p-16 overflow-hidden">
+          <div className="absolute inset-0 z-0">
+            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent z-10"></div>
+            <img 
+              className="w-full h-full object-cover" 
+              alt="High-end, cinematic, abstract technology background" 
+              src="https://lh3.googleusercontent.com/aida-public/AB6AXuBBD-Pqb0eS4vKMEA2DdHQHd71adyew7AGft1zmSkT9EZy5Pr5jjFUDQzHBxmB_2x2j9LeTQGAGRYaasu2p73T6Wllez6CZqsd7xsnGkRPD1QplmjTF2nypicwbc8LzflsHyF3_9U6NII0UUhJAZhYm9WoRjOo90DmVOoxOhKPaleituRA-dd3fpMbKRu4xb64fBMLKm8R9T7aTqH9EA9ibUv8XX4BalzZyHr74URgdth_QWtUJ3bW6Uj4K-XB-7Xxx6iqyxIefc8Tz"
+            />
+          </div>
+          <div className="relative z-20 space-y-6 max-w-md">
+            <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter leading-none [text-shadow:0_0_20px_rgba(176,198,255,0.3)]">
+              Let's Build <br />The Future.
+            </h1>
+            <p className="text-on-surface-variant font-body text-lg leading-relaxed">
+              Elevating digital presence through architectural precision and high-end engineering.
+            </p>
+            <div className="pt-8 space-y-4">
+              <div className="flex items-center gap-4 group">
+                <div className="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+                  <span className="material-symbols-outlined text-sm">location_on</span>
                 </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-surface-container-high border border-white/5 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-primary text-sm">call</span>
-                  </div>
-                  <div>
-                    <p className="font-label text-xs tracking-widest text-on-surface-variant uppercase mb-1">Phone</p>
-                    <a href="tel:+201066241997" className="font-headline text-xl font-bold hover:text-primary transition-colors">+20 106 624 1997</a>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <div className="w-10 h-10 rounded-full bg-surface-container-high border border-white/5 flex items-center justify-center shrink-0">
-                    <span className="material-symbols-outlined text-primary text-sm">location_on</span>
-                  </div>
-                  <div>
-                    <p className="font-label text-xs tracking-widest text-on-surface-variant uppercase mb-1">Base</p>
-                    <p className="font-headline text-xl font-bold">Cairo, Egypt</p>
-                  </div>
-                </div>
+                <span className="font-label text-sm tracking-widest uppercase">Cairo, Egypt</span>
               </div>
-              <div className="flex gap-4 mt-12">
-                {[
-                  { href: 'https://github.com/KarimAntar', icon: 'code', label: 'GitHub' },
-                  { href: 'https://www.linkedin.com/in/karimmamdouh', icon: 'work', label: 'LinkedIn' },
-                  { href: 'https://facebook.com/Karim.Mamdou7', icon: 'group', label: 'Facebook' },
-                ].map(({ href, icon, label }) => (
-                  <a key={label} href={href} target="_blank" rel="noopener noreferrer"
-                    className="w-10 h-10 rounded-full bg-surface-container-high border border-white/5 flex items-center justify-center text-on-surface-variant hover:text-primary hover:border-primary/30 transition-all"
-                    aria-label={label}>
-                    <span className="material-symbols-outlined text-sm">{icon}</span>
-                  </a>
-                ))}
+              <div className="flex items-center gap-4 group">
+                <div className="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+                  <span className="material-symbols-outlined text-sm">call</span>
+                </div>
+                <span className="font-label text-sm tracking-widest uppercase">+20 106 624 1997</span>
+              </div>
+              <div className="flex items-center gap-4 group">
+                <div className="w-10 h-10 rounded-full bg-surface-container-high flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+                  <span className="material-symbols-outlined text-sm">mail</span>
+                </div>
+                <span className="font-label text-sm tracking-widest uppercase">karimamdou7@gmail.com</span>
               </div>
             </div>
+            <div className="flex gap-4 pt-8">
+              {[
+                  { href: 'https://github.com/KarimAntar', icon: 'code', label: 'GitHub' },
+                  { href: 'https://www.linkedin.com/in/karimmamdouh', icon: 'public', label: 'LinkedIn' },
+                  { href: 'https://facebook.com/Karim.Mamdou7', icon: 'link', label: 'Facebook' },
+              ].map(({ href, icon, label }) => (
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-primary-container hover:border-primary-container transition-all duration-300 group">
+                  <span className="material-symbols-outlined text-on-surface group-hover:text-on-primary-container">{icon}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        </div>
 
-            {/* Right — Form */}
-            <div className="lg:col-span-7">
-              <div className="glass-card p-8 md:p-12 rounded-2xl relative overflow-hidden">
-                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary via-tertiary to-primary" />
-                <div className="mb-8 flex justify-between items-center">
-                  <h3 className="font-headline text-2xl font-bold">Send a Connection Request</h3>
-                  <span className="font-mono text-xs text-primary bg-primary/10 px-3 py-1 rounded-full">Status: Online</span>
-                </div>
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div className="space-y-2">
-                      <label className="font-label text-xs tracking-widest text-on-surface-variant uppercase">Identification</label>
-                      <input type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                        placeholder="John Doe"
-                        className="w-full bg-surface-container-lowest border border-white/10 rounded-lg px-4 py-3 font-body text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-on-surface-variant/30" />
-                    </div>
-                    <div className="space-y-2">
-                      <label className="font-label text-xs tracking-widest text-on-surface-variant uppercase">Return Address</label>
-                      <input type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        placeholder="john@company.com"
-                        className="w-full bg-surface-container-lowest border border-white/10 rounded-lg px-4 py-3 font-body text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-on-surface-variant/30" />
-                    </div>
-                  </div>
-                  <div className="space-y-2">
-                    <label className="font-label text-xs tracking-widest text-on-surface-variant uppercase">Data Payload</label>
-                    <textarea rows={5} required value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      placeholder="Describe your technical requirements or project..."
-                      className="w-full bg-surface-container-lowest border border-white/10 rounded-lg px-4 py-3 font-body text-on-surface focus:outline-none focus:border-primary focus:ring-1 focus:ring-primary transition-all placeholder:text-on-surface-variant/30 resize-none" />
-                  </div>
-                  {submitStatus === 'success' && (
-                    <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400 text-sm font-body">✓ {submitMessage}</div>
-                  )}
-                  {submitStatus === 'error' && (
-                    <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm font-body">✗ {submitMessage}</div>
-                  )}
-                  <button type="submit" disabled={submitStatus === 'loading'}
-                    className="w-full py-4 bg-primary-container text-on-primary-container font-headline font-bold rounded-lg uppercase tracking-widest text-sm hover:brightness-110 transition-all flex items-center justify-center gap-2 group disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer">
-                    {submitStatus === 'loading' ? (
-                      <>
-                        <svg className="animate-spin h-5 w-5" fill="none" viewBox="0 0 24 24">
-                          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                        </svg>
-                        Transmitting...
-                      </>
-                    ) : (
-                      <>
-                        Transmit Data
-                        <span className="material-symbols-outlined text-sm group-hover:translate-x-1 transition-transform">send</span>
-                      </>
-                    )}
-                  </button>
-                </form>
+        {/* Right Panel: Form */}
+        <div className="w-full md:w-7/12 flex items-center justify-center p-8 md:p-24 bg-surface-container-lowest">
+          <div className="w-full max-w-xl">
+            <div className="mb-12">
+              <span className="font-label text-xs tracking-[0.3em] text-primary uppercase block mb-4">Inquiry</span>
+              <h2 className="font-headline text-3xl font-bold tracking-tight">Send a Connection Request</h2>
+            </div>
+            
+            <form onSubmit={handleSubmit} className="space-y-10">
+              <div className="relative group">
+                <label className="font-label text-[10px] tracking-widest uppercase text-on-surface-variant mb-2 block">Full Name</label>
+                <input 
+                  type="text" required value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                  className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 text-on-surface focus:ring-0 focus:border-primary transition-colors placeholder:text-on-surface-variant/30 font-body outline-none" 
+                  placeholder="John Doe" 
+                />
+                <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary group-focus-within:w-full transition-all duration-500"></div>
+              </div>
+              
+              <div className="relative group">
+                <label className="font-label text-[10px] tracking-widest uppercase text-on-surface-variant mb-2 block">Email Address</label>
+                <input 
+                  type="email" required value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                  className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 text-on-surface focus:ring-0 focus:border-primary transition-colors placeholder:text-on-surface-variant/30 font-body outline-none" 
+                  placeholder="john@example.com" 
+                />
+                <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary group-focus-within:w-full transition-all duration-500"></div>
+              </div>
+              
+              <div className="relative group">
+                <label className="font-label text-[10px] tracking-widest uppercase text-on-surface-variant mb-2 block">Your Message</label>
+                <textarea 
+                  rows={4} required value={formData.message} onChange={(e) => setFormData({ ...formData, message: e.target.value })}
+                  className="w-full bg-transparent border-0 border-b border-outline-variant py-4 px-0 text-on-surface focus:ring-0 focus:border-primary transition-colors placeholder:text-on-surface-variant/30 font-body resize-none outline-none" 
+                  placeholder="Describe your vision..." 
+                ></textarea>
+                <div className="absolute bottom-0 left-0 w-0 h-[1px] bg-primary group-focus-within:w-full transition-all duration-500"></div>
+              </div>
+
+              {submitStatus === 'success' && (
+                <div className="p-4 bg-green-500/10 border border-green-500/20 rounded-lg text-green-400 text-sm font-body">✓ {submitMessage}</div>
+              )}
+              {submitStatus === 'error' && (
+                <div className="p-4 bg-red-500/10 border border-red-500/20 rounded-lg text-red-400 text-sm font-body">✗ {submitMessage}</div>
+              )}
+
+              <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-8">
+                <p className="text-xs text-on-surface-variant font-body max-w-xs">
+                  By clicking send, you agree to our privacy policy and the processing of your data.
+                </p>
+                <button 
+                  type="submit" disabled={submitStatus === 'loading'}
+                  className="w-full sm:w-auto px-10 py-5 bg-gradient-to-br from-primary-container to-tertiary-container text-on-primary-container font-headline font-bold uppercase tracking-widest text-xs rounded-lg hover:shadow-[0_0_20px_rgba(0,102,230,0.4)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 disabled:opacity-50"
+                >
+                  {submitStatus === 'loading' ? 'Sending...' : 'Send Message'}
+                </button>
+              </div>
+            </form>
+
+            <div className="mt-24 pt-12 border-t border-outline-variant/10">
+              <p className="font-label text-[10px] tracking-widest uppercase text-on-surface-variant/40 mb-6">Current Availability</p>
+              <div className="flex items-center gap-3">
+                <div className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></div>
+                <span className="text-sm font-body text-on-surface/80">Open for high-impact architectural collaborations (Q4 2024)</span>
               </div>
             </div>
           </div>
