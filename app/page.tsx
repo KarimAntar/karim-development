@@ -215,9 +215,23 @@ export default function Home() {
               <div className="mt-6 h-px bg-gradient-to-r from-primary/50 to-transparent w-24" />
               <p className="mt-4 text-on-surface-variant text-sm leading-relaxed">Refining the craft through a decade of digital evolution.</p>
             </div>
-            <div className="md:col-span-3 bg-surface-container-highest p-10 rounded-xl relative overflow-hidden group border border-white/5">
-              <h3 className="font-headline text-6xl font-bold text-on-surface tracking-tighter mb-2">50+</h3>
-              <p className="font-label text-on-surface/60 tracking-widest uppercase text-sm">Projects Completed</p>
+            <div className="md:col-span-3 bg-surface-container-highest p-10 rounded-xl relative overflow-hidden group border border-emerald-500/10 hover:border-emerald-500/30 transition-all duration-500 hover:shadow-[0_0_40px_-10px_rgba(16,185,129,0.2)] flex flex-col justify-between">
+              <div className="absolute top-0 right-0 p-6 opacity-20 group-hover:opacity-100 transition-all duration-500 text-emerald-500 group-hover:scale-110">
+                <span className="material-symbols-outlined text-6xl drop-shadow-[0_0_15px_rgba(16,185,129,0.8)]">check_circle</span>
+              </div>
+              
+              <div className="z-10 relative">
+                <h3 className="font-headline text-6xl font-bold text-emerald-400 tracking-tighter mb-2">50+</h3>
+                <p className="font-label text-on-surface/60 tracking-widest uppercase text-sm">Projects Completed</p>
+              </div>
+              
+              <div className="z-10 relative mt-auto pt-6">
+                <div className="h-px bg-gradient-to-r from-emerald-500/50 to-transparent w-16 mb-4" />
+                <p className="text-on-surface-variant text-xs leading-relaxed">Delivering scalable MVPs and enterprise architectures from end-to-end.</p>
+              </div>
+              
+              {/* Green ambient glow */}
+              <div className="absolute -bottom-20 -left-20 w-64 h-64 bg-emerald-500/20 rounded-full blur-[80px] opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
             </div>
             <div className="md:col-span-5 glass-card p-10 rounded-xl relative overflow-hidden group border border-white/5 flex flex-col justify-center">
               <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-primary-container/20 rounded-full blur-3xl" />
