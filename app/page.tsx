@@ -5,6 +5,7 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { motion } from 'motion/react';
 import TypewriterText from '@/components/TypewriterText';
+import CodeEditorWindow from '@/components/CodeEditorWindow';
 
 export default function Home() {
   const matrixCanvasRef = useRef<HTMLCanvasElement>(null);
@@ -191,6 +192,8 @@ export default function Home() {
         {/* Cinematic Horizon Glow */}
         <div className="absolute bottom-[-10%] left-1/2 -translate-x-1/2 w-[150%] h-[300px] bg-primary/20 blur-[100px] rounded-[50%] pointer-events-none" />
         <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-full h-[1px] bg-gradient-to-r from-transparent via-primary/50 to-transparent shadow-[0_-5px_30px_rgba(0,102,230,0.5)] pointer-events-none" />
+
+        <CodeEditorWindow />
 
         <div className="container mx-auto px-6 relative z-10 flex flex-col items-center justify-center text-center mt-[-5%]">
           
