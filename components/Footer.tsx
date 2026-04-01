@@ -7,17 +7,17 @@ import { Github, Linkedin, Code2 } from 'lucide-react';
 
 export default function Footer() {
   const pathname = usePathname();
-  if (pathname === '/facebook-cover') return null;
+  if (pathname === '/facebook-cover' || pathname === '/linkedin-cover') return null;
 
   return (
-    <footer className="bg-[#0e0e0e] flex flex-col items-center justify-center w-full border-t border-white/5 py-16 px-8">
+    <footer className="bg-surface-container-lowest flex flex-col items-center justify-center w-full border-t border-outline-variant/10 py-16 px-8 overflow-hidden">
       <div className="mb-6">
         <Image 
           src="/logo_300x100_white.png" 
           alt="Karim Development Logo" 
           width={150} 
           height={50} 
-          className="opacity-90 hover:opacity-100 transition-opacity"
+          className="opacity-90 hover:opacity-100 transition-opacity invert dark:invert-0"
         />
       </div>
       
@@ -26,7 +26,7 @@ export default function Footer() {
           href="https://github.com/KarimAntar"
           target="_blank"
           rel="noopener noreferrer"
-          className="opacity-70 text-[#e5e2e1]/50 hover:text-[#0066e6] transition-colors duration-300"
+          className="opacity-70 text-on-surface/50 hover:text-primary transition-colors duration-300"
           aria-label="GitHub Profile"
         >
           <Github className="w-6 h-6" />
@@ -35,7 +35,7 @@ export default function Footer() {
           href="https://www.linkedin.com/in/karimmamdouh"
           target="_blank"
           rel="noopener noreferrer"
-          className="opacity-70 text-[#e5e2e1]/50 hover:text-[#0066e6] transition-colors duration-300"
+          className="opacity-70 text-on-surface/50 hover:text-primary transition-colors duration-300"
           aria-label="LinkedIn Profile"
         >
           <Linkedin className="w-6 h-6" />
@@ -44,14 +44,14 @@ export default function Footer() {
           href="https://github.com/KarimAntar/karim-development"
           target="_blank"
           rel="noopener noreferrer"
-          className="opacity-70 text-[#e5e2e1]/50 hover:text-[#0066e6] transition-colors duration-300"
+          className="opacity-70 text-on-surface/50 hover:text-primary transition-colors duration-300"
           aria-label="Source Code"
         >
           <Code2 className="w-6 h-6" />
         </Link>
       </div>
 
-      <p className="font-body text-xs tracking-widest uppercase opacity-70 text-[#e5e2e1]/40 text-center">
+      <p className="font-body text-[10px] tracking-widest uppercase opacity-60 text-on-surface/40 text-center max-w-[280px] sm:max-w-none">
         © {new Date().getFullYear()} Karim Development. Architectural Digital Excellence.
       </p>
     </footer>
