@@ -577,30 +577,31 @@ export default function Home() {
             />
           </div>
           <div className="relative z-20 space-y-6 max-w-md">
-            <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter leading-none text-on-surface [text-shadow:0_0_30px_rgba(255,255,255,0.8)] dark:[text-shadow:0_0_30px_rgba(0,102,230,0.5)] drop-shadow-2xl">
+            <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter leading-none text-[#f5f5f7] [text-shadow:0_8px_30px_rgba(0,0,0,0.4)] drop-shadow-2xl">
               Let's Build <br />The Future.
             </h1>
-            <p className="text-on-surface font-body text-lg leading-relaxed [text-shadow:0_0_30px_rgba(255,255,255,1),0_2px_4px_rgba(255,255,255,1)] dark:[text-shadow:none]">
+            <p className="text-[#f5f5f7]/90 font-body text-lg leading-relaxed [text-shadow:0_2px_10px_rgba(0,0,0,0.3)]">
               Elevating digital presence through architectural precision and high-end engineering.
             </p>
             <div className="pt-8 space-y-4">
               <div className="flex items-center gap-4 group">
-                <div className="w-10 h-10 rounded-full bg-surface-container-high/50 backdrop-blur-md border border-outline-variant/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+                <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-primary-fixed group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
                   <span className="material-symbols-outlined text-sm">location_on</span>
                 </div>
-                <span className="font-label text-sm tracking-widest uppercase text-on-surface [text-shadow:0_0_10px_rgba(255,255,255,0.8)] dark:[text-shadow:none]">Cairo, Egypt</span>
+                <span className="font-label text-sm tracking-widest uppercase text-white/80 [text-shadow:0_2px_10px_rgba(0,0,0,0.3)]">Cairo, Egypt</span>
               </div>
               <div className="flex items-center gap-4 group">
-                <div className="w-10 h-10 rounded-full bg-surface-container-high/50 backdrop-blur-md border border-outline-variant/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+                <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-primary-fixed group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
                   <span className="material-symbols-outlined text-sm">call</span>
                 </div>
-                <span className="font-label text-sm tracking-widest uppercase text-on-surface [text-shadow:0_0_10px_rgba(255,255,255,0.8)] dark:[text-shadow:none]">+20 106 624 1997</span>
+                <span className="font-label text-sm tracking-widest uppercase text-white/80 [text-shadow:0_2px_10px_rgba(0,0,0,0.3)]">+20 106 624 1997</span>
               </div>
               <div className="flex items-center gap-4 group">
-                <div className="w-10 h-10 rounded-full bg-surface-container-high/50 backdrop-blur-md border border-outline-variant/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+              <div className="flex items-center gap-4 group">
+                <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-primary-fixed group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
                   <span className="material-symbols-outlined text-sm">mail</span>
                 </div>
-                <span className="font-label text-sm tracking-widest lowercase text-on-surface [text-shadow:0_0_10px_rgba(255,255,255,0.8)] dark:[text-shadow:none]">karimamdou7@gmail.com</span>
+                <span className="font-label text-sm tracking-widest lowercase text-white/80 [text-shadow:0_2px_10px_rgba(0,0,0,0.3)]">karimamdou7@gmail.com</span>
               </div>
             </div>
             <div className="flex gap-4 pt-8">
@@ -609,8 +610,8 @@ export default function Home() {
                   { href: 'https://www.linkedin.com/in/karimmamdouh', icon: 'public', label: 'LinkedIn' },
                   { href: 'https://facebook.com/Karim.Mamdou7', icon: 'link', label: 'Facebook' },
               ].map(({ href, icon, label }) => (
-                <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-outline-variant/30 flex items-center justify-center hover:bg-primary-container hover:border-primary-container transition-all duration-300 group">
-                  <span className="material-symbols-outlined text-on-surface group-hover:text-on-primary-container">{icon}</span>
+                <a key={label} href={href} target="_blank" rel="noopener noreferrer" className="w-12 h-12 rounded-full border border-white/20 flex items-center justify-center hover:bg-white/10 hover:border-white transition-all duration-300 group">
+                  <span className="material-symbols-outlined text-white/70 group-hover:text-white">{icon}</span>
                 </a>
               ))}
             </div>
