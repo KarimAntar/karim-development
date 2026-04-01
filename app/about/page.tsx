@@ -1,4 +1,8 @@
+'use client';
+
 import Image from 'next/image';
+import { motion } from 'motion/react';
+import { techStack } from '@/lib/tech-data';
 
 export default function About() {
   return (
@@ -84,18 +88,23 @@ export default function About() {
                 <h3 className="font-headline text-6xl lg:text-7xl font-bold text-tertiary tracking-tighter">25+</h3>
                 <p className="font-label text-on-surface/60 tracking-widest uppercase text-sm">Technologies</p>
               </div>
-              <div className="flex flex-wrap gap-2 mt-4">
-                {['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Next.js', 'Python', 'Docker', 'Tailwind CSS', 'AWS', 'GraphQL'].map((tech) => (
-                  <span
-                    key={tech}
-                    className="px-3 py-1 bg-surface-variant text-on-surface-variant text-[10px] uppercase tracking-widest rounded-full font-label border border-white/5"
+              <div className="flex flex-wrap gap-3 mt-4">
+                {techStack.map((tech) => (
+                  <motion.div
+                    key={tech.name}
+                    whileHover={{ scale: 1.05, y: -2 }}
+                    className="flex items-center gap-2 px-3 py-1.5 bg-surface-variant/40 hover:bg-surface-variant transition-colors text-on-surface-variant text-[10px] uppercase tracking-widest rounded-lg font-label border border-white/5 shadow-sm group/tech"
                   >
-                    {tech}
-                  </span>
+                    <tech.icon 
+                      style={{ color: tech.color }} 
+                      className="text-sm transition-transform duration-300 group-hover/tech:scale-110" 
+                    />
+                    <span className="font-semibold">{tech.name}</span>
+                  </motion.div>
                 ))}
-                <span className="px-3 py-1 text-on-surface-variant/40 text-[10px] uppercase tracking-widest rounded-full font-label border border-dashed border-white/10">
+                <div className="px-3 py-1.5 text-on-surface-variant/40 text-[10px] uppercase tracking-widest rounded-lg font-label border border-dashed border-white/10 flex items-center justify-center">
                   ..and more
-                </span>
+                </div>
               </div>
             </div>
           </div>
