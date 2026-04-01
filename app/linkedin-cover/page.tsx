@@ -76,7 +76,7 @@ export default function LinkedInCover() {
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
       // 4. Content - Shifted for the wider 1584 width
-      const startX = 120 * scale;
+      const startX = 600 * scale;
       const centerY = 198 * scale;
 
       // Logo + Name
@@ -223,11 +223,11 @@ export default function LinkedInCover() {
           <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(176,198,255,0.05),transparent)] z-10" />
         </div>
 
-        {/* Content Container */}
-        <div className="relative z-20 w-4/5 h-full flex items-center justify-between">
+        {/* Content Container - Shifted right to avoid Profile Picture */}
+        <div className="relative z-20 w-full h-full flex items-center justify-between px-16 pl-[42%]">
           
           {/* Left Panel */}
-          <div className="flex flex-col gap-1">
+          <div className="flex flex-col gap-1 max-w-lg">
             <div className="flex items-center gap-4 mb-4">
                <img src="/logo160x160.png" className="w-16 h-16 drop-shadow-blue" />
                <h1 className="text-4xl font-headline font-bold text-[#e5e2e1]">
@@ -273,7 +273,7 @@ export default function LinkedInCover() {
         </a>
         <button
           onClick={downloadCover}
-          className="px-10 py-4 bg-primary text-on-primary font-headline font-bold tracking-widest uppercase rounded-full hover:scale-105 transition-all shadow-xl shadow-primary/30 active:scale-95"
+          className="px-10 py-4 bg-primary text-on-primary font-headline font-bold tracking-widest uppercase rounded-full hover:scale-105 transition-all shadow-xl shadow-primary/30 active:scale-95 cursor-pointer"
         >
           Download 1584x396 PNG
         </button>

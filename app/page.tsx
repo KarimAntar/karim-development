@@ -571,7 +571,7 @@ export default function Home() {
           <div className="absolute inset-0 z-0">
             <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent z-10"></div>
             <img 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover object-top" 
               alt="High-end, cinematic, abstract technology background" 
               src="/contact-bg.png"
             />
@@ -580,7 +580,7 @@ export default function Home() {
             <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter leading-none text-on-surface [text-shadow:0_0_30px_rgba(255,255,255,0.8)] dark:[text-shadow:0_0_30px_rgba(0,102,230,0.5)] drop-shadow-2xl">
               Let's Build <br />The Future.
             </h1>
-            <p className="text-on-surface-variant font-body text-lg leading-relaxed [text-shadow:0_2px_10px_rgba(255,255,255,0.5)] dark:[text-shadow:none]">
+            <p className="text-on-surface font-body text-lg leading-relaxed [text-shadow:0_0_30px_rgba(255,255,255,1),0_2px_4px_rgba(255,255,255,1)] dark:[text-shadow:none]">
               Elevating digital presence through architectural precision and high-end engineering.
             </p>
             <div className="pt-8 space-y-4">

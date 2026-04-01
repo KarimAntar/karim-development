@@ -35,7 +35,7 @@ export default function Footer() {
           href="https://github.com/KarimAntar"
           target="_blank"
           rel="noopener noreferrer"
-          className="opacity-70 text-on-surface/50 hover:text-primary transition-colors duration-300"
+          className="text-on-surface/70 hover:text-primary transition-colors duration-300"
           aria-label="GitHub Profile"
         >
           <Github className="w-6 h-6" />
@@ -44,7 +44,7 @@ export default function Footer() {
           href="https://www.linkedin.com/in/karimmamdouh"
           target="_blank"
           rel="noopener noreferrer"
-          className="opacity-70 text-on-surface/50 hover:text-primary transition-colors duration-300"
+          className="text-on-surface/70 hover:text-primary transition-colors duration-300"
           aria-label="LinkedIn Profile"
         >
           <Linkedin className="w-6 h-6" />
@@ -53,14 +53,14 @@ export default function Footer() {
           href="https://github.com/KarimAntar/karim-development"
           target="_blank"
           rel="noopener noreferrer"
-          className="opacity-70 text-on-surface/50 hover:text-primary transition-colors duration-300"
+          className="text-on-surface/70 hover:text-primary transition-colors duration-300"
           aria-label="Source Code"
         >
           <Code2 className="w-6 h-6" />
         </Link>
       </div>
 
-      <p className="font-body text-[10px] tracking-widest uppercase opacity-60 text-on-surface/40 text-center max-w-[280px] sm:max-w-none">
+      <p className="font-label text-[10px] tracking-widest uppercase text-on-surface/70 mt-8">
         © {new Date().getFullYear()} Karim Development. Architectural Digital Excellence.
       </p>
     </footer>
