@@ -81,11 +81,11 @@ export default function About() {
             <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-primary-container/20 rounded-full blur-3xl" />
             <div className="relative z-10">
               <div className="flex items-baseline gap-4 mb-4">
-                <h3 className="font-headline text-6xl lg:text-7xl font-bold text-tertiary tracking-tighter">10+</h3>
+                <h3 className="font-headline text-6xl lg:text-7xl font-bold text-tertiary tracking-tighter">25+</h3>
                 <p className="font-label text-on-surface/60 tracking-widest uppercase text-sm">Technologies</p>
               </div>
               <div className="flex flex-wrap gap-2 mt-4">
-                {['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Next.js', 'Python', 'Docker'].map((tech) => (
+                {['TypeScript', 'React', 'Node.js', 'PostgreSQL', 'Next.js', 'Python', 'Docker', 'Tailwind CSS', 'AWS', 'GraphQL'].map((tech) => (
                   <span
                     key={tech}
                     className="px-3 py-1 bg-surface-variant text-on-surface-variant text-[10px] uppercase tracking-widest rounded-full font-label border border-white/5"
@@ -93,6 +93,9 @@ export default function About() {
                     {tech}
                   </span>
                 ))}
+                <span className="px-3 py-1 text-on-surface-variant/40 text-[10px] uppercase tracking-widest rounded-full font-label border border-dashed border-white/10">
+                  ..and more
+                </span>
               </div>
             </div>
           </div>

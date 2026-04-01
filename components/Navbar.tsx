@@ -9,6 +9,8 @@ export default function Navbar() {
   const pathname = usePathname();
   const isHome = pathname === '/';
 
+  if (pathname === '/facebook-cover') return null;
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [isDark, setIsDark] = useState(true);
   const [activeSection, setActiveSection] = useState('home');

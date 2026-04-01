@@ -1,8 +1,14 @@
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
+import { usePathname } from 'next/navigation';
 import { Github, Linkedin, Code2 } from 'lucide-react';
 
 export default function Footer() {
+  const pathname = usePathname();
+  if (pathname === '/facebook-cover') return null;
+
   return (
     <footer className="bg-[#0e0e0e] flex flex-col items-center justify-center w-full border-t border-white/5 py-16 px-8">
       <div className="mb-6">

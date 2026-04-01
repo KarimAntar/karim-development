@@ -333,15 +333,18 @@ export default function Home() {
             <div className="md:col-span-5 glass-card p-10 rounded-xl relative overflow-hidden group border border-white/5 flex flex-col justify-center">
               <div className="absolute -bottom-10 -right-10 w-48 h-48 bg-primary-container/20 rounded-full blur-3xl" />
               <div className="flex items-baseline gap-4 mb-4">
-                <h3 className="font-headline text-6xl font-bold text-tertiary tracking-tighter">10+</h3>
+                <h3 className="font-headline text-6xl font-bold text-tertiary tracking-tighter">25+</h3>
                 <p className="font-label text-on-surface/60 tracking-widest uppercase text-sm">Technologies</p>
               </div>
               <div className="flex flex-wrap gap-2 mt-4">
-                {['TypeScript', 'React', 'Node.js', 'Next.js', 'Python', 'Docker'].map((tech) => (
+                {['TypeScript', 'React', 'Node.js', 'Next.js', 'Python', 'Tailwind CSS', 'PostgreSQL', 'AWS', 'Docker', 'Redis', 'GraphQL'].map((tech) => (
                   <span key={tech} className="px-3 py-1 bg-surface-variant text-on-surface-variant text-[10px] uppercase tracking-widest rounded-full font-label border border-white/5">
                     {tech}
                   </span>
                 ))}
+                <span className="px-3 py-1 text-on-surface-variant/40 text-[10px] uppercase tracking-widest rounded-full font-label border border-dashed border-white/10">
+                  ..and more
+                </span>
               </div>
             </div>
           </div>
