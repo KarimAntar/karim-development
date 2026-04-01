@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { usePathname } from 'next/navigation';
@@ -7,24 +8,36 @@ import { Github, Linkedin, Code2 } from 'lucide-react';
 
 export default function Footer() {
   const pathname = usePathname();
+  const [isDark, setIsDark] = useState(true);
+
+  useEffect(() => {
+    // Initial check
+    setIsDark(document.documentElement.classList.contains('dark'));
+
+    // Observe changes to the html class
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === 'class') {
+          setIsDark(document.documentElement.classList.contains('dark'));
+        }
+      });
+    });
+
+    observer.observe(document.documentElement, { attributes: true });
+    return () => observer.disconnect();
+  }, []);
+
   if (pathname === '/facebook-cover' || pathname === '/linkedin-cover') return null;
 
   return (
     <footer className="bg-surface-container-lowest flex flex-col items-center justify-center w-full border-t border-outline-variant/10 py-16 px-8 overflow-hidden">
-      <div className="mb-6 relative h-[50px] w-[150px]">
-        {/* Light Mode Logo */}
+      <div className="mb-6 relative h-[50px] w-[200px]">
         <Image 
-          src="/logo_300x100_black.png" 
+          src={isDark ? "/logo_300x100_white.png" : "/logo_300x100_black.png"}
           alt="Karim Development Logo" 
           fill
-          className="object-contain opacity-90 hover:opacity-100 transition-opacity dark:hidden"
-        />
-        {/* Dark Mode Logo */}
-        <Image 
-          src="/logo_300x100_white.png" 
-          alt="Karim Development Logo" 
-          fill
-          className="object-contain opacity-90 hover:opacity-100 transition-opacity hidden dark:block"
+          className="object-contain opacity-90 hover:opacity-100 transition-opacity"
+          priority
         />
       </div>
       
