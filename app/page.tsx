@@ -577,30 +577,30 @@ export default function Home() {
             />
           </div>
           <div className="relative z-20 space-y-6 max-w-md">
-            <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter leading-none text-[#e5e2e1] [text-shadow:0_0_30px_rgba(0,102,230,0.5)] drop-shadow-2xl [-webkit-text-stroke:1px_rgba(255,255,255,0.1)]">
+            <h1 className="font-headline text-5xl md:text-7xl font-bold tracking-tighter leading-none text-on-surface [text-shadow:0_0_30px_rgba(255,255,255,0.8)] dark:[text-shadow:0_0_30px_rgba(0,102,230,0.5)] drop-shadow-2xl">
               Let's Build <br />The Future.
             </h1>
-            <p className="text-[#c2c6d7] font-body text-lg leading-relaxed [text-shadow:0_2px_10px_rgba(0,0,0,0.5)]">
+            <p className="text-on-surface-variant font-body text-lg leading-relaxed [text-shadow:0_2px_10px_rgba(255,255,255,0.5)] dark:[text-shadow:none]">
               Elevating digital presence through architectural precision and high-end engineering.
             </p>
             <div className="pt-8 space-y-4">
               <div className="flex items-center gap-4 group">
-                <div className="w-10 h-10 rounded-full bg-surface-container-high/50 backdrop-blur-md border border-white/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+                <div className="w-10 h-10 rounded-full bg-surface-container-high/50 backdrop-blur-md border border-outline-variant/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
                   <span className="material-symbols-outlined text-sm">location_on</span>
                 </div>
-                <span className="font-label text-sm tracking-widest uppercase text-[#e5e2e1]">Cairo, Egypt</span>
+                <span className="font-label text-sm tracking-widest uppercase text-on-surface [text-shadow:0_0_10px_rgba(255,255,255,0.8)] dark:[text-shadow:none]">Cairo, Egypt</span>
               </div>
               <div className="flex items-center gap-4 group">
-                <div className="w-10 h-10 rounded-full bg-surface-container-high/50 backdrop-blur-md border border-white/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+                <div className="w-10 h-10 rounded-full bg-surface-container-high/50 backdrop-blur-md border border-outline-variant/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
                   <span className="material-symbols-outlined text-sm">call</span>
                 </div>
-                <span className="font-label text-sm tracking-widest uppercase text-[#e5e2e1]">+20 106 624 1997</span>
+                <span className="font-label text-sm tracking-widest uppercase text-on-surface [text-shadow:0_0_10px_rgba(255,255,255,0.8)] dark:[text-shadow:none]">+20 106 624 1997</span>
               </div>
               <div className="flex items-center gap-4 group">
-                <div className="w-10 h-10 rounded-full bg-surface-container-high/50 backdrop-blur-md border border-white/10 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
+                <div className="w-10 h-10 rounded-full bg-surface-container-high/50 backdrop-blur-md border border-outline-variant/20 flex items-center justify-center text-primary group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
                   <span className="material-symbols-outlined text-sm">mail</span>
                 </div>
-                <span className="font-label text-sm tracking-widest lowercase text-[#e5e2e1]">karimamdou7@gmail.com</span>
+                <span className="font-label text-sm tracking-widest lowercase text-on-surface [text-shadow:0_0_10px_rgba(255,255,255,0.8)] dark:[text-shadow:none]">karimamdou7@gmail.com</span>
               </div>
             </div>
             <div className="flex gap-4 pt-8">

@@ -11,13 +11,22 @@ export default function Footer() {
 
   return (
     <footer className="bg-surface-container-lowest flex flex-col items-center justify-center w-full border-t border-outline-variant/10 py-16 px-8 overflow-hidden">
-      <div className="mb-6">
+      <div className="mb-6 relative h-[50px] w-[150px]">
+        {/* Light Mode Logo (Visible in light mode) */}
+        <Image 
+          src="/logo_300x100_black.png" 
+          alt="Karim Development Logo" 
+          width={150} 
+          height={50} 
+          className="opacity-90 hover:opacity-100 transition-opacity dark:hidden"
+        />
+        {/* Dark Mode Logo (Visible in dark mode) */}
         <Image 
           src="/logo_300x100_white.png" 
           alt="Karim Development Logo" 
           width={150} 
           height={50} 
-          className="opacity-90 hover:opacity-100 transition-opacity invert dark:invert-0"
+          className="opacity-90 hover:opacity-100 transition-opacity hidden dark:block"
         />
       </div>
       
