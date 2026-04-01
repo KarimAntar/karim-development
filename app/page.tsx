@@ -569,7 +569,7 @@ export default function Home() {
         {/* Left Panel: Immersive Visual */}
         <div className="relative w-full md:w-5/12 min-h-[409px] md:min-h-screen flex flex-col justify-end p-8 md:p-16 overflow-hidden">
           <div className="absolute inset-0 z-0">
-            <div className="absolute inset-0 bg-gradient-to-t from-background via-background/20 to-transparent z-10"></div>
+            <div className="absolute inset-0 bg-gradient-to-b from-background via-background/20 to-transparent z-10"></div>
             <img 
               className="w-full h-full object-cover object-top" 
               alt="High-end, cinematic, abstract technology background" 
