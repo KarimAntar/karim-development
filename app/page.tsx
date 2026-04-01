@@ -597,7 +597,6 @@ export default function Home() {
                 <span className="font-label text-sm tracking-widest uppercase text-white/80 [text-shadow:0_2px_10px_rgba(0,0,0,0.3)]">+20 106 624 1997</span>
               </div>
               <div className="flex items-center gap-4 group">
-              <div className="flex items-center gap-4 group">
                 <div className="w-10 h-10 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center text-primary-fixed group-hover:bg-primary group-hover:text-on-primary transition-all duration-300">
                   <span className="material-symbols-outlined text-sm">mail</span>
                 </div>
