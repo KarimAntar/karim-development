@@ -74,7 +74,7 @@ export default function Navbar() {
         <div className="bg-surface/60 backdrop-blur-xl rounded-full mt-6 mx-auto max-w-fit px-6 py-2 border border-white/5 shadow-[0_20px_50px_rgba(0,102,230,0.08)] flex items-center gap-8">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer whitespace-nowrap">
-            <Image src="/logo160x160.png" alt="Karim Development Logo" width={32} height={32} className="rounded-sm" />
+            <Image src="/logo_512x512.png" alt="Karim Development Logo" width={32} height={32} className="rounded-sm" />
             <span className="font-headline font-bold text-xl tracking-tighter text-on-surface">Karim Development</span>
           </Link>
 
