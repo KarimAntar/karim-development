@@ -39,7 +39,8 @@ export default function Home() {
 
     const draw = () => {
       // Add subtle trailing effect
-      const isDark = document.documentElement.classList.contains('dark');
+      const htmlClassList = document.documentElement.classList;
+      const isDark = htmlClassList.contains('dark');
       ctx.fillStyle = isDark ? 'rgba(19, 19, 19, 0.1)' : 'rgba(255, 255, 255, 0.1)';
       ctx.fillRect(0, 0, width, height);
 
@@ -59,7 +60,7 @@ export default function Home() {
 
       timeoutId = setTimeout(() => {
         animationFrameId = requestAnimationFrame(draw);
-      }, 35); // Limit framerate for classic matrix feel
+      }, 50); // Increased timeout for better performance
     };
 
     draw();
@@ -94,7 +95,7 @@ export default function Home() {
     let width = (canvas.width = window.innerWidth);
     let height = (canvas.height = window.innerHeight);
 
-    const numPoints = 800;
+    const numPoints = 500;
     const points: {phi: number, theta: number}[] = [];
     for(let i=0; i<numPoints; i++) {
         const phi = Math.acos(1 - 2 * (i + 0.5) / numPoints);
