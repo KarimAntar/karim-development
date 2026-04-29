@@ -71,10 +71,10 @@ export default function Navbar() {
   return (
     <>
       <nav className="fixed top-0 left-0 right-0 z-50 flex justify-center w-full px-4">
-        <div className="bg-surface/60 backdrop-blur-xl rounded-full mt-6 mx-auto max-w-fit px-6 py-2 border border-white/5 shadow-[0_20px_50px_rgba(0,102,230,0.08)] flex items-center gap-8">
+        <div className="bg-surface/60 backdrop-blur-md rounded-full mt-6 mx-auto max-w-fit px-6 py-2 border border-white/5 shadow-[0_20px_50px_rgba(0,102,230,0.08)] flex items-center gap-8">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2 hover:scale-105 transition-transform duration-300 cursor-pointer whitespace-nowrap">
-            <Image src="/logo160x160.png" alt="Karim Development Logo" width={32} height={32} className="rounded-sm" />
+            <Image src="/favicon-96x96.png" alt="Karim Development Logo" width={32} height={32} priority className="rounded-sm" />
             <span className="font-headline font-bold text-xl tracking-tighter text-on-surface">Karim Development</span>
           </Link>
 

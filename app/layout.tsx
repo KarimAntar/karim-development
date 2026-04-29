@@ -21,21 +21,28 @@ export const metadata: Metadata = {
   title: 'Karim Development | Architectural Digital Excellence',
   description: 'Karim Antar — Full Stack Web Developer based in Cairo, Egypt. Engineering excellence in every line of code. React, Next.js, Node.js, TypeScript.',
   keywords: 'web development, react, next.js, node.js, full-stack developer, cairo, egypt, karim antar, karim development',
+  manifest: '/site.webmanifest',
   icons: {
-    icon: '/logo_with_gradient.png',
-    apple: '/logo_with_gradient.png',
+    icon: [
+      { url: '/favicon.ico' },
+      { url: '/favicon.svg', type: 'image/svg+xml' },
+      { url: '/favicon-96x96.png', sizes: '96x96', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/apple-touch-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
   openGraph: {
     title: 'Karim Development | Architectural Digital Excellence',
     description: 'Karim Antar — Full Stack Web Developer. React, Next.js, Node.js, TypeScript. Based in Cairo, Egypt.',
-    images: ['/logo_with_gradient.png'],
+    images: ['/logo_512x512.png'],
     type: 'website',
   },
   twitter: {
     card: 'summary',
     title: 'Karim Development',
     description: 'Karim Antar — Full Stack Web Developer. React, Next.js, Node.js.',
-    images: ['/logo_with_gradient.png'],
+    images: ['/logo_512x512.png'],
   },
 }
 
