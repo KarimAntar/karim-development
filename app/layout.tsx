@@ -3,6 +3,7 @@ import { Space_Grotesk, Manrope } from 'next/font/google'
 import './globals.css'
 import Navbar from '@/components/Navbar'
 import Footer from '@/components/Footer'
+import ChatBot from '@/components/ChatBot'
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ['latin'],
@@ -72,6 +73,7 @@ export default function RootLayout({
         <Navbar />
         {children}
         <Footer />
+        <ChatBot />
       </body>
     </html>
   )
