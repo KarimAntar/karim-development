@@ -296,7 +296,7 @@ export default function ChatBot() {
                   </button>
                 </div>
                 <p className="text-center text-[9px] text-on-surface-variant/30 font-label tracking-widest mt-2 uppercase">
-                  Powered by Groq · Karim Development
+                  Powered by Karim Development
                 </p>
               </div>
             </div>
